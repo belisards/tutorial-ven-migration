@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Data tutorial - Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Data tutorial</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.jointdatacenter.org/venezuela-migration-report/">
+ <span class="menu-text">Full report</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.jointdatacenter.org/venezuelan-migration-data/">
+ <span class="menu-text">Data</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.jointdatacenter.org/">
+ <span class="menu-text">JDC website</span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#data-sources" id="toc-data-sources" class="nav-link" data-scroll-target="#data-sources">Data sources</a></li>
+  <li><a href="#how-analyze-survey-data-using-open-source-solutions" id="toc-how-analyze-survey-data-using-open-source-solutions" class="nav-link" data-scroll-target="#how-analyze-survey-data-using-open-source-solutions">How analyze survey data using open-source solutions?</a></li>
+  <li><a href="#analyzing-the-data-using-r" id="toc-analyzing-the-data-using-r" class="nav-link" data-scroll-target="#analyzing-the-data-using-r">Analyzing the data using R</a>
+  <ul class="collapse">
+  <li><a href="#load-libraries" id="toc-load-libraries" class="nav-link" data-scroll-target="#load-libraries">Load libraries</a></li>
+  <li><a href="#read-the-data" id="toc-read-the-data" class="nav-link" data-scroll-target="#read-the-data">Read the data</a></li>
+  <li><a href="#preliminary-analysis" id="toc-preliminary-analysis" class="nav-link" data-scroll-target="#preliminary-analysis">Preliminary analysis</a>
+  <ul class="collapse">
+  <li><a href="#inspect-missing-values" id="toc-inspect-missing-values" class="nav-link" data-scroll-target="#inspect-missing-values">Inspect missing values</a></li>
+  <li><a href="#records-by-surveys-and-waves" id="toc-records-by-surveys-and-waves" class="nav-link" data-scroll-target="#records-by-surveys-and-waves">Records by surveys and waves</a></li>
+  </ul></li>
+  <li><a href="#configure-the-survey-design" id="toc-configure-the-survey-design" class="nav-link" data-scroll-target="#configure-the-survey-design">Configure the survey design</a></li>
+  <li><a href="#descriptive-statistic" id="toc-descriptive-statistic" class="nav-link" data-scroll-target="#descriptive-statistic">Descriptive statistic</a>
+  <ul class="collapse">
+  <li><a href="#numeric-values" id="toc-numeric-values" class="nav-link" data-scroll-target="#numeric-values">Numeric values</a></li>
+  <li><a href="#categoric-variables" id="toc-categoric-variables" class="nav-link" data-scroll-target="#categoric-variables">Categoric variables</a></li>
+  <li><a href="#detailing-by-region" id="toc-detailing-by-region" class="nav-link" data-scroll-target="#detailing-by-region">Detailing by region</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#references-and-resources" id="toc-references-and-resources" class="nav-link" data-scroll-target="#references-and-resources">References and resources</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>This tutorial aims to help analysts and local policymakers develop evidence-based policies and promote a mutually beneficial relationship between Venezuelan migrants and the host community in Chile, Colombia, Peru, and Ecuador. We present an overview of open-source technologies to analyze survey data and introduce a step-by-step guide to use R to describe statistics from host populations and Venezuelan migrants.</p>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>The World Bank report <strong>Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru</strong> provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys with the adult population (18 years or older) of Venezuelan migrants and national residents. The Joint Data Center on Forced Displacement supported the study and has created this tutorial to help you navigate the data sources and create your own analysis.</p>
+</section>
+<section id="data-sources" class="level1">
+<h1>Data sources</h1>
+<p>The study uses data of eigth different surveys from four countries. You can find below a table summarizing key features of each survey. More details, such as collection date, the representativeness and the number of samples for each survey, are provided in the full report.</p>
+<table class="table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 64%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><u>Country</u></th>
+<th><u>Survey</u></th>
+<th><u>Modality</u></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Chile</strong></td>
+<td>Encuesta de Migración</td>
+<td>Telephone</td>
+</tr>
+<tr class="even">
+<td><strong>Chile</strong></td>
+<td>Labor Survey</td>
+<td>In-person</td>
+</tr>
+<tr class="odd">
+<td><strong>Colombia</strong></td>
+<td>Gran Encuesta Integrada de Hogares (GEIH)</td>
+<td>In-person</td>
+</tr>
+<tr class="even">
+<td><strong>Colombia</strong></td>
+<td>Migration Pulse (Round 4)</td>
+<td>Telephone</td>
+</tr>
+<tr class="odd">
+<td><strong>Ecuador</strong></td>
+<td>Encuesta a Personas en Movilidad Humana y en Comunidades Receptoras en Ecuador (EPEC)</td>
+<td>In-person</td>
+</tr>
+<tr class="even">
+<td><strong>Ecuador</strong></td>
+<td>High-Frequency Phone Surveys (HFPS)</td>
+<td>Telephone</td>
+</tr>
+<tr class="odd">
+<td><strong>Peru</strong></td>
+<td>Encuesta Nacional de Hogares (ENAHO)</td>
+<td>In-person</td>
+</tr>
+<tr class="even">
+<td><strong>Peru</strong></td>
+<td>Encuesta Dirigida a la Población Venezolana (ENPOVE)</td>
+<td>In-person</td>
+</tr>
+</tbody>
+</table>
+<p>We have organized these surveys into four CSV table files, one per country. The datasets are cleaned and harmonized, meaning all tables follow a similar structure and have the same variable names and values. Having cleaned datasets facilitates comparing countries and populations, and publishing them ensures transparency and reproducibility to our findings.</p>
+</section>
+<section id="how-analyze-survey-data-using-open-source-solutions" class="level1">
+<h1>How analyze survey data using open-source solutions?</h1>
+<p>Survey data have unique characteristics that set them apart from data sources. Fundamentally, surveys are designed to gather information from a sample, a subset of a population and then infer characteristics or attitudes of the entire population. Weighting values is a crucial method for this leap from the sample (Venezuelans and hosts reached by the surveys) to the population (all Venezuelans and hosts). Weighted survey data assign a weight for each record to improve the representativeness of conclusions drawn from a limited and biased sample.</p>
+<p>Although proprietary software offers tools for analyzing weighted surveys with graphical interfaces, the open-source landscape presents more challenges for beginners and requires basic coding skills. <a href="https://www.jamovi.org/">Jamovi</a>, an open-source application, has plans to support weights in statistical analysis, but its implementation is still in the early stages. The most common approach for analyzing weighted survey data using open-source tools involves programming languages like Python and R. R, in particular, is designed for statistical analysis and provides a wide range of options for survey data exploration.</p>
+</section>
+<section id="analyzing-the-data-using-r" class="level1">
+<h1>Analyzing the data using R</h1>
+<p>This tutorial uses R to explore the microdata used in the report <strong>Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru</strong>. It is tailored for beginners and will cover basic descriptive analysis rather than exploratory or inferential statistics.</p>
+<p>You will see R code and outputs below, along with regular text like this. For example, the command <code>print</code> shows the message quoted as an output.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Coding is easy!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Coding is easy!"</code></pre>
+</div>
+</div>
+<p>You can copy and paste to run your own analysis. We assume prior experience running R code. If you are unfamiliar with R, you can download <a href="https://posit.co/download/rstudio-desktop/">RStudio</a> and check one of the many introductory videos on installing and running R.</p>
+<section id="load-libraries" class="level3">
+<h3 class="anchored" data-anchor-id="load-libraries">Load libraries</h3>
+<p>First, we will load the libraries needed for our tutorial. We explain the main purpose of each one as comments placed after the hashtag (<code>#</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey) <span class="co"># to handle survey weights</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># to manipulate data easily</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visdat) <span class="co"># to visualize missing values</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr) <span class="co"># to format output nicely</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="read-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="read-the-data">Read the data</h3>
+<p>Now, we will read the cleaned survey data and inspect the information available. We will use the dataset for Ecuador as an example, but you can select data for a different country by changing the <code>file_name</code> variable. All datasets and data dictionaries are available on our website: <a href="https://www.jointdatacenter.org/venezuelan-migration-data/" class="uri">https://www.jointdatacenter.org/venezuelan-migration-data/</a></p>
+<p>To choose a country other than Ecuador, visit the page above, right-click on “Cleaned survey data (CSV)”, choose “Copy link address”, and paste the URL below, ensuring the quotes are preserved.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>file_name <span class="ot">=</span> <span class="st">"https://www.jointdatacenter.org/wp-content/uploads/2024/02/ecu_host_mig.csv"</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">read.csv</span>(file_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We assume the R code runs from the same folder where the datasets are located. You can use different file paths to change the variable <code>file_name</code> to run this code.</p>
+<p>The result of the command below shows the number of rows (observations), columns (variables), their respective data types and some sample values. It shows we have 3922 rows and 34 columns. The output also shows the column names after the dollar sign, along with the data type (<code>int</code> for numeric integers,<code>chr</code> for text strings and <code>num</code> for float numbers) and values from the first rows.</p>
+<p>Notice that some variables have missing values, which are represented by NA for numeric variables and empty quotes for categorical. We will come back to this issue soon.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(survey) <span class="co"># print the survey STRucture</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   3922 obs. of  34 variables:
+ $ year               : int  2019 2019 2019 2019 2019 2019 2019 2019 2019 2019 ...
+ $ survey             : chr  "EPEC" "EPEC" "EPEC" "EPEC" ...
+ $ samp               : chr  "Hosts" "Hosts" "Hosts" "Hosts" ...
+ $ wave               : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ code_province      : chr  "Azuay" "Azuay" "Azuay" "Azuay" ...
+ $ age                : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ sex                : chr  "" "" "" "" ...
+ $ female             : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ male               : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ hh_size            : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ marital_status     : chr  "" "" "" "" ...
+ $ edu_years          : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ edu_level          : chr  "" "" "" "" ...
+ $ employed           : chr  "" "" "" "" ...
+ $ unemployed         : chr  "" "" "" "" ...
+ $ inactive           : chr  "" "" "" "" ...
+ $ weight             : num  703 949 844 844 718 ...
+ $ occupation         : chr  "Services" "Crafts" "Crafts" "Elementary/basic" ...
+ $ health_insurance   : chr  "" "" "" "" ...
+ $ homologate         : chr  "" "" "" "" ...
+ $ reason_nohomologate: chr  "" "" "" "" ...
+ $ company            : chr  "" "" "" "" ...
+ $ plan_residency     : chr  "" "" "" "" ...
+ $ reason_migra       : chr  "" "" "" "" ...
+ $ discriminated      : chr  "" "" "" "" ...
+ $ integration_3_1    : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ integration_3_2    : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ integration_3_3    : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ integration_3_4    : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ integration_3_5    : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ integration_3_6    : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ integration_3_7    : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ integration_3_8    : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ entry_register     : chr  "" "" "" "" ...</code></pre>
+</div>
+</div>
+</section>
+<section id="preliminary-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="preliminary-analysis">Preliminary analysis</h2>
+<p>To understand how each country file is structured, let’s review some core variables. You can find detailed descriptions for all available variables in the data dictionaries (<a href="https://www.jointdatacenter.org/venezuelan-migration-data/">codebooks</a>).</p>
+<ul>
+<li><p><code>survey</code>: the name of the survey;</p></li>
+<li><p><code>wave</code>: the wave of the survey. Surveys might have more than one edition, known as waves. Each wave occurs in a distinct period of time.</p></li>
+<li><p><code>samp</code>: indicate whether the response comes from Venezuelan or the host population;</p></li>
+<li><p><code>weight</code>: the weight assigned for each record to produce unbiases estimates;</p></li>
+</ul>
+<p>Each file aggregates different surveys from the same country. Therefore, you should use the variables <code>survey</code> and <code>wave</code> to filter the data and pick the right source depending on your research question. Because distinct surveys cover different questions, some rows have missing values.</p>
+<section id="inspect-missing-values" class="level3">
+<h3 class="anchored" data-anchor-id="inspect-missing-values">Inspect missing values</h3>
+<p>Let’s plot the missing values for each of the surveys available. The chart shows more records from the EPEC survey than HFPS. The highlighted regions make it easy to spot which variables have missing values.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_miss</span>(survey,<span class="at">facet =</span> survey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="864"></p>
+</div>
+</div>
+<p>To keep it simple, our tutorial analyses only information on age, marital status, region, and population type (host or Venezuelan migrant) in the HPFS survey. As the image shows, these variables have no missing values, so we will not worry about missing values. Nevertheless, handling missing values is crucial to the data preparation phase. You might need to drop missing values or impute values to conduct other analyses. Your chosen strategy depends on why values are missing, the extent of missingness, and your analytical goals. Please refer to the data dictionary and documentation to understand the reasons for missing values.</p>
+</section>
+<section id="records-by-surveys-and-waves" class="level3">
+<h3 class="anchored" data-anchor-id="records-by-surveys-and-waves">Records by surveys and waves</h3>
+<p>Before applying the weights, we will check the total number of respondents by survey, wave and population.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>summary_df <span class="ot">&lt;-</span> survey <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(survey, wave, samp) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the table</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(summary_df, <span class="at">caption =</span> <span class="st">"Number of records by survey, wave and population"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<caption>Number of records by survey, wave and population</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">survey</th>
+<th style="text-align: right;">wave</th>
+<th style="text-align: left;">samp</th>
+<th style="text-align: right;">total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">EPEC</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: right;">1807</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">EPEC</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: right;">1256</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HFPS</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: right;">503</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HFPS</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: right;">356</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Keep in mind these values reflect the number of responses from an unweighted sample of Venezuelan migrants and host population, not the actual migrant and local population. Next, we’ll demonstrate how to use weights to calculate estimates that are more representative.</p>
+</section>
+</section>
+<section id="configure-the-survey-design" class="level2">
+<h2 class="anchored" data-anchor-id="configure-the-survey-design">Configure the survey design</h2>
+<p>As different surveys present distinct questions, you should select the survey according to the goals of your analysis. For instance, the data for Ecuador relies on the High-Frequency Phone Survey (HFPS) and the 2019 Human Mobility and Host Communities Survey (EPEC, for its acronym in Spanish). Most of the indicators used in the report come from the HFPS, except those referring to job occupations and health insurance, which come from the EPEC survey.</p>
+<p>We will select the HFPS survey to calculate to compare the average age of Venezuelan migrants and the host population in Ecuador. Let’s start filtering the dataset to get only answers from the HFPS.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>survey_filter <span class="ot">&lt;-</span> survey <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(survey <span class="sc">==</span> <span class="st">"HFPS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we load the survey design and the weights associated with each response. There are a variety of ways to implement weighted data analysis using R. For convenience, we use the function <code>svydesign</code> from <code>survey</code>, a R package with pre-built features tailored for survey analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>survey_ecu <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span><span class="dv">1</span>, <span class="co"># ~1 means the survey has no clusters</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data=</span> survey_filter, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">weights =</span> survey_filter<span class="sc">$</span>weight)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we are ready to produce more accurate estimates about the populations of interest.</p>
+</section>
+<section id="descriptive-statistic" class="level2">
+<h2 class="anchored" data-anchor-id="descriptive-statistic">Descriptive statistic</h2>
+<p>Creating basic summary statistics using the <code>survey</code> package is straightforward. Our tutorial shows how to calculate the mean for numeric values and cross-tabulation for categorical variables.</p>
+<section id="numeric-values" class="level3">
+<h3 class="anchored" data-anchor-id="numeric-values">Numeric values</h3>
+<p>We will group (<code>svyby</code>) the records by the population type (<code>~samp</code>) and calculate the mean age (<code>svymean</code>). The output shows the mean and the standard error (<code>se</code>) for each estimate. Standard error values use the same unit of measurement of the mean. They represent how much the sample mean calculated is expected to vary from the actual population mean.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group by and calculate the mean age</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>age, <span class="at">by =</span> <span class="sc">~</span>samp, <span class="at">design =</span> survey_ecu, svymean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             samp      age        se
+Hosts       Hosts 39.88760 0.9410057
+Migrants Migrants 36.09989 0.5309258</code></pre>
+</div>
+</div>
+</section>
+<section id="categoric-variables" class="level3">
+<h3 class="anchored" data-anchor-id="categoric-variables">Categoric variables</h3>
+<p>We can employ the <code>svytable</code> command to analyze categorical variables. The following code cross-tabulates the population by marital status. Using <code>prop.table(crosstab, 1)</code>, we present the values as percentages at the population/row level (using 0 instead would sum the values to 100 across columns). Additionally, we round the values to two decimal places.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-tabulates values</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>crosstab <span class="ot">&lt;-</span> <span class="fu">svytable</span>(<span class="sc">~</span>samp <span class="sc">+</span> marital_status, <span class="at">design =</span> survey_ecu)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate percentages</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>crosstab_percentages <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">prop.table</span>(crosstab,<span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span>,<span class="dv">2</span>) </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the table</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(crosstab_percentages, </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">"Crosstab of Occupation by Marital Status (%)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<caption>Crosstab of Occupation by Marital Status (%)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Married/Cohabitation</th>
+<th style="text-align: right;">Other</th>
+<th style="text-align: right;">Single</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: right;">54.32</td>
+<td style="text-align: right;">10.64</td>
+<td style="text-align: right;">35.04</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: right;">51.14</td>
+<td style="text-align: right;">4.29</td>
+<td style="text-align: right;">44.57</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="detailing-by-region" class="level3">
+<h3 class="anchored" data-anchor-id="detailing-by-region">Detailing by region</h3>
+<p>You can also use the column <code>code_province</code> to produce estimates for each region.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>mean_age <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="sc">~</span>age, <span class="sc">~</span>samp <span class="sc">+</span> code_province, survey_ecu, svymean)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(mean_age, <span class="at">caption =</span> <span class="st">"Mean age by population"</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<caption>Mean age by population</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">samp</th>
+<th style="text-align: left;">code_province</th>
+<th style="text-align: right;">age</th>
+<th style="text-align: right;">se</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Azuay</td>
+<td style="text-align: right;">34.28751</td>
+<td style="text-align: right;">2.4472912</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: left;">Azuay</td>
+<td style="text-align: right;">38.44558</td>
+<td style="text-align: right;">1.6925252</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Bolivar</td>
+<td style="text-align: right;">35.38478</td>
+<td style="text-align: right;">4.8992903</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Cañar</td>
+<td style="text-align: right;">41.93000</td>
+<td style="text-align: right;">9.4223198</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: left;">Cañar</td>
+<td style="text-align: right;">31.39452</td>
+<td style="text-align: right;">4.6921062</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Carchi</td>
+<td style="text-align: right;">45.61607</td>
+<td style="text-align: right;">7.7941828</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: left;">Carchi</td>
+<td style="text-align: right;">48.50000</td>
+<td style="text-align: right;">4.5988717</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Chimborazo</td>
+<td style="text-align: right;">39.31556</td>
+<td style="text-align: right;">5.1718474</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: left;">Chimborazo</td>
+<td style="text-align: right;">31.05517</td>
+<td style="text-align: right;">2.5762621</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Cotopaxi</td>
+<td style="text-align: right;">48.75018</td>
+<td style="text-align: right;">7.3282210</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: left;">Cotopaxi</td>
+<td style="text-align: right;">38.00000</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">El Oro</td>
+<td style="text-align: right;">42.98743</td>
+<td style="text-align: right;">5.1123709</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: left;">El Oro</td>
+<td style="text-align: right;">34.21006</td>
+<td style="text-align: right;">2.3494369</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Esmeraldas</td>
+<td style="text-align: right;">46.99697</td>
+<td style="text-align: right;">8.6409451</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Galápagos</td>
+<td style="text-align: right;">58.39114</td>
+<td style="text-align: right;">2.0476748</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Guayas</td>
+<td style="text-align: right;">39.80792</td>
+<td style="text-align: right;">1.9244430</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: left;">Guayas</td>
+<td style="text-align: right;">33.44946</td>
+<td style="text-align: right;">1.0339923</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Imbabura</td>
+<td style="text-align: right;">42.52794</td>
+<td style="text-align: right;">8.1943990</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: left;">Imbabura</td>
+<td style="text-align: right;">31.84827</td>
+<td style="text-align: right;">1.9839182</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Loja</td>
+<td style="text-align: right;">39.73884</td>
+<td style="text-align: right;">5.0654610</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: left;">Loja</td>
+<td style="text-align: right;">48.00000</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Los Rios</td>
+<td style="text-align: right;">31.94942</td>
+<td style="text-align: right;">2.5716242</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: left;">Los Rios</td>
+<td style="text-align: right;">36.79796</td>
+<td style="text-align: right;">2.1185825</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Manabi</td>
+<td style="text-align: right;">42.21102</td>
+<td style="text-align: right;">3.0035721</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: left;">Manabi</td>
+<td style="text-align: right;">33.56610</td>
+<td style="text-align: right;">1.7669829</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Morona Santiago</td>
+<td style="text-align: right;">34.26451</td>
+<td style="text-align: right;">6.6840835</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: left;">Morona Santiago</td>
+<td style="text-align: right;">48.00000</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Napo</td>
+<td style="text-align: right;">42.66667</td>
+<td style="text-align: right;">0.9818785</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: left;">Napo</td>
+<td style="text-align: right;">41.47055</td>
+<td style="text-align: right;">3.3052052</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Orellana</td>
+<td style="text-align: right;">43.77406</td>
+<td style="text-align: right;">7.5836483</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: left;">Orellana</td>
+<td style="text-align: right;">32.44793</td>
+<td style="text-align: right;">1.6388851</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Pastaza</td>
+<td style="text-align: right;">55.01462</td>
+<td style="text-align: right;">5.8836227</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Pichincha</td>
+<td style="text-align: right;">39.85590</td>
+<td style="text-align: right;">1.9423484</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: left;">Pichincha</td>
+<td style="text-align: right;">37.38319</td>
+<td style="text-align: right;">0.7775836</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Santa Elena</td>
+<td style="text-align: right;">44.04101</td>
+<td style="text-align: right;">7.0941311</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: left;">Santa Elena</td>
+<td style="text-align: right;">39.45244</td>
+<td style="text-align: right;">3.8401079</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Santo Domingo</td>
+<td style="text-align: right;">46.94187</td>
+<td style="text-align: right;">4.9430434</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: left;">Santo Domingo</td>
+<td style="text-align: right;">34.19018</td>
+<td style="text-align: right;">3.4954833</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Sucumbíos</td>
+<td style="text-align: right;">25.05930</td>
+<td style="text-align: right;">2.1051501</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Tungurahua</td>
+<td style="text-align: right;">36.16449</td>
+<td style="text-align: right;">3.8003223</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: left;">Tungurahua</td>
+<td style="text-align: right;">37.68505</td>
+<td style="text-align: right;">3.2999673</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hosts</td>
+<td style="text-align: left;">Zamora Chinchipe</td>
+<td style="text-align: right;">30.66675</td>
+<td style="text-align: right;">2.6596754</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Migrants</td>
+<td style="text-align: left;">Zamora Chinchipe</td>
+<td style="text-align: right;">44.00000</td>
+<td style="text-align: right;">0.0000000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Note the standard error increases as we have fewer observations in some regions. Bear in mind the limitations of using weight levels calculated for a national level in regional analysis, as they might not accurately reflect the unique characteristics of each region, resulting in biased estimates.</p>
+</section>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>This tutorial has offered a glimpse into the initial steps for leveraging open-source tools to interpret data on Venezuelan migration. While we have covered essential techniques, the scope for further exploration is vast. We invite you to share any open-source solutions to analyze weighted survey data that might have been overlooked or suggest topics for future tutorials on forced displacement data. You can contact us by email or social media networks (<a href="https://twitter.com/jointdatacenter">Twitter</a> and <a href="https://www.linkedin.com/company/joint-data-center/">LinkedIn</a>).</p>
+</section>
+<section id="references-and-resources" class="level1">
+<h1>References and resources</h1>
+<p><a href="https://github.com/pewresearch/pewmethods" class="uri">https://github.com/pewresearch/pewmethods</a>: R package developed by the Pew Research Center Methods team for working with survey data.</p>
+<p><a href="https://github.com/quantipy/quantipy3/" class="uri">https://github.com/quantipy/quantipy3/</a>: Python package to read survey data.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

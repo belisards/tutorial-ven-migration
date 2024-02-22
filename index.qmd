@@ -1,0 +1,204 @@
+---
+title: "Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru"
+format: 
+  html:
+    toc: true
+    toc_float: true
+---
+
+This tutorial aims to help analysts and local policymakers develop evidence-based policies and promote a mutually beneficial relationship between Venezuelan migrants and the host community in Chile, Colombia, Peru, and Ecuador. We present an overview of open-source technologies to analyze survey data and introduce a step-by-step guide to use R to describe statistics from host populations and Venezuelan migrants.
+
+# Introduction
+
+The World Bank report **Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru** provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys with the adult population (18 years or older) of Venezuelan migrants and national residents. The Joint Data Center on Forced Displacement supported the study and has created this tutorial to help you navigate the data sources and create your own analysis.
+
+# Data sources
+
+The study uses data of eigth different surveys from four countries. You can find below a table summarizing key features of each survey. More details, such as collection date, the representativeness and the number of samples for each survey, are provided in the full report.
+
+| [Country]{.underline} | [Survey]{.underline}                                                                  | [Modality]{.underline} |
+|-----------------------|---------------------------------------------------------------------------------------|------------------------|
+| **Chile**             | Encuesta de Migración                                                                 | Telephone              |
+| **Chile**             | Labor Survey                                                                          | In-person              |
+| **Colombia**          | Gran Encuesta Integrada de Hogares (GEIH)                                             | In-person              |
+| **Colombia**          | Migration Pulse (Round 4)                                                             | Telephone              |
+| **Ecuador**           | Encuesta a Personas en Movilidad Humana y en Comunidades Receptoras en Ecuador (EPEC) | In-person              |
+| **Ecuador**           | High-Frequency Phone Surveys (HFPS)                                                   | Telephone              |
+| **Peru**              | Encuesta Nacional de Hogares (ENAHO)                                                  | In-person              |
+| **Peru**              | Encuesta Dirigida a la Población Venezolana (ENPOVE)                                  | In-person              |
+
+We have organized these surveys into four CSV table files, one per country. The datasets are cleaned and harmonized, meaning all tables follow a similar structure and have the same variable names and values. Having cleaned datasets facilitates comparing countries and populations, and publishing them ensures transparency and reproducibility to our findings.
+
+# How analyze survey data using open-source solutions?
+
+Survey data have unique characteristics that set them apart from data sources. Fundamentally, surveys are designed to gather information from a sample, a subset of a population and then infer characteristics or attitudes of the entire population. Weighting values is a crucial method for this leap from the sample (Venezuelans and hosts reached by the surveys) to the population (all Venezuelans and hosts). Weighted survey data assign a weight for each record to improve the representativeness of conclusions drawn from a limited and biased sample.
+
+Although proprietary software offers tools for analyzing weighted surveys with graphical interfaces, the open-source landscape presents more challenges for beginners and requires basic coding skills. [Jamovi](https://www.jamovi.org/), an open-source application, has plans to support weights in statistical analysis, but its implementation is still in the early stages. The most common approach for analyzing weighted survey data using open-source tools involves programming languages like Python and R. R, in particular, is designed for statistical analysis and provides a wide range of options for survey data exploration.
+
+# Analyzing the data using R
+
+This tutorial uses R to explore the microdata used in the report **Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru**. It is tailored for beginners and will cover basic descriptive analysis rather than exploratory or inferential statistics.
+
+You will see R code and outputs below, along with regular text like this. For example, the command `print` shows the message quoted as an output.
+
+```{r}
+print("Coding is easy!")
+```
+
+You can copy and paste to run your own analysis. We assume prior experience running R code. If you are unfamiliar with R, you can download [RStudio](https://posit.co/download/rstudio-desktop/) and check one of the many introductory videos on installing and running R.
+
+### Load libraries
+
+First, we will load the libraries needed for our tutorial. We explain the main purpose of each one as comments placed after the hashtag (`#`).
+
+```{r}
+#| output: false
+library(survey) # to handle survey weights
+library(tidyverse) # to manipulate data easily
+library(visdat) # to visualize missing values
+library(knitr) # to format output nicely
+```
+
+### Read the data
+
+Now, we will read the cleaned survey data and inspect the information available. We will use the dataset for Ecuador as an example, but you can select data for a different country by changing the `file_name` variable. All datasets and data dictionaries are available on our website: <https://www.jointdatacenter.org/venezuelan-migration-data/>
+
+To choose a country other than Ecuador, visit the page above, right-click on "Cleaned survey data (CSV)", choose "Copy link address", and paste the URL below, ensuring the quotes are preserved.
+
+```{r}
+file_name = "https://www.jointdatacenter.org/wp-content/uploads/2024/02/ecu_host_mig.csv" 
+
+survey = read.csv(file_name)
+```
+
+We assume the R code runs from the same folder where the datasets are located. You can use different file paths to change the variable `file_name` to run this code.
+
+The result of the command below shows the number of rows (observations), columns (variables), their respective data types and some sample values. It shows we have `r nrow(survey)` rows and `r ncol(survey)` columns. The output also shows the column names after the dollar sign, along with the data type (`int` for numeric integers,`chr` for text strings and `num` for float numbers) and values from the first rows.
+
+Notice that some variables have missing values, which are represented by NA for numeric variables and empty quotes for categorical. We will come back to this issue soon.
+
+```{r}
+
+str(survey) # print the survey STRucture
+
+```
+
+## Preliminary analysis
+
+To understand how each country file is structured, let's review some core variables. You can find detailed descriptions for all available variables in the data dictionaries ([codebooks](https://www.jointdatacenter.org/venezuelan-migration-data/)).
+
+-   `survey`: the name of the survey;
+
+-   `wave`: the wave of the survey. Surveys might have more than one edition, known as waves. Each wave occurs in a distinct period of time.
+
+-   `samp`: indicate whether the response comes from Venezuelan or the host population;
+
+-   `weight`: the weight assigned for each record to produce unbiases estimates;
+
+Each file aggregates different surveys from the same country. Therefore, you should use the variables `survey` and `wave` to filter the data and pick the right source depending on your research question. Because distinct surveys cover different questions, some rows have missing values.
+
+### Inspect missing values
+
+Let's plot the missing values for each of the surveys available. The chart shows more records from the EPEC survey than HFPS. The highlighted regions make it easy to spot which variables have missing values.
+
+```{r, fig.width=9}
+visdat::vis_miss(survey,facet = survey)
+```
+
+To keep it simple, our tutorial analyses only information on age, marital status, region, and population type (host or Venezuelan migrant) in the HPFS survey. As the image shows, these variables have no missing values, so we will not worry about missing values. Nevertheless, handling missing values is crucial to the data preparation phase. You might need to drop missing values or impute values to conduct other analyses. Your chosen strategy depends on why values are missing, the extent of missingness, and your analytical goals. Please refer to the data dictionary and documentation to understand the reasons for missing values.
+
+### Records by surveys and waves
+
+Before applying the weights, we will check the total number of respondents by survey, wave and population.
+
+```{r}
+
+summary_df <- survey %>% 
+  group_by(survey, wave, samp) %>% 
+  summarise(total = n(), .groups = 'drop')
+
+# Output the table
+kable(summary_df, caption = "Number of records by survey, wave and population")
+
+```
+
+Keep in mind these values reflect the number of responses from an unweighted sample of Venezuelan migrants and host population, not the actual migrant and local population. Next, we'll demonstrate how to use weights to calculate estimates that are more representative.
+
+## Configure the survey design
+
+As different surveys present distinct questions, you should select the survey according to the goals of your analysis. For instance, the data for Ecuador relies on the High-Frequency Phone Survey (HFPS) and the 2019 Human Mobility and Host Communities Survey (EPEC, for its acronym in Spanish). Most of the indicators used in the report come from the HFPS, except those referring to job occupations and health insurance, which come from the EPEC survey.
+
+We will select the HFPS survey to calculate to compare the average age of Venezuelan migrants and the host population in Ecuador. Let's start filtering the dataset to get only answers from the HFPS.
+
+```{r}
+
+survey_filter <- survey %>% 
+  filter(survey == "HFPS")
+
+```
+
+Next, we load the survey design and the weights associated with each response. There are a variety of ways to implement weighted data analysis using R. For convenience, we use the function `svydesign` from `survey`, a R package with pre-built features tailored for survey analysis.
+
+```{r}
+survey_ecu <- svydesign(ids = ~1, # ~1 means the survey has no clusters
+                       data= survey_filter, 
+                       weights = survey_filter$weight)
+
+```
+
+Now, we are ready to produce more accurate estimates about the populations of interest.
+
+## Descriptive statistic
+
+Creating basic summary statistics using the `survey` package is straightforward. Our tutorial shows how to calculate the mean for numeric values and cross-tabulation for categorical variables.
+
+### Numeric values
+
+We will group (`svyby`) the records by the population type (`~samp`) and calculate the mean age (`svymean`). The output shows the mean and the standard error (`se`) for each estimate. Standard error values use the same unit of measurement of the mean. They represent how much the sample mean calculated is expected to vary from the actual population mean.
+
+```{r}
+# Group by and calculate the mean age
+svyby(formula = ~age, by = ~samp, design = survey_ecu, svymean)
+
+```
+
+### Categoric variables
+
+We can employ the `svytable` command to analyze categorical variables. The following code cross-tabulates the population by marital status. Using `prop.table(crosstab, 1)`, we present the values as percentages at the population/row level (using 0 instead would sum the values to 100 across columns). Additionally, we round the values to two decimal places.
+
+```{r}
+# Cross-tabulates values
+crosstab <- svytable(~samp + marital_status, design = survey_ecu)
+
+# Calculate percentages
+crosstab_percentages <- round(prop.table(crosstab,1) * 100,2) 
+ 
+# Output the table
+knitr::kable(crosstab_percentages, 
+             caption = "Crosstab of Occupation by Marital Status (%)")
+
+```
+
+### Detailing by region
+
+You can also use the column `code_province` to produce estimates for each region.
+
+```{r}
+
+mean_age <- svyby(~age, ~samp + code_province, survey_ecu, svymean)
+
+knitr::kable(mean_age, caption = "Mean age by population", row.names=FALSE)
+
+```
+
+Note the standard error increases as we have fewer observations in some regions. Bear in mind the limitations of using weight levels calculated for a national level in regional analysis, as they might not accurately reflect the unique characteristics of each region, resulting in biased estimates.
+
+# Conclusion
+
+This tutorial has offered a glimpse into the initial steps for leveraging open-source tools to interpret data on Venezuelan migration. While we have covered essential techniques, the scope for further exploration is vast. We invite you to share any open-source solutions to analyze weighted survey data that might have been overlooked or suggest topics for future tutorials on forced displacement data. You can contact us by email or social media networks ([Twitter](https://twitter.com/jointdatacenter) and [LinkedIn](https://www.linkedin.com/company/joint-data-center/)).
+
+# References and resources
+
+<https://github.com/pewresearch/pewmethods>: R package developed by the Pew Research Center Methods team for working with survey data.
+
+<https://github.com/quantipy/quantipy3/>: Python package to read survey data.
