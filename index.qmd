@@ -14,7 +14,7 @@ The World Bank report **Venezuelan Migrants and Refugees in Chile, Colombia, Ecu
 
 # Data sources
 
-The study uses data of eigth different surveys from four countries. You can find below a table summarizing key features of each survey. More details, such as collection date, the representativeness and the number of samples for each survey, are provided in the full report.
+The study uses data from eight different surveys from four countries. Below, you will find a table summarizing the key features of each survey. More details, such as the collection date, the representativeness and the number of samples for each survey, are provided in the full report.
 
 | [Country]{.underline} | [Survey]{.underline}                                                                  | [Modality]{.underline} |
 |-----------------------|---------------------------------------------------------------------------------------|------------------------|
@@ -27,11 +27,11 @@ The study uses data of eigth different surveys from four countries. You can find
 | **Peru**              | Encuesta Nacional de Hogares (ENAHO)                                                  | In-person              |
 | **Peru**              | Encuesta Dirigida a la Población Venezolana (ENPOVE)                                  | In-person              |
 
-We have organized these surveys into four CSV table files, one per country. The datasets are cleaned and harmonized, meaning all tables follow a similar structure and have the same variable names and values. Having cleaned datasets facilitates comparing countries and populations, and publishing them ensures transparency and reproducibility to our findings.
+We have organized these surveys into four CSV table files, one per country. The datasets are cleaned and harmonized, meaning all tables follow a similar structure and have the same variable names and values. Having cleaned datasets facilitates comparing countries and populations, and publishing them ensures transparency and reproducibility of our findings.
 
 # How analyze survey data using open-source solutions?
 
-Survey data have unique characteristics that set them apart from data sources. Fundamentally, surveys are designed to gather information from a sample, a subset of a population and then infer characteristics or attitudes of the entire population. Weighting values is a crucial method for this leap from the sample (Venezuelans and hosts reached by the surveys) to the population (all Venezuelans and hosts). Weighted survey data assign a weight for each record to improve the representativeness of conclusions drawn from a limited and biased sample.
+Survey data have unique characteristics that set them apart from data sources. Fundamentally, surveys are designed to gather information from a sample, a subset of a population and then infer characteristics or attitudes of the entire population. Weighting values is crucial for this leap from the sample (Venezuelans and hosts reached by the surveys) to the population (all Venezuelans and hosts). Weighted survey data assign a weight for each record to improve the representativeness of conclusions drawn from a limited and biased sample.
 
 Although proprietary software offers tools for analyzing weighted surveys with graphical interfaces, the open-source landscape presents more challenges for beginners and requires basic coding skills. [Jamovi](https://www.jamovi.org/), an open-source application, has plans to support weights in statistical analysis, but its implementation is still in the early stages. The most common approach for analyzing weighted survey data using open-source tools involves programming languages like Python and R. R, in particular, is designed for statistical analysis and provides a wide range of options for survey data exploration.
 
@@ -39,7 +39,7 @@ Although proprietary software offers tools for analyzing weighted surveys with g
 
 This tutorial uses R to explore the microdata used in the report **Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru**. It is tailored for beginners and will cover basic descriptive analysis rather than exploratory or inferential statistics.
 
-You will see R code and outputs below, along with regular text like this. For example, the command `print` shows the message quoted as an output.
+Below, you will see the R code and outputs, along with regular text like this. For example, the command `print` shows the message quoted as an output.
 
 ```{r}
 print("Coding is easy!")
@@ -73,9 +73,9 @@ survey = read.csv(file_name)
 
 We assume the R code runs from the same folder where the datasets are located. You can use different file paths to change the variable `file_name` to run this code.
 
-The result of the command below shows the number of rows (observations), columns (variables), their respective data types and some sample values. It shows we have `r nrow(survey)` rows and `r ncol(survey)` columns. The output also shows the column names after the dollar sign, along with the data type (`int` for numeric integers,`chr` for text strings and `num` for float numbers) and values from the first rows.
+The result of the command below shows the number of rows (observations), columns (variables), their respective data types and some sample values. It shows we have `r nrow(survey)` rows and `r ncol(survey)` columns. The output also shows the column names after the dollar sign, the data type (`int` for numeric integers,`chr` for text strings and `num` for float numbers) and values from the first rows.
 
-Notice that some variables have missing values, which are represented by NA for numeric variables and empty quotes for categorical. We will come back to this issue soon.
+Notice that some variables have missing values, which are represented by NA for numeric variables and empty quotes for categorical. We will return to this issue soon.
 
 ```{r}
 
@@ -122,7 +122,7 @@ kable(summary_df, caption = "Number of records by survey, wave and population")
 
 ```
 
-Keep in mind these values reflect the number of responses from an unweighted sample of Venezuelan migrants and host population, not the actual migrant and local population. Next, we'll demonstrate how to use weights to calculate estimates that are more representative.
+Keep in mind these values reflect the number of responses from an unweighted sample of Venezuelan migrants and host population, not the actual migrant and local population. Next, we'll demonstrate how to use weights to calculate more representative estimates.
 
 ## Configure the survey design
 
