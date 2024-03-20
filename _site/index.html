@@ -221,12 +221,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="data-sources" class="level1">
 <h1>Data sources</h1>
-<p>The study uses data of eigth different surveys from four countries. You can find below a table summarizing key features of each survey. More details, such as collection date, the representativeness and the number of samples for each survey, are provided in the full report.</p>
+<p>The study uses data from eight different surveys from four countries. Below, you will find a table summarizing the key features of each survey. More details, such as the collection date, the representativeness and the number of samples for each survey, are provided in the full report.</p>
 <table class="table">
 <colgroup>
-<col style="width: 17%">
-<col style="width: 64%">
-<col style="width: 17%">
+<col style="width: 20%">
+<col style="width: 58%">
+<col style="width: 20%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -278,17 +278,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<p>We have organized these surveys into four CSV table files, one per country. The datasets are cleaned and harmonized, meaning all tables follow a similar structure and have the same variable names and values. Having cleaned datasets facilitates comparing countries and populations, and publishing them ensures transparency and reproducibility to our findings.</p>
+<p>We have organized these surveys into four CSV table files, one per country. The datasets are cleaned and harmonized, meaning all tables follow a similar structure and have the same variable names and values. Having cleaned datasets facilitates comparing countries and populations, and publishing them ensures transparency and reproducibility of our findings.</p>
 </section>
 <section id="how-analyze-survey-data-using-open-source-solutions" class="level1">
 <h1>How analyze survey data using open-source solutions?</h1>
-<p>Survey data have unique characteristics that set them apart from data sources. Fundamentally, surveys are designed to gather information from a sample, a subset of a population and then infer characteristics or attitudes of the entire population. Weighting values is a crucial method for this leap from the sample (Venezuelans and hosts reached by the surveys) to the population (all Venezuelans and hosts). Weighted survey data assign a weight for each record to improve the representativeness of conclusions drawn from a limited and biased sample.</p>
-<p>Although proprietary software offers tools for analyzing weighted surveys with graphical interfaces, the open-source landscape presents more challenges for beginners and requires basic coding skills. <a href="https://www.jamovi.org/">Jamovi</a>, an open-source application, has plans to support weights in statistical analysis, but its implementation is still in the early stages. The most common approach for analyzing weighted survey data using open-source tools involves programming languages like Python and R. R, in particular, is designed for statistical analysis and provides a wide range of options for survey data exploration.</p>
+<p>Survey data have unique characteristics that set them apart from data sources. Fundamentally, surveys are designed to gather information from a sample, a subset of a population and then infer characteristics or attitudes of the entire population. Weighting values is crucial for this leap from the sample (Venezuelans and hosts reached by the surveys) to the population (all Venezuelans and hosts). Weighted survey data assign a weight for each record to improve the representativeness of conclusions drawn from a limited and biased sample.</p>
+<p>Although proprietary software offers tools for analyzing weighted surveys with graphical interfaces, the open-source landscape presents more challenges for beginners and requires basic coding skills. <a href="https://www.jamovi.org/">Jamovi</a>, an open-source application, has plans to support weights in statistical analysis, but the most common approach for analyzing weighted survey data using open-source tools involves programming languages like Python and R. R, in particular, is designed for statistical analysis and provides a wide range of options for survey data exploration.</p>
 </section>
 <section id="analyzing-the-data-using-r" class="level1">
 <h1>Analyzing the data using R</h1>
 <p>This tutorial uses R to explore the microdata used in the report <strong>Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru</strong>. It is tailored for beginners and will cover basic descriptive analysis rather than exploratory or inferential statistics.</p>
-<p>You will see R code and outputs below, along with regular text like this. For example, the command <code>print</code> shows the message quoted as an output.</p>
+<p>Below, you will see the R code and outputs, along with regular text like this. For example, the command <code>print</code> shows the message quoted as an output.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Coding is easy!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -316,8 +316,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">read.csv</span>(file_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We assume the R code runs from the same folder where the datasets are located. You can use different file paths to change the variable <code>file_name</code> to run this code.</p>
-<p>The result of the command below shows the number of rows (observations), columns (variables), their respective data types and some sample values. It shows we have 3922 rows and 34 columns. The output also shows the column names after the dollar sign, along with the data type (<code>int</code> for numeric integers,<code>chr</code> for text strings and <code>num</code> for float numbers) and values from the first rows.</p>
-<p>Notice that some variables have missing values, which are represented by NA for numeric variables and empty quotes for categorical. We will come back to this issue soon.</p>
+<p>The result of the command below shows the number of rows (observations), columns (variables), their respective data types and some sample values. It shows we have 3922 rows and 34 columns. The output also shows the column names after the dollar sign, the data type (<code>int</code> for numeric integers,<code>chr</code> for text strings and <code>num</code> for float numbers) and values from the first rows.</p>
+<p>Notice that some variables have missing values, which are represented by NA for numeric variables and empty quotes for categorical. We will return to this issue soon.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(survey) <span class="co"># print the survey STRucture</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -430,7 +430,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 </div>
-<p>Keep in mind these values reflect the number of responses from an unweighted sample of Venezuelan migrants and host population, not the actual migrant and local population. Next, we’ll demonstrate how to use weights to calculate estimates that are more representative.</p>
+<p>Keep in mind these values reflect the number of responses from an unweighted sample of Venezuelan migrants and host population, not the actual migrant and local population. Next, we’ll demonstrate how to use weights to calculate more representative estimates.</p>
 </section>
 </section>
 <section id="configure-the-survey-design" class="level2">

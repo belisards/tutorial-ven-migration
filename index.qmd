@@ -17,7 +17,7 @@ The World Bank report **Venezuelan Migrants and Refugees in Chile, Colombia, Ecu
 The study uses data from eight different surveys from four countries. Below, you will find a table summarizing the key features of each survey. More details, such as the collection date, the representativeness and the number of samples for each survey, are provided in the full report.
 
 | [Country]{.underline} | [Survey]{.underline}                                                                  | [Modality]{.underline} |
-|-----------------------|---------------------------------------------------------------------------------------|------------------------|
+|---------------|------------------------------------------|---------------|
 | **Chile**             | Encuesta de Migración                                                                 | Telephone              |
 | **Chile**             | Labor Survey                                                                          | In-person              |
 | **Colombia**          | Gran Encuesta Integrada de Hogares (GEIH)                                             | In-person              |
@@ -33,7 +33,7 @@ We have organized these surveys into four CSV table files, one per country. The 
 
 Survey data have unique characteristics that set them apart from data sources. Fundamentally, surveys are designed to gather information from a sample, a subset of a population and then infer characteristics or attitudes of the entire population. Weighting values is crucial for this leap from the sample (Venezuelans and hosts reached by the surveys) to the population (all Venezuelans and hosts). Weighted survey data assign a weight for each record to improve the representativeness of conclusions drawn from a limited and biased sample.
 
-Although proprietary software offers tools for analyzing weighted surveys with graphical interfaces, the open-source landscape presents more challenges for beginners and requires basic coding skills. [Jamovi](https://www.jamovi.org/), an open-source application, has plans to support weights in statistical analysis, but its implementation is still in the early stages. The most common approach for analyzing weighted survey data using open-source tools involves programming languages like Python and R. R, in particular, is designed for statistical analysis and provides a wide range of options for survey data exploration.
+Although proprietary software offers tools for analyzing weighted surveys with graphical interfaces, the open-source landscape presents more challenges for beginners and requires basic coding skills. [Jamovi](https://www.jamovi.org/), an open-source application, has plans to support weights in statistical analysis, but the most common approach for analyzing weighted survey data using open-source tools involves programming languages like Python and R. R, in particular, is designed for statistical analysis and provides a wide range of options for survey data exploration.
 
 # Analyzing the data using R
 
