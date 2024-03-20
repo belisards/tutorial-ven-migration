@@ -10,14 +10,14 @@ This tutorial aims to help analysts and local policymakers develop evidence-base
 
 # Introduction
 
-The World Bank report **Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru** provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys with the adult population (18 years or older) of Venezuelan migrants and national residents. The Joint Data Center on Forced Displacement supported the study and has created this tutorial to help you navigate the data sources and create your own analysis.
+The World Bank report [Venezuelans in Chile, Colombia, Ecuador, and Peru - A development opportunity](https://www.jointdatacenter.org/venezuela-migration-report/) provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys with the adult population (18 years or older) of Venezuelan migrants and national residents. The Joint Data Center on Forced Displacement supported the study and has created this tutorial to help you navigate the data sources and create your own analysis.
 
 # Data sources
 
 The study uses data from eight different surveys from four countries. Below, you will find a table summarizing the key features of each survey. More details, such as the collection date, the representativeness and the number of samples for each survey, are provided in the full report.
 
 | [Country]{.underline} | [Survey]{.underline}                                                                  | [Modality]{.underline} |
-|---------------|------------------------------------------|---------------|
+|----------------|---------------------------------------|----------------|
 | **Chile**             | Encuesta de Migración                                                                 | Telephone              |
 | **Chile**             | Labor Survey                                                                          | In-person              |
 | **Colombia**          | Gran Encuesta Integrada de Hogares (GEIH)                                             | In-person              |
