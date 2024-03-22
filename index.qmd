@@ -18,7 +18,7 @@ The World Bank report [Venezuelan Migrants and Refugees in Chile, Colombia, Ecua
 The study uses data from eight different surveys from four countries. Below, you will find a table summarizing the key features of each survey. More details, such as the collection date, the representativeness and the number of observations for each survey, are provided in the full report.
 
 | [Country]{.underline} | [Survey]{.underline}                                                                  | [Modality]{.underline} |
-|----------------|---------------------------------------|----------------|
+|-----------------|--------------------------------------|-----------------|
 | **Chile**             | Encuesta de Migración                                                                 | Telephone              |
 | **Chile**             | Labor Survey                                                                          | In-person              |
 | **Colombia**          | Gran Encuesta Integrada de Hogares (GEIH)                                             | In-person              |
@@ -76,7 +76,7 @@ survey = read.csv(file_name)
 
 This tutorial assumes the R code runs from the same folder where the datasets are located. You can use different file paths to change the variable `file_name` to run this code.
 
-The result of the command below shows the number of rows (observations), columns (variables), their respective data types and some sample values. It shows we have `r nrow(survey)` rows and `r ncol(survey)` columns. The output also shows the column names after the dollar sign, the data type (`int`  for numeric integers, `chr`  for text strings and  `num`  for float numbers) and values from the first rows.
+The result of the command below shows the number of rows (observations), columns (variables), their respective data types and some sample values. It shows we have `r nrow(survey)` rows and `r ncol(survey)` columns. The output also shows the column names after the dollar sign, the data type (`int` for numeric integers, `chr` for text strings and `num` for float numbers) and values from the first rows.
 
 Notice that some variables have missing values, which are represented by NA for numeric variables and empty quotes for categorical. We will return to this issue soon.
 
@@ -87,7 +87,6 @@ str(survey) # print the survey STRucture
 ```
 
 The [`str()`](https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/str) function provides a concise summary of the dataset, showing its data type, dimensions, and content.
-
 
 ## Preliminary analysis
 
@@ -101,7 +100,7 @@ To understand how each country file is structured, let's review some core variab
 
 -   `weight`: the weight assigned for each record to produce unbiases estimates;
 
-Each file aggregates different surveys from the same country. Therefore, you should use the variables  `survey`  and  `wave`  to filter the data and pick the right source depending on your research question. Because distinct surveys cover different questions, some rows have missing values.
+Each file aggregates different surveys from the same country. Therefore, you should use the variables `survey` and `wave` to filter the data and pick the right source depending on your research question. Because distinct surveys cover different questions, some rows have missing values.
 
 ### Inspect missing values
 
@@ -113,7 +112,7 @@ The [`vis_miss()`](https://www.rdocumentation.org/packages/visdat/versions/0.6.0
 visdat::vis_miss(survey,facet = survey)
 ```
 
-To keep it simple, our tutorial analyses only information on age, marital status, region, and population type (host or Venezuelan migrant) in the HPFS survey. As the image shows, these variables have no missing values, so we will not worry about missing values. Nevertheless, handling missing values is crucial to the data preparation phase. You might need to drop missing values or impute values to conduct other analyses. Your chosen strategy depends on why values are missing, the extent of missingness, and your analytical goals. Please refer to the data dictionary and documentation to understand the reasons for missing values.
+To keep it simple, our tutorial analyses only information on age, marital status, region, and population type (host or Venezuelan migrant) in the HPFS survey. As the image shows, these variables have no missing values, so we will not worry about missing values. Nevertheless, handling missing values is crucial to the data preparation phase. You might need to drop missing values or impute values to conduct other analyses. Your chosen strategy depends on why values are missing, the number of missing values, and your analytical goals. Please refer to the data dictionary and documentation to understand the reasons for missing values.
 
 ### Records by surveys and waves
 
@@ -164,7 +163,7 @@ Creating basic summary statistics using the `survey` package is straightforward.
 
 ### Numeric values
 
-The [`svyby`](https://www.rdocumentation.org/packages/survey/versions/4.2-1/topics/svyby) function is used to apply a function to subsets of survey data defined by one or more variables. We will use it to group the records by the population type (`~samp`) and calculate the mean age ([`svymean`](https://www.rdocumentation.org/packages/survey/versions/2.8-1/topics/surveysummary)). 
+The [`svyby`](https://www.rdocumentation.org/packages/survey/versions/4.2-1/topics/svyby) function is used to apply a function to subsets of survey data defined by one or more variables. We will use it to group the records by the population type (`~samp`) and calculate the mean age ([`svymean`](https://www.rdocumentation.org/packages/survey/versions/2.8-1/topics/surveysummary)).
 
 The output shows the mean and the standard error (`se`) for each estimate. Standard error values use the same unit of measurement as the mean. They represent how much the sample mean calculated is expected to vary from the actual population mean.
 
@@ -176,7 +175,7 @@ svyby(formula = ~age, by = ~samp, design = survey_ecu, svymean)
 
 ### Categoric variables
 
-The `svytable` function is used to create contingency tables for survey data, taking into account survey design features such as sampling weights. Next, we use it to analyze marital status. 
+The `svytable` function is used to create contingency tables for survey data, taking into account survey design features such as sampling weights. Next, we use it to analyze marital status.
 
 Using [`prop.table(crosstab, 1)`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/prop.table), we present the values as percentages of the population/row level (using 0 instead of 1 in the command would sum the values to 100 across columns). Additionally, we round the values to two decimal places with [`round()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/Round).
 
@@ -192,7 +191,6 @@ knitr::kable(crosstab_percentages,
              caption = "Crosstab of Occupation by Marital Status (%)")
 
 ```
-
 
 # Conclusion
 
