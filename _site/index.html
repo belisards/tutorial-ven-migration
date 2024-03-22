@@ -171,7 +171,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#data-sources" id="toc-data-sources" class="nav-link" data-scroll-target="#data-sources">Data sources</a></li>
-  <li><a href="#how-analyze-survey-data-using-open-source-solutions" id="toc-how-analyze-survey-data-using-open-source-solutions" class="nav-link" data-scroll-target="#how-analyze-survey-data-using-open-source-solutions">How analyze survey data using open-source solutions?</a></li>
+  <li><a href="#how-to-analyze-survey-data-using-open-source-solutions" id="toc-how-to-analyze-survey-data-using-open-source-solutions" class="nav-link" data-scroll-target="#how-to-analyze-survey-data-using-open-source-solutions">How to analyze survey data using open-source solutions?</a></li>
   <li><a href="#analyzing-the-data-using-r" id="toc-analyzing-the-data-using-r" class="nav-link" data-scroll-target="#analyzing-the-data-using-r">Analyzing the data using R</a>
   <ul class="collapse">
   <li><a href="#load-libraries" id="toc-load-libraries" class="nav-link" data-scroll-target="#load-libraries">Load libraries</a></li>
@@ -186,7 +186,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#numeric-values" id="toc-numeric-values" class="nav-link" data-scroll-target="#numeric-values">Numeric values</a></li>
   <li><a href="#categoric-variables" id="toc-categoric-variables" class="nav-link" data-scroll-target="#categoric-variables">Categoric variables</a></li>
-  <li><a href="#detailing-by-region" id="toc-detailing-by-region" class="nav-link" data-scroll-target="#detailing-by-region">Detailing by region</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
@@ -214,14 +213,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>This tutorial aims to help analysts and local policymakers develop evidence-based policies and promote a mutually beneficial relationship between Venezuelan migrants and the host community in Chile, Colombia, Peru, and Ecuador. We present an overview of open-source technologies to analyze survey data and introduce a step-by-step guide to use R to describe statistics from host populations and Venezuelan migrants.</p>
+<p>This tutorial aims to help analysts and local policymakers develop evidence-based policies and promote a mutually beneficial relationship between Venezuelan migrants and their host communities in Chile, Colombia, Peru, and Ecuador. It presents an overview of open-source technologies to analyze survey data and introduce a step-by-step guide to use R to describe statistics from host populations and Venezuelan migrants.</p>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>The World Bank report <a href="https://www.jointdatacenter.org/venezuela-migration-report/">Venezuelans in Chile, Colombia, Ecuador, and Peru - A development opportunity</a> provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys with the adult population (18 years or older) of Venezuelan migrants and national residents. The Joint Data Center on Forced Displacement supported the study and has created this tutorial to help you navigate the data sources and create your own analysis.</p>
+<p>The World Bank report <a href="https://www.jointdatacenter.org/venezuela-migration-report/">Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru</a> provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys covering the adult population (18 years or older) of Venezuelan migrants and national residents. The Joint Data Center on Forced Displacement supported the data collection and elaboration of the study and has created this tutorial to help you navigate the data sources and undertake your own analysis.</p>
 </section>
 <section id="data-sources" class="level1">
 <h1>Data sources</h1>
-<p>The study uses data from eight different surveys from four countries. Below, you will find a table summarizing the key features of each survey. More details, such as the collection date, the representativeness and the number of samples for each survey, are provided in the full report.</p>
+<p>The study uses data from eight different surveys from four countries. Below, you will find a table summarizing the key features of each survey. More details, such as the collection date, the representativeness and the number of observations for each survey, are provided in the full report.</p>
 <table class="table">
 <colgroup>
 <col style="width: 22%">
@@ -278,27 +277,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<p>We have organized these surveys into four CSV table files, one per country. The datasets are cleaned and harmonized, meaning all tables follow a similar structure and have the same variable names and values. Having cleaned datasets facilitates comparing countries and populations, and publishing them ensures transparency and reproducibility of our findings.</p>
+<p>We have organized these surveys into four CSV table files, one per country. The datasets are cleaned and harmonized, meaning they follow a similar structure and have the same variable names and values. Having these datasets facilitates the comparison of countries and populations, and their publication ensures transparency and reproducibility of the findings.</p>
 </section>
-<section id="how-analyze-survey-data-using-open-source-solutions" class="level1">
-<h1>How analyze survey data using open-source solutions?</h1>
-<p>Survey data have unique characteristics that set them apart from data sources. Fundamentally, surveys are designed to gather information from a sample, a subset of a population and then infer characteristics or attitudes of the entire population. Weighting values is crucial for this leap from the sample (Venezuelans and hosts reached by the surveys) to the population (all Venezuelans and hosts). Weighted survey data assign a weight for each record to improve the representativeness of conclusions drawn from a limited and biased sample.</p>
-<p>Although proprietary software offers tools for analyzing weighted surveys with graphical interfaces, the open-source landscape presents more challenges for beginners and requires basic coding skills. <a href="https://www.jamovi.org/">Jamovi</a>, an open-source application, has plans to support weights in statistical analysis, but the most common approach for analyzing weighted survey data using open-source tools involves programming languages like Python and R. R, in particular, is designed for statistical analysis and provides a wide range of options for survey data exploration.</p>
+<section id="how-to-analyze-survey-data-using-open-source-solutions" class="level1">
+<h1>How to analyze survey data using open-source solutions?</h1>
+<p>Survey data have unique characteristics that set them apart from other data sources. Fundamentally, surveys are designed to gather information from a sample (a subset of the population) and then infer characteristics or attitudes of the entire population. Weighting values is crucial for this leap from the sample (Venezuelans and hosts that responded the surveys) to the population (all Venezuelans and hosts). Weighted survey data assign a weight for each observation, which allows the representativeness of the conclusions drawn from a limited and biased sample.</p>
+<p>Although there are proprietary software to analyze weighted surveys with graphical interfaces, the open-source landscape presents more challenges for beginners and usually requires basic coding skills. The most common approach for analyzing weighted survey data using open-source tools requires knowledge of programming languages like Python and R. R, in particular, is designed for statistical analysis and provides a wide range of options for survey data exploration.</p>
 </section>
 <section id="analyzing-the-data-using-r" class="level1">
 <h1>Analyzing the data using R</h1>
-<p>This tutorial uses R to explore the microdata used in the report <strong>Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru</strong>. It is tailored for beginners and will cover basic descriptive analysis rather than exploratory or inferential statistics.</p>
-<p>Below, you will see the R code and outputs, along with regular text like this. For example, the command <code>print</code> shows the message quoted as an output.</p>
+<p>This tutorial uses R to explore the microdata used in the report <strong>Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru</strong>. It is tailored for beginners and cover basic descriptive analysis rather than exploratory or inferential statistics.</p>
+<p>Below, you will see the R code and outputs, along with regular text like this. For example, the command <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/print"><code>print</code></a> shows the message quoted as an output.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Coding is easy!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Coding is easy!"</code></pre>
 </div>
 </div>
-<p>You can copy and paste to run your own analysis. We assume prior experience running R code. If you are unfamiliar with R, you can download <a href="https://posit.co/download/rstudio-desktop/">RStudio</a> and check one of the many introductory videos on installing and running R.</p>
+<p>You can copy and paste the code to run your own analysis. If you are unfamiliar with R, you can download <a href="https://posit.co/download/rstudio-desktop/">RStudio</a> and check one of the many introductory videos on installing and running R.</p>
 <section id="load-libraries" class="level3">
 <h3 class="anchored" data-anchor-id="load-libraries">Load libraries</h3>
-<p>First, we will load the libraries needed for our tutorial. We explain the main purpose of each one as comments placed after the hashtag (<code>#</code>).</p>
+<p>First, we will load the libraries needed for our tutorial using the <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/library"><code>library</code></a> command. We explain the main purpose of each one as comments placed after the hashtag (<code>#</code>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey) <span class="co"># to handle survey weights</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># to manipulate data easily</span></span>
@@ -308,15 +307,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="read-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="read-the-data">Read the data</h3>
-<p>Now, we will read the cleaned survey data and inspect the information available. We will use the dataset for Ecuador as an example, but you can select data for a different country by changing the <code>file_name</code> variable. All datasets and data dictionaries are available on our website: <a href="https://www.jointdatacenter.org/venezuelan-migration-data/" class="uri">https://www.jointdatacenter.org/venezuelan-migration-data/</a></p>
+<p>First, we need to read the cleaned survey data and inspect the information available. We will use the dataset for Ecuador as an example, but you can select data for a different country by changing the <code>file_name</code> variable. All datasets and data dictionaries are available on our website: <a href="https://www.jointdatacenter.org/venezuelan-migration-data/" class="uri">https://www.jointdatacenter.org/venezuelan-migration-data/</a></p>
 <p>To choose a country other than Ecuador, visit the page above, right-click on “Cleaned survey data (CSV)”, choose “Copy link address”, and paste the URL below, ensuring the quotes are preserved.</p>
+<p>The <a href="https://www.rdocumentation.org/packages/qtl2/versions/0.32/topics/read_csv"><code>read.csv</code></a> command loads the data in the URL or file path specified in the first line.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>file_name <span class="ot">=</span> <span class="st">"https://www.jointdatacenter.org/wp-content/uploads/2024/02/ecu_host_mig.csv"</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">read.csv</span>(file_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We assume the R code runs from the same folder where the datasets are located. You can use different file paths to change the variable <code>file_name</code> to run this code.</p>
-<p>The result of the command below shows the number of rows (observations), columns (variables), their respective data types and some sample values. It shows we have 3922 rows and 34 columns. The output also shows the column names after the dollar sign, the data type (<code>int</code> for numeric integers,<code>chr</code> for text strings and <code>num</code> for float numbers) and values from the first rows.</p>
+<p>This tutorial assumes the R code runs from the same folder where the datasets are located. You can use different file paths to change the variable <code>file_name</code> to run this code.</p>
+<p>The result of the command below shows the number of rows (observations), columns (variables), their respective data types and some sample values. It shows we have 3922 rows and 34 columns. The output also shows the column names after the dollar sign, the data type (<code>int</code> for numeric integers, <code>chr</code> for text strings and <code>num</code> for float numbers) and values from the first rows.</p>
 <p>Notice that some variables have missing values, which are represented by NA for numeric variables and empty quotes for categorical. We will return to this issue soon.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(survey) <span class="co"># print the survey STRucture</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -358,13 +358,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  $ entry_register     : chr  "" "" "" "" ...</code></pre>
 </div>
 </div>
+<p>The <a href="https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/str"><code>str()</code></a> function provides a concise summary of the dataset, showing its data type, dimensions, and content.</p>
 </section>
 <section id="preliminary-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="preliminary-analysis">Preliminary analysis</h2>
 <p>To understand how each country file is structured, let’s review some core variables. You can find detailed descriptions for all available variables in the data dictionaries (<a href="https://www.jointdatacenter.org/venezuelan-migration-data/">codebooks</a>).</p>
 <ul>
 <li><p><code>survey</code>: the name of the survey;</p></li>
-<li><p><code>wave</code>: the wave of the survey. Surveys might have more than one edition, known as waves. Each wave occurs in a distinct period of time.</p></li>
+<li><p><code>wave</code>: the wave of the survey. Surveys might have more than one round, known as waves. Each wave is collected in a distinct period of time.</p></li>
 <li><p><code>samp</code>: indicate whether the response comes from Venezuelan or the host population;</p></li>
 <li><p><code>weight</code>: the weight assigned for each record to produce unbiases estimates;</p></li>
 </ul>
@@ -372,6 +373,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="inspect-missing-values" class="level3">
 <h3 class="anchored" data-anchor-id="inspect-missing-values">Inspect missing values</h3>
 <p>Let’s plot the missing values for each of the surveys available. The chart shows more records from the EPEC survey than HFPS. The highlighted regions make it easy to spot which variables have missing values.</p>
+<p>The <a href="https://www.rdocumentation.org/packages/visdat/versions/0.6.0/topics/vis_miss"><code>vis_miss()</code></a> function is part of the <code>visdat</code> package in R. It is used to visualize missing data in a dataset and, below, takes the dataset named <code>survey</code> as the first parameter and a column to group (facet) the observations by.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_miss</span>(survey,<span class="at">facet =</span> survey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -383,6 +385,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="records-by-surveys-and-waves" class="level3">
 <h3 class="anchored" data-anchor-id="records-by-surveys-and-waves">Records by surveys and waves</h3>
 <p>Before applying the weights, we will check the total number of respondents by survey, wave and population.</p>
+<p>As the name suggest, the <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.2/topics/group_by"><code>group_by</code></a> function is used for grouping data by one or more variables. Using this command doesn’t actually change the dataset; rather, it sets up a new configuration for subsequent operations within each group. The <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/summarise"><code>summarise</code></a> function is used to compute summary statistics or metrics for each group. Finally, the <a href="https://www.rdocumentation.org/packages/knitr/versions/1.45/topics/kable"><code>kable()</code></a> function presents the result well-structured, better than the standard output.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>summary_df <span class="ot">&lt;-</span> survey <span class="sc">%&gt;%</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(survey, wave, samp) <span class="sc">%&gt;%</span> </span>
@@ -436,12 +439,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="configure-the-survey-design" class="level2">
 <h2 class="anchored" data-anchor-id="configure-the-survey-design">Configure the survey design</h2>
 <p>As different surveys present distinct questions, you should select the survey according to the goals of your analysis. For instance, the data for Ecuador relies on the High-Frequency Phone Survey (HFPS) and the 2019 Human Mobility and Host Communities Survey (EPEC, for its acronym in Spanish). Most of the indicators used in the report come from the HFPS, except those referring to job occupations and health insurance, which come from the EPEC survey.</p>
-<p>We will select the HFPS survey to calculate to compare the average age of Venezuelan migrants and the host population in Ecuador. Let’s start filtering the dataset to get only answers from the HFPS.</p>
+<p>We will select the HFPS survey to calculate and compare the average age of Venezuelan migrants and the host population in Ecuador. Let’s start filtering the dataset to get only observations from the HFPS using the <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/filter"><code>filter()</code></a> function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>survey_filter <span class="ot">&lt;-</span> survey <span class="sc">%&gt;%</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(survey <span class="sc">==</span> <span class="st">"HFPS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Next, we load the survey design and the weights associated with each response. There are a variety of ways to implement weighted data analysis using R. For convenience, we use the function <code>svydesign</code> from <code>survey</code>, a R package with pre-built features tailored for survey analysis.</p>
+<p>Next, we load the survey design and the weights associated with each response. There are a variety of ways to implement weighted data analysis using R. For convenience, we use the function <a href="https://www.rdocumentation.org/packages/survey/versions/4.4-1/topics/svydesign"><code>svydesign</code></a> from <a href="https://cran.r-project.org/package=survey"><code>survey</code></a>, a R package with pre-built features tailored for survey analysis. It allows for the specification of survey design parameters such as sampling weights, strata, and clusters.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>survey_ecu <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span><span class="dv">1</span>, <span class="co"># ~1 means the survey has no clusters</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data=</span> survey_filter, </span>
@@ -451,10 +454,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="descriptive-statistic" class="level2">
 <h2 class="anchored" data-anchor-id="descriptive-statistic">Descriptive statistic</h2>
-<p>Creating basic summary statistics using the <code>survey</code> package is straightforward. Our tutorial shows how to calculate the mean for numeric values and cross-tabulation for categorical variables.</p>
+<p>Creating basic summary statistics using the <code>survey</code> package is straightforward. Our tutorial shows how to group observations and analyze numeric and categorical variables. If you group by region (the column <code>code_province</code>), bear in mind that the weights are not meant for this level of disaggregation, and the estimates may not accurately reflect the characteristics of these populations in each region, resulting in biased estimates.</p>
 <section id="numeric-values" class="level3">
 <h3 class="anchored" data-anchor-id="numeric-values">Numeric values</h3>
-<p>We will group (<code>svyby</code>) the records by the population type (<code>~samp</code>) and calculate the mean age (<code>svymean</code>). The output shows the mean and the standard error (<code>se</code>) for each estimate. Standard error values use the same unit of measurement of the mean. They represent how much the sample mean calculated is expected to vary from the actual population mean.</p>
+<p>The <a href="https://www.rdocumentation.org/packages/survey/versions/4.2-1/topics/svyby"><code>svyby</code></a> function is used to apply a function to subsets of survey data defined by one or more variables. We will use it to group the records by the population type (<code>~samp</code>) and calculate the mean age (<a href="https://www.rdocumentation.org/packages/survey/versions/2.8-1/topics/surveysummary"><code>svymean</code></a>).</p>
+<p>The output shows the mean and the standard error (<code>se</code>) for each estimate. Standard error values use the same unit of measurement of the mean. They represent how much the sample mean calculated is expected to vary from the actual population mean.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group by and calculate the mean age</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>age, <span class="at">by =</span> <span class="sc">~</span>samp, <span class="at">design =</span> survey_ecu, svymean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -467,7 +471,8 @@ Migrants Migrants 36.09989 0.5309258</code></pre>
 </section>
 <section id="categoric-variables" class="level3">
 <h3 class="anchored" data-anchor-id="categoric-variables">Categoric variables</h3>
-<p>We can employ the <code>svytable</code> command to analyze categorical variables. The following code cross-tabulates the population by marital status. Using <code>prop.table(crosstab, 1)</code>, we present the values as percentages at the population/row level (using 0 instead would sum the values to 100 across columns). Additionally, we round the values to two decimal places.</p>
+<p>The <code>svytable</code> function is used to create contingency tables for survey data, taking into account survey design features such as sampling weights. Next, we use it to analyze marital status.</p>
+<p>Using <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/prop.table"><code>prop.table(crosstab, 1)</code></a>, we present the values as percentages of the population/row level (using 0 instead of 1 in the command would sum the values to 100 across columns). Additionally, we round the values to two decimal places with <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/Round"><code>round()</code></a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-tabulates values</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>crosstab <span class="ot">&lt;-</span> <span class="fu">svytable</span>(<span class="sc">~</span>samp <span class="sc">+</span> marital_status, <span class="at">design =</span> survey_ecu)</span>
@@ -507,294 +512,11 @@ Migrants Migrants 36.09989 0.5309258</code></pre>
 </div>
 </div>
 </section>
-<section id="detailing-by-region" class="level3">
-<h3 class="anchored" data-anchor-id="detailing-by-region">Detailing by region</h3>
-<p>You can also use the column <code>code_province</code> to produce estimates for each region.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>mean_age <span class="ot">&lt;-</span> <span class="fu">svyby</span>(<span class="sc">~</span>age, <span class="sc">~</span>samp <span class="sc">+</span> code_province, survey_ecu, svymean)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(mean_age, <span class="at">caption =</span> <span class="st">"Mean age by population"</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="table table-sm table-striped">
-<caption>Mean age by population</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;">samp</th>
-<th style="text-align: left;">code_province</th>
-<th style="text-align: right;">age</th>
-<th style="text-align: right;">se</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Azuay</td>
-<td style="text-align: right;">34.28751</td>
-<td style="text-align: right;">2.4472912</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Migrants</td>
-<td style="text-align: left;">Azuay</td>
-<td style="text-align: right;">38.44558</td>
-<td style="text-align: right;">1.6925252</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Bolivar</td>
-<td style="text-align: right;">35.38478</td>
-<td style="text-align: right;">4.8992903</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Cañar</td>
-<td style="text-align: right;">41.93000</td>
-<td style="text-align: right;">9.4223198</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Migrants</td>
-<td style="text-align: left;">Cañar</td>
-<td style="text-align: right;">31.39452</td>
-<td style="text-align: right;">4.6921062</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Carchi</td>
-<td style="text-align: right;">45.61607</td>
-<td style="text-align: right;">7.7941828</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Migrants</td>
-<td style="text-align: left;">Carchi</td>
-<td style="text-align: right;">48.50000</td>
-<td style="text-align: right;">4.5988717</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Chimborazo</td>
-<td style="text-align: right;">39.31556</td>
-<td style="text-align: right;">5.1718474</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Migrants</td>
-<td style="text-align: left;">Chimborazo</td>
-<td style="text-align: right;">31.05517</td>
-<td style="text-align: right;">2.5762621</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Cotopaxi</td>
-<td style="text-align: right;">48.75018</td>
-<td style="text-align: right;">7.3282210</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Migrants</td>
-<td style="text-align: left;">Cotopaxi</td>
-<td style="text-align: right;">38.00000</td>
-<td style="text-align: right;">0.0000000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">El Oro</td>
-<td style="text-align: right;">42.98743</td>
-<td style="text-align: right;">5.1123709</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Migrants</td>
-<td style="text-align: left;">El Oro</td>
-<td style="text-align: right;">34.21006</td>
-<td style="text-align: right;">2.3494369</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Esmeraldas</td>
-<td style="text-align: right;">46.99697</td>
-<td style="text-align: right;">8.6409451</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Galápagos</td>
-<td style="text-align: right;">58.39114</td>
-<td style="text-align: right;">2.0476748</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Guayas</td>
-<td style="text-align: right;">39.80792</td>
-<td style="text-align: right;">1.9244430</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Migrants</td>
-<td style="text-align: left;">Guayas</td>
-<td style="text-align: right;">33.44946</td>
-<td style="text-align: right;">1.0339923</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Imbabura</td>
-<td style="text-align: right;">42.52794</td>
-<td style="text-align: right;">8.1943990</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Migrants</td>
-<td style="text-align: left;">Imbabura</td>
-<td style="text-align: right;">31.84827</td>
-<td style="text-align: right;">1.9839182</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Loja</td>
-<td style="text-align: right;">39.73884</td>
-<td style="text-align: right;">5.0654610</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Migrants</td>
-<td style="text-align: left;">Loja</td>
-<td style="text-align: right;">48.00000</td>
-<td style="text-align: right;">0.0000000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Los Rios</td>
-<td style="text-align: right;">31.94942</td>
-<td style="text-align: right;">2.5716242</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Migrants</td>
-<td style="text-align: left;">Los Rios</td>
-<td style="text-align: right;">36.79796</td>
-<td style="text-align: right;">2.1185825</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Manabi</td>
-<td style="text-align: right;">42.21102</td>
-<td style="text-align: right;">3.0035721</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Migrants</td>
-<td style="text-align: left;">Manabi</td>
-<td style="text-align: right;">33.56610</td>
-<td style="text-align: right;">1.7669829</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Morona Santiago</td>
-<td style="text-align: right;">34.26451</td>
-<td style="text-align: right;">6.6840835</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Migrants</td>
-<td style="text-align: left;">Morona Santiago</td>
-<td style="text-align: right;">48.00000</td>
-<td style="text-align: right;">0.0000000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Napo</td>
-<td style="text-align: right;">42.66667</td>
-<td style="text-align: right;">0.9818785</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Migrants</td>
-<td style="text-align: left;">Napo</td>
-<td style="text-align: right;">41.47055</td>
-<td style="text-align: right;">3.3052052</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Orellana</td>
-<td style="text-align: right;">43.77406</td>
-<td style="text-align: right;">7.5836483</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Migrants</td>
-<td style="text-align: left;">Orellana</td>
-<td style="text-align: right;">32.44793</td>
-<td style="text-align: right;">1.6388851</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Pastaza</td>
-<td style="text-align: right;">55.01462</td>
-<td style="text-align: right;">5.8836227</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Pichincha</td>
-<td style="text-align: right;">39.85590</td>
-<td style="text-align: right;">1.9423484</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Migrants</td>
-<td style="text-align: left;">Pichincha</td>
-<td style="text-align: right;">37.38319</td>
-<td style="text-align: right;">0.7775836</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Santa Elena</td>
-<td style="text-align: right;">44.04101</td>
-<td style="text-align: right;">7.0941311</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Migrants</td>
-<td style="text-align: left;">Santa Elena</td>
-<td style="text-align: right;">39.45244</td>
-<td style="text-align: right;">3.8401079</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Santo Domingo</td>
-<td style="text-align: right;">46.94187</td>
-<td style="text-align: right;">4.9430434</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Migrants</td>
-<td style="text-align: left;">Santo Domingo</td>
-<td style="text-align: right;">34.19018</td>
-<td style="text-align: right;">3.4954833</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Sucumbíos</td>
-<td style="text-align: right;">25.05930</td>
-<td style="text-align: right;">2.1051501</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Tungurahua</td>
-<td style="text-align: right;">36.16449</td>
-<td style="text-align: right;">3.8003223</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Migrants</td>
-<td style="text-align: left;">Tungurahua</td>
-<td style="text-align: right;">37.68505</td>
-<td style="text-align: right;">3.2999673</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Hosts</td>
-<td style="text-align: left;">Zamora Chinchipe</td>
-<td style="text-align: right;">30.66675</td>
-<td style="text-align: right;">2.6596754</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Migrants</td>
-<td style="text-align: left;">Zamora Chinchipe</td>
-<td style="text-align: right;">44.00000</td>
-<td style="text-align: right;">0.0000000</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Note the standard error increases as we have fewer observations in some regions. Bear in mind the limitations of using weight levels calculated for a national level in regional analysis, as they might not accurately reflect the unique characteristics of each region, resulting in biased estimates.</p>
-</section>
 </section>
 </section>
 <section id="conclusion" class="level1">
 <h1>Conclusion</h1>
-<p>This tutorial has offered a glimpse into the initial steps for leveraging open-source tools to interpret data on Venezuelan migration. While we have covered essential techniques, the scope for further exploration is vast. We invite you to share any open-source solutions to analyze weighted survey data that might have been overlooked or suggest topics for future tutorials on forced displacement data. You can contact us by email or social media networks (<a href="https://twitter.com/jointdatacenter">Twitter</a> and <a href="https://www.linkedin.com/company/joint-data-center/">LinkedIn</a>).</p>
+<p>This tutorial has offered a glimpse into the initial steps for leveraging open-source tools to obtain data on Venezuelan migrants. While we have covered essential techniques, the scope for further exploration is vast. We invite you to share any open-source solutions to analyze weighted survey data that might have been overlooked or suggest topics for future tutorials on forced displacement data. You can contact us by email or social media networks (<a href="https://twitter.com/jointdatacenter">Twitter</a> and <a href="https://www.linkedin.com/company/joint-data-center/">LinkedIn</a>).</p>
 </section>
 <section id="references-and-resources" class="level1">
 <h1>References and resources</h1>
