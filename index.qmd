@@ -7,15 +7,15 @@ format:
     toc_float: true
 ---
 
-This tutorial aims to help analysts and local policymakers develop evidence-based policies and promote a mutually beneficial relationship between Venezuelan migrants and their host communities in Chile, Colombia, Peru, and Ecuador. It presents an overview of open-source technologies to analyze survey data and introduces a step-by-step guide to use R to describe statistics from host populations and Venezuelan migrants.
+A step-by-step guide, using R to analyze statistics from host populations and Venezuelans in Chile, Colombia, Ecuador and Peru. 
 
 # Introduction
 
-The World Bank report [Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru](https://www.jointdatacenter.org/venezuela-migration-report/) provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys covering the adult population (18 years or older) of Venezuelan migrants and national residents. The Joint Data Center on Forced Displacement supported the data collection and elaboration of the study and has created this tutorial to help you navigate the data sources and undertake your own analysis.
+The World Bank report [Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru](https://www.jointdatacenter.org/venezuela-migration-report/) provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys covering the adult population (18 years or older) of Venezuelan migrants and national residents. The World Bank-UNHCRJoint Data Center on Forced Displacement supported the data collection and elaboration of the study and has created this tutorial to help process the data for your own purposes.
 
 # Data sources
 
-The study uses data from eight different surveys from four countries. Below, you will find a table summarizing the key features of each survey. More details, such as the collection date, the representativeness and the number of observations for each survey, are provided in the full report.
+The following surveys are collated into four CSV table files - one per country – which are cleaned and harmonized. That is, they are of similar structure and have the same variable names and values. 
 
 | [Country]{.underline} | [Survey]{.underline}                                                                  | [Modality]{.underline} |
 |-----------------|--------------------------------------|-----------------|
@@ -28,25 +28,24 @@ The study uses data from eight different surveys from four countries. Below, you
 | **Peru**              | Encuesta Nacional de Hogares (ENAHO)                                                  | In-person              |
 | **Peru**              | Encuesta Dirigida a la Población Venezolana (ENPOVE)                                  | In-person              |
 
-We have organized these surveys into four CSV table files, one per country. The datasets are cleaned and harmonized, meaning they follow a similar structure and have the same variable names and values. Having these datasets facilitates the comparison of countries and populations, and their publication ensures transparency and reproducibility of the findings.
 
 # How to analyze survey data using open-source solutions?
 
-Survey data have unique characteristics that set them apart from other data sources. Fundamentally, surveys are designed to gather information from a sample (a subset of the population) and then infer the characteristics or attitudes of the entire population. Weighting values is crucial for this leap from the sample (Venezuelans and hosts that responded to the surveys) to the population (all Venezuelans and hosts). Weighted survey data assign a weight to each observation, which allows the conclusions drawn from a limited and biased sample to be representative.
+Survey data have unique characteristics that set them apart from other data sources. They gather information from a sample (a subset of the population) and then infer the characteristics or attitudes of the entire population. Weighting values is crucial to make the inference from the sample (Venezuelans and hosts that responded to the surveys) to the population (all Venezuelans and hosts). A weight is assigned to each observation which allows the inferences from a limited and biased sample to be made. 
 
-Although there is proprietary software to analyze weighted surveys with graphical interfaces, the open-source landscape presents more challenges for beginners and usually requires basic coding skills. The most common approach for analyzing weighted survey data using open-source tools requires knowledge of programming languages like Python and R. R, in particular, is designed for statistical analysis and provides a wide range of options for survey data exploration.
+Although proprietary software analyzes weighted surveys with graphical interfaces, open-source tools present more challenges for beginners and usually requires basic coding skills. The most common approach for analyzing weighted survey data using open-source tools requires knowledge of programming languages like Python and R. R is designed for statistical analysis and provides a range of ways to analyze survey data. 
 
 # Analyzing the data using R
 
-This tutorial uses R to explore the microdata used in the report **Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru**. It is tailored for beginners and covers basic descriptive analysis rather than exploratory or inferential statistics.
+The examples below will use R to conduct basic descriptive analysis on the microdata in **Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru**. 
 
-Below, you will see the R code and outputs, along with regular text like this. For example, the command [`print`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/print) shows the message quoted as an output.
+Different styles represent R code and its outputs. For example, the code with a [`print`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/print) command below shows the message quoted as an output.
 
 ```{r}
 print("Coding is easy!")
 ```
 
-You can copy and paste the code to run your own analysis. If you are unfamiliar with R, you can download [RStudio](https://posit.co/download/rstudio-desktop/) and check one of the many introductory videos on installing and running R.
+If you are unfamiliar with R, you can download [RStudio](https://posit.co/download/rstudio-desktop/) and use an [introductory video](https://www.youtube.com/watch?v=FIrsOBy5k58) to install it and run the first R codes.
 
 ### Load libraries
 
@@ -62,11 +61,7 @@ library(knitr) # to format output nicely
 
 ### Read the data
 
-First, we need to read the cleaned survey data and inspect the information available. We will use the dataset for Ecuador as an example, but you can select data for a different country by changing the `file_name` variable. All datasets and data dictionaries are available on our website: <https://www.jointdatacenter.org/venezuelan-migration-data/>
-
-To choose a country other than Ecuador, visit the page above, right-click on "Cleaned survey data (CSV)", choose "Copy link address", and paste the URL below, ensuring the quotes are preserved.
-
-The [`read.csv`](https://www.rdocumentation.org/packages/qtl2/versions/0.32/topics/read_csv) command loads the data in the URL or file path specified in the first line.
+To show to read the survey data and inspect the information available, we use the dataset for Ecuador as an example. 
 
 ```{r}
 file_name = "https://www.jointdatacenter.org/wp-content/uploads/2024/02/ecu_host_mig.csv" 
@@ -74,17 +69,24 @@ file_name = "https://www.jointdatacenter.org/wp-content/uploads/2024/02/ecu_host
 survey = read.csv(file_name)
 ```
 
-This tutorial assumes the R code runs from the same folder where the datasets are located. You can use different file paths to change the variable `file_name` to run this code.
 
-The result of the command below shows the number of rows (observations), columns (variables), their respective data types and some sample values. It shows we have `r nrow(survey)` rows and `r ncol(survey)` columns. The output also shows the column names after the dollar sign, the data type (`int` for numeric integers, `chr` for text strings and `num` for float numbers) and values from the first rows.
+You can select data for a different country by changing the URL after the `file_name` variable. All datasets and data dictionaries are available on our website: [https://www.jointdatacenter.org/venezuelan-migration-data/](https://www.jointdatacenter.org/venezuelan-migration-data/)
 
-Notice that some variables have missing values, which are represented by NA for numeric variables and empty quotes for categorical. We will return to this issue soon.
+To choose a country other than Ecuador, visit the page above, right-click on "Cleaned survey data (CSV)", choose "Copy link address", and change the URL, ensuring the quotes are preserved.
+
+In the second line of our code block above, the [`read.csv`](https://www.rdocumentation.org/packages/qtl2/versions/0.32/topics/read_csv) command loads the data in the URL or file path specified in the first line.
+
+Next, we check the number of rows (observations), columns (variables), their respective data types and some sample values. 
 
 ```{r}
 
 str(survey) # print the survey STRucture
 
 ```
+
+It shows we have `r nrow(survey)` rows and `r ncol(survey)` columns. The output also shows the column names after the dollar sign, the data type (`int` for numeric integers, `chr` for text strings and `num` for float numbers) and values from the first rows.
+
+Notice that some variables have missing values, which are represented by NA for numeric variables and empty quotes for categorical. We will return to this issue soon.
 
 The [`str()`](https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/str) function provides a concise summary of the dataset, showing its data type, dimensions, and content.
 

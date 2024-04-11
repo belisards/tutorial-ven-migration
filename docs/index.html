@@ -4076,14 +4076,14 @@ vertical-align: -.125em;
 
 </header>
 
-<p>This tutorial aims to help analysts and local policymakers develop evidence-based policies and promote a mutually beneficial relationship between Venezuelan migrants and their host communities in Chile, Colombia, Peru, and Ecuador. It presents an overview of open-source technologies to analyze survey data and introduces a step-by-step guide to use R to describe statistics from host populations and Venezuelan migrants.</p>
+<p>A step-by-step guide, using R to analyze statistics from host populations and Venezuelans in Chile, Colombia, Ecuador and Peru.</p>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>The World Bank report <a href="https://www.jointdatacenter.org/venezuela-migration-report/">Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru</a> provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys covering the adult population (18 years or older) of Venezuelan migrants and national residents. The Joint Data Center on Forced Displacement supported the data collection and elaboration of the study and has created this tutorial to help you navigate the data sources and undertake your own analysis.</p>
+<p>The World Bank report <a href="https://www.jointdatacenter.org/venezuela-migration-report/">Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru</a> provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys covering the adult population (18 years or older) of Venezuelan migrants and national residents. The World Bank-UNHCRJoint Data Center on Forced Displacement supported the data collection and elaboration of the study and has created this tutorial to help process the data for your own purposes.</p>
 </section>
 <section id="data-sources" class="level1">
 <h1>Data sources</h1>
-<p>The study uses data from eight different surveys from four countries. Below, you will find a table summarizing the key features of each survey. More details, such as the collection date, the representativeness and the number of observations for each survey, are provided in the full report.</p>
+<p>The following surveys are collated into four CSV table files - one per country – which are cleaned and harmonized. That is, they are of similar structure and have the same variable names and values.</p>
 <table class="table">
 <colgroup>
 <col style="width: 23%">
@@ -4140,24 +4140,23 @@ vertical-align: -.125em;
 </tr>
 </tbody>
 </table>
-<p>We have organized these surveys into four CSV table files, one per country. The datasets are cleaned and harmonized, meaning they follow a similar structure and have the same variable names and values. Having these datasets facilitates the comparison of countries and populations, and their publication ensures transparency and reproducibility of the findings.</p>
 </section>
 <section id="how-to-analyze-survey-data-using-open-source-solutions" class="level1">
 <h1>How to analyze survey data using open-source solutions?</h1>
-<p>Survey data have unique characteristics that set them apart from other data sources. Fundamentally, surveys are designed to gather information from a sample (a subset of the population) and then infer the characteristics or attitudes of the entire population. Weighting values is crucial for this leap from the sample (Venezuelans and hosts that responded to the surveys) to the population (all Venezuelans and hosts). Weighted survey data assign a weight to each observation, which allows the conclusions drawn from a limited and biased sample to be representative.</p>
-<p>Although there is proprietary software to analyze weighted surveys with graphical interfaces, the open-source landscape presents more challenges for beginners and usually requires basic coding skills. The most common approach for analyzing weighted survey data using open-source tools requires knowledge of programming languages like Python and R. R, in particular, is designed for statistical analysis and provides a wide range of options for survey data exploration.</p>
+<p>Survey data have unique characteristics that set them apart from other data sources. They gather information from a sample (a subset of the population) and then infer the characteristics or attitudes of the entire population. Weighting values is crucial to make the inference from the sample (Venezuelans and hosts that responded to the surveys) to the population (all Venezuelans and hosts). A weight is assigned to each observation which allows the inferences from a limited and biased sample to be made.</p>
+<p>Although proprietary software analyzes weighted surveys with graphical interfaces, open-source tools present more challenges for beginners and usually requires basic coding skills. The most common approach for analyzing weighted survey data using open-source tools requires knowledge of programming languages like Python and R. R is designed for statistical analysis and provides a range of ways to analyze survey data.</p>
 </section>
 <section id="analyzing-the-data-using-r" class="level1">
 <h1>Analyzing the data using R</h1>
-<p>This tutorial uses R to explore the microdata used in the report <strong>Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru</strong>. It is tailored for beginners and covers basic descriptive analysis rather than exploratory or inferential statistics.</p>
-<p>Below, you will see the R code and outputs, along with regular text like this. For example, the command <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/print"><code>print</code></a> shows the message quoted as an output.</p>
+<p>The examples below will use R to conduct basic descriptive analysis on the microdata in <strong>Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru</strong>.</p>
+<p>Different styles represent R code and its outputs. For example, the code with a <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/print"><code>print</code></a> command below shows the message quoted as an output.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Coding is easy!&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;Coding is easy!&quot;</code></pre>
 </div>
 </div>
-<p>You can copy and paste the code to run your own analysis. If you are unfamiliar with R, you can download <a href="https://posit.co/download/rstudio-desktop/">RStudio</a> and check one of the many introductory videos on installing and running R.</p>
+<p>If you are unfamiliar with R, you can download <a href="https://posit.co/download/rstudio-desktop/">RStudio</a> and use an <a href="https://www.youtube.com/watch?v=FIrsOBy5k58">introductory video</a> to install it and run the first R codes.</p>
 <section id="load-libraries" class="level3">
 <h3 class="anchored" data-anchor-id="load-libraries">Load libraries</h3>
 <p>First, we will load the libraries needed for our tutorial using the <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/library"><code>library</code></a> command. We explain the main purpose of each one as comments placed after the hashtag (<code>#</code>).</p>
@@ -4170,17 +4169,16 @@ vertical-align: -.125em;
 </section>
 <section id="read-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="read-the-data">Read the data</h3>
-<p>First, we need to read the cleaned survey data and inspect the information available. We will use the dataset for Ecuador as an example, but you can select data for a different country by changing the <code>file_name</code> variable. All datasets and data dictionaries are available on our website: <a href="https://www.jointdatacenter.org/venezuelan-migration-data/" class="uri">https://www.jointdatacenter.org/venezuelan-migration-data/</a></p>
-<p>To choose a country other than Ecuador, visit the page above, right-click on “Cleaned survey data (CSV)”, choose “Copy link address”, and paste the URL below, ensuring the quotes are preserved.</p>
-<p>The <a href="https://www.rdocumentation.org/packages/qtl2/versions/0.32/topics/read_csv"><code>read.csv</code></a> command loads the data in the URL or file path specified in the first line.</p>
+<p>To show to read the survey data and inspect the information available, we use the dataset for Ecuador as an example.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>file_name <span class="ot">=</span> <span class="st">&quot;https://www.jointdatacenter.org/wp-content/uploads/2024/02/ecu_host_mig.csv&quot;</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">read.csv</span>(file_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This tutorial assumes the R code runs from the same folder where the datasets are located. You can use different file paths to change the variable <code>file_name</code> to run this code.</p>
-<p>The result of the command below shows the number of rows (observations), columns (variables), their respective data types and some sample values. It shows we have 3922 rows and 34 columns. The output also shows the column names after the dollar sign, the data type (<code>int</code> for numeric integers, <code>chr</code> for text strings and <code>num</code> for float numbers) and values from the first rows.</p>
-<p>Notice that some variables have missing values, which are represented by NA for numeric variables and empty quotes for categorical. We will return to this issue soon.</p>
+<p>You can select data for a different country by changing the URL after the <code>file_name</code> variable. All datasets and data dictionaries are available on our website: <a href="https://www.jointdatacenter.org/venezuelan-migration-data/">https://www.jointdatacenter.org/venezuelan-migration-data/</a></p>
+<p>To choose a country other than Ecuador, visit the page above, right-click on “Cleaned survey data (CSV)”, choose “Copy link address”, and change the URL, ensuring the quotes are preserved.</p>
+<p>In the second line of our code block above, the <a href="https://www.rdocumentation.org/packages/qtl2/versions/0.32/topics/read_csv"><code>read.csv</code></a> command loads the data in the URL or file path specified in the first line.</p>
+<p>Next, we check the number of rows (observations), columns (variables), their respective data types and some sample values.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(survey) <span class="co"># print the survey STRucture</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -4221,6 +4219,8 @@ vertical-align: -.125em;
  $ entry_register     : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...</code></pre>
 </div>
 </div>
+<p>It shows we have 3922 rows and 34 columns. The output also shows the column names after the dollar sign, the data type (<code>int</code> for numeric integers, <code>chr</code> for text strings and <code>num</code> for float numbers) and values from the first rows.</p>
+<p>Notice that some variables have missing values, which are represented by NA for numeric variables and empty quotes for categorical. We will return to this issue soon.</p>
 <p>The <a href="https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/str"><code>str()</code></a> function provides a concise summary of the dataset, showing its data type, dimensions, and content.</p>
 </section>
 <section id="preliminary-analysis" class="level2">

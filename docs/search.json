@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru",
     "section": "",
-    "text": "This tutorial aims to help analysts and local policymakers develop evidence-based policies and promote a mutually beneficial relationship between Venezuelan migrants and their host communities in Chile, Colombia, Peru, and Ecuador. It presents an overview of open-source technologies to analyze survey data and introduces a step-by-step guide to use R to describe statistics from host populations and Venezuelan migrants."
+    "text": "A step-by-step guide, using R to analyze statistics from host populations and Venezuelans in Chile, Colombia, Ecuador and Peru."
   },
   {
     "objectID": "index.html#preliminary-analysis",
