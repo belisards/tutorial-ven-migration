@@ -1,5 +1,5 @@
 ---
-title: "Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru"
+title: "Venezuelan in Chile, Colombia, Ecuador, and Peru"
 format: 
   html:
     toc: true
@@ -12,14 +12,14 @@ A step-by-step guide, using R to analyze statistics from host populations and Ve
 
 # Introduction
 
-The World Bank report [Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru](https://www.jointdatacenter.org/venezuela-migration-report/) provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys covering the adult population (18 years or older) of Venezuelan migrants and national residents. The World Bank-UNHCR Joint Data Center on Forced Displacement supported the data collection and elaboration of the study and has created this tutorial to help process the data for your own purposes.
+The World Bank report [Venezuelan in Chile, Colombia, Ecuador, and Peru](https://www.jointdatacenter.org/venezuela-migration-report/) provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys covering the adult population (18 years or older) of Venezuelan and national residents. The World Bank-UNHCR Joint Data Center on Forced Displacement supported the data collection and elaboration of the study and has created this tutorial to help process the data for your own purposes.
 
 # Data sources
 
 The following surveys are collated into four CSV table files - one per country -- which are cleaned and harmonized. That is, they are of similar structure and have the same variable names and values.
 
 | [Country]{.underline} | [Survey]{.underline}                                                                  | [Modality]{.underline} |
-|-------------------|-----------------------------------|-------------------|
+|-----------------------|---------------------------------------------------------------------------------------|------------------------|
 | **Chile**             | Encuesta de Migración                                                                 | Telephone              |
 | **Chile**             | Labor Survey                                                                          | In-person              |
 | **Colombia**          | Gran Encuesta Integrada de Hogares (GEIH)                                             | In-person              |
@@ -37,7 +37,7 @@ Although proprietary software analyzes weighted surveys with graphic interfaces,
 
 # Analyzing the data using R
 
-The examples below use R to conduct basic analysis on the microdata in **Venezuelan Migrants and Refugees in Chile, Colombia, Ecuador, and Peru**.
+The examples below use R to conduct basic analysis on the microdata in **Venezuelan in Chile, Colombia, Ecuador, and Peru**.
 
 Different styles represent R code and its outputs. For example, the code with a [`print`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/print) command below shows the message quoted as an output.
 
@@ -111,7 +111,7 @@ The [`vis_miss()`](https://www.rdocumentation.org/packages/visdat/versions/0.6.0
 visdat::vis_miss(survey,facet = survey)
 ```
 
-To keep it simple, our tutorial analyses only information on age, marital status, region, and population type (host or Venezuelan migrant) in the HPFS survey. As the image shows, these variables have no missing values.
+To keep it simple, our tutorial analyses only information on age, marital status, region, and population type (host or Venezuelan) in the HPFS survey. As the image shows, these variables have no missing values.
 
 Missing values are crucial to the data preparation phase. You might need to drop missing values or impute values to conduct other analyses. Your chosen strategy depends on why values are missing, the number of missing values, and your analytical goals. Refer to the data dictionary and documentation to understand the reasons for missing values.
 
@@ -132,13 +132,13 @@ kable(summary_df, caption = "Number of records by survey, wave and population")
 
 ```
 
-So far, the dataset reflects the number of responses from an unweighted sample of Venezuelan migrants and host population, not the actual migrant and local population. Next, we demonstrate how to use weights to calculate representative estimates.
+So far, the dataset reflects the number of responses from an unweighted sample of Venezuelan and host population. Next, we demonstrate how to use weights to calculate representative estimates.
 
 ## Configure the survey design
 
 As different surveys present distinct questions, select the survey according to the goals of your analysis. Most of the indicators from Ecuador come from the HFPS, except those referring to job occupations and health insurance, which come from the EPEC survey.
 
-Select the HFPS survey to calculate and compare the average age of Venezuelan migrants and the host population in Ecuador. Let's start filtering the dataset to get only observations from the HFPS using the [`filter()`](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/filter) function.
+Select the HFPS survey to calculate and compare the average age of Venezuelan and the host population in Ecuador. Let's start filtering the dataset to get only observations from the HFPS using the [`filter()`](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/filter) function.
 
 ```{r}
 
@@ -193,7 +193,7 @@ knitr::kable(crosstab_percentages,
 
 # Conclusion
 
-This tutorial has offered a glimpse into the initial steps for leveraging open-source tools to obtain data on Venezuelan migrants. While we have covered essential techniques, the scope for further exploration is vast.
+This tutorial has offered a glimpse into the initial steps for leveraging open-source tools to analyze survey data. While we have covered essential techniques, the scope for further exploration is vast.
 
 We invite you to share any open-source solutions to analyze weighted survey data that might have been overlooked or suggest topics for future tutorials on forced displacement data. Contact us by email or social media networks ([Twitter](https://twitter.com/jointdatacenter) and [LinkedIn](https://www.linkedin.com/company/joint-data-center/)).
 
