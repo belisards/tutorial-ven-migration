@@ -12,7 +12,7 @@ A step-by-step guide, using R to analyze statistics from host populations and Ve
 
 # Introduction
 
-The World Bank report [Venezuelan in Chile, Colombia, Ecuador, and Peru](https://www.jointdatacenter.org/venezuela-migration-report/) provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys covering the adult population (18 years or older) of Venezuelan and national residents. The World Bank-UNHCR Joint Data Center on Forced Displacement supported the data collection and elaboration of the study and has created this tutorial to help process the data for your own purposes.
+The World Bank report [Venezuelan in Chile, Colombia, Ecuador, and Peru](https://www.jointdatacenter.org/venezuela-migration-report/) provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys covering the adult population (18 years or older) of Venezuelan and national residents. The World Bank-UNHCR Joint Data Center on Forced Displacement supported the data collection and elaboration of the study and has created this guide to help process the data for your own purposes.
 
 # Data sources
 
@@ -47,7 +47,7 @@ print("Coding is easy!")
 
 ### Load libraries
 
-First, we will load the libraries needed for our tutorial using the [`library`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/library) command. We explain the main purpose of each one as comments placed after the hashtag (`#`).
+First, we will load the libraries needed for our guide using the [`library`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/library) command. We explain the main purpose of each one as comments placed after the hashtag (`#`).
 
 ```{r}
 #| output: false
@@ -111,7 +111,7 @@ The [`vis_miss()`](https://www.rdocumentation.org/packages/visdat/versions/0.6.0
 visdat::vis_miss(survey,facet = survey)
 ```
 
-To keep it simple, our tutorial analyses only information on age, marital status, region, and population type (host or Venezuelan) in the HPFS survey. As the image shows, these variables have no missing values.
+To keep it simple, we analyze only information on age, marital status, region, and population type (host or Venezuelan) in the HPFS survey. As the image shows, these variables have no missing values.
 
 Missing values are crucial to the data preparation phase. You might need to drop missing values or impute values to conduct other analyses. Your chosen strategy depends on why values are missing, the number of missing values, and your analytical goals. Refer to the data dictionary and documentation to understand the reasons for missing values.
 
@@ -200,9 +200,9 @@ knitr::kable(crosstab_percentages,
 
 # Conclusion
 
-This tutorial has offered a glimpse into the initial steps for leveraging open-source tools to analyze survey data. While we have covered essential techniques, the scope for further exploration is vast.
+This guide has offered a glimpse into the initial steps for leveraging open-source tools to analyze survey data. While we have covered essential techniques, the scope for further exploration is vast.
 
-We invite you to share open-source solutions to analyze weighted survey data that might have been overlooked or suggest topics for future tutorials on forced displacement data. Contact us by email or social media networks ([Twitter](https://twitter.com/jointdatacenter) and [LinkedIn](https://www.linkedin.com/company/joint-data-center/)).
+We invite you to share open-source solutions to analyze weighted survey data that might have been overlooked or suggest topics for future guides on forced displacement data. Contact us by email or social media networks ([Twitter](https://twitter.com/jointdatacenter) and [LinkedIn](https://www.linkedin.com/company/joint-data-center/)).
 
 # Extra resources
 
