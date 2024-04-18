@@ -19,7 +19,7 @@ The World Bank report [Venezuelan in Chile, Colombia, Ecuador, and Peru](https:/
 The following surveys are collated into four CSV table files - one per country -- which are cleaned and harmonized. That is, they are of similar structure and have the same variable names and values.
 
 | [Country]{.underline} | [Survey]{.underline}                                                                  | [Modality]{.underline} |
-|-----------------------|---------------------------------------------------------------------------------------|------------------------|
+|---------------|------------------------------------------|---------------|
 | **Chile**             | Encuesta de Migración                                                                 | Telephone              |
 | **Chile**             | Labor Survey                                                                          | In-person              |
 | **Colombia**          | Gran Encuesta Integrada de Hogares (GEIH)                                             | In-person              |
@@ -81,7 +81,7 @@ str(survey) # print the survey STRucture
 
 ```
 
-It shows there are `r nrow(survey)` rows and `r ncol(survey)` columns. The output also shows the column names after the dollar sign, the data type (`int` for numeric integers, `chr` for text strings and `num` for float numbers) and values from the first rows.
+It shows there are `r nrow(survey)` rows and `r ncol(survey)` columns. The output also shows the column names after the dollar sign, the data type (`int` and `num` for numeric values, `chr` for text strings) and values from the first rows.
 
 Variables that have missing values are represented by NA for numeric variables and empty quotes for categorical.
 
@@ -122,12 +122,14 @@ Before applying the weights, we will check the total number of respondents by su
 The [`group_by`](https://www.rdocumentation.org/packages/dplyr/versions/0.2/topics/group_by) function is used to group data by one or more variables. This command doesn't change the dataset; rather, it sets up a new configuration for subsequent operations within each group. The [`summarise`](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/summarise) function is used to compute summary statistics or metrics for each group. Finally, the [`kable()`](https://www.rdocumentation.org/packages/knitr/versions/1.45/topics/kable) function presents the result better than the standard output.
 
 ```{r}
-
 summary_df <- survey %>% 
   group_by(survey, wave, samp) %>% 
   summarise(total = n(), .groups = 'drop')
 
-# Output the table
+```
+
+```{r}
+# Show the table
 kable(summary_df, caption = "Number of records by survey, wave and population")
 
 ```
@@ -141,7 +143,6 @@ As different surveys present distinct questions, select the survey according to 
 Select the HFPS survey to calculate and compare the average age of Venezuelan and the host population in Ecuador. Let's start filtering the dataset to get only observations from the HFPS using the [`filter()`](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/filter) function.
 
 ```{r}
-
 survey_filter <- survey %>% 
   filter(survey == "HFPS")
 
@@ -182,10 +183,16 @@ Using [`prop.table(crosstab, 1)`](https://www.rdocumentation.org/packages/base/v
 # Cross-tabulates values
 crosstab <- svytable(~samp + marital_status, design = survey_ecu)
 
+```
+
+```{r}
 # Calculate percentages
 crosstab_percentages <- round(prop.table(crosstab,1) * 100,2) 
  
-# Output the table
+```
+
+```{r}
+# Show the table
 knitr::kable(crosstab_percentages, 
              caption = "Crosstab of Occupation by Marital Status (%)")
 
@@ -195,7 +202,7 @@ knitr::kable(crosstab_percentages,
 
 This tutorial has offered a glimpse into the initial steps for leveraging open-source tools to analyze survey data. While we have covered essential techniques, the scope for further exploration is vast.
 
-We invite you to share any open-source solutions to analyze weighted survey data that might have been overlooked or suggest topics for future tutorials on forced displacement data. Contact us by email or social media networks ([Twitter](https://twitter.com/jointdatacenter) and [LinkedIn](https://www.linkedin.com/company/joint-data-center/)).
+We invite you to share open-source solutions to analyze weighted survey data that might have been overlooked or suggest topics for future tutorials on forced displacement data. Contact us by email or social media networks ([Twitter](https://twitter.com/jointdatacenter) and [LinkedIn](https://www.linkedin.com/company/joint-data-center/)).
 
 # Extra resources
 

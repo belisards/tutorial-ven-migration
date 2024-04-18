@@ -4086,9 +4086,9 @@ vertical-align: -.125em;
 <p>The following surveys are collated into four CSV table files - one per country – which are cleaned and harmonized. That is, they are of similar structure and have the same variable names and values.</p>
 <table class="table">
 <colgroup>
-<col style="width: 17%">
-<col style="width: 64%">
-<col style="width: 17%">
+<col style="width: 20%">
+<col style="width: 58%">
+<col style="width: 20%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -4218,7 +4218,7 @@ vertical-align: -.125em;
  $ entry_register     : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...</code></pre>
 </div>
 </div>
-<p>It shows there are 3922 rows and 34 columns. The output also shows the column names after the dollar sign, the data type (<code>int</code> for numeric integers, <code>chr</code> for text strings and <code>num</code> for float numbers) and values from the first rows.</p>
+<p>It shows there are 3922 rows and 34 columns. The output also shows the column names after the dollar sign, the data type (<code>int</code> and <code>num</code> for numeric values, <code>chr</code> for text strings) and values from the first rows.</p>
 <p>Variables that have missing values are represented by NA for numeric variables and empty quotes for categorical.</p>
 <p>The <a href="https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/str"><code>str()</code></a> function provides a concise summary of the dataset, showing its data type, dimensions, and content.</p>
 </section>
@@ -4252,10 +4252,11 @@ vertical-align: -.125em;
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>summary_df <span class="ot">&lt;-</span> survey <span class="sc">%&gt;%</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(survey, wave, samp) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">&#39;drop&#39;</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the table</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(summary_df, <span class="at">caption =</span> <span class="st">&quot;Number of records by survey, wave and population&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">&#39;drop&#39;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the table</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(summary_df, <span class="at">caption =</span> <span class="st">&quot;Number of records by survey, wave and population&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
 <caption>Number of records by survey, wave and population</caption>
@@ -4304,14 +4305,14 @@ vertical-align: -.125em;
 <p>As different surveys present distinct questions, select the survey according to the goals of your analysis. Most of the indicators from Ecuador come from the HFPS, except those referring to job occupations and health insurance, which come from the EPEC survey.</p>
 <p>Select the HFPS survey to calculate and compare the average age of Venezuelan and the host population in Ecuador. Let’s start filtering the dataset to get only observations from the HFPS using the <a href="https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/filter"><code>filter()</code></a> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>survey_filter <span class="ot">&lt;-</span> survey <span class="sc">%&gt;%</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(survey <span class="sc">==</span> <span class="st">&quot;HFPS&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>survey_filter <span class="ot">&lt;-</span> survey <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(survey <span class="sc">==</span> <span class="st">&quot;HFPS&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next, we load the survey design and the weights associated with each response. There are a variety of ways to implement weighted data analysis using R. For convenience, we use the function <a href="https://www.rdocumentation.org/packages/survey/versions/4.4-1/topics/svydesign"><code>svydesign</code></a> from <a href="https://cran.r-project.org/package=survey"><code>survey</code></a>, an R package with pre-built features tailored for survey analysis. It allows for the specification of survey design parameters such as sampling weights.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>survey_ecu <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span><span class="dv">1</span>, <span class="co"># ~1 means the survey has no clusters</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data=</span> survey_filter, </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">weights =</span> survey_filter<span class="sc">$</span>weight)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>survey_ecu <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span><span class="dv">1</span>, <span class="co"># ~1 means the survey has no clusters</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data=</span> survey_filter, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">weights =</span> survey_filter<span class="sc">$</span>weight)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="descriptive-statistic" class="level2">
@@ -4322,8 +4323,8 @@ vertical-align: -.125em;
 <p>The <a href="https://www.rdocumentation.org/packages/survey/versions/4.2-1/topics/svyby"><code>svyby</code></a> function is used to apply a function to subsets of survey data defined by one or more variables. We will use it to group the records by the population type (<code>~samp</code>) and calculate the mean age (<a href="https://www.rdocumentation.org/packages/survey/versions/2.8-1/topics/surveysummary"><code>svymean</code></a>).</p>
 <p>The output shows the mean and the standard error (<code>se</code>) for each estimate. Standard error values use the same unit of measurement as the mean. They represent how much the sample mean calculated is expected to vary from the actual population mean.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group by and calculate the mean age</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>age, <span class="at">by =</span> <span class="sc">~</span>samp, <span class="at">design =</span> survey_ecu, svymean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group by and calculate the mean age</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>age, <span class="at">by =</span> <span class="sc">~</span>samp, <span class="at">design =</span> survey_ecu, svymean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             samp      age        se
 Hosts       Hosts 39.88760 0.9410057
@@ -4336,15 +4337,17 @@ Migrants Migrants 36.09989 0.5309258</code></pre>
 <p>The <code>svytable</code> function is used to create contingency tables for survey data, taking into account survey design features such as sampling weights. Next, we use it to analyze marital status.</p>
 <p>Using <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/prop.table"><code>prop.table(crosstab, 1)</code></a>, we present the values as percentages of the population/row level (using 0 instead of 1 in the command would sum the values to 100 across columns). Additionally, we round the values to two decimal places with <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/Round"><code>round()</code></a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-tabulates values</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>crosstab <span class="ot">&lt;-</span> <span class="fu">svytable</span>(<span class="sc">~</span>samp <span class="sc">+</span> marital_status, <span class="at">design =</span> survey_ecu)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate percentages</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>crosstab_percentages <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">prop.table</span>(crosstab,<span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span>,<span class="dv">2</span>) </span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the table</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(crosstab_percentages, </span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Crosstab of Occupation by Marital Status (%)&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-tabulates values</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>crosstab <span class="ot">&lt;-</span> <span class="fu">svytable</span>(<span class="sc">~</span>samp <span class="sc">+</span> marital_status, <span class="at">design =</span> survey_ecu)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate percentages</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>crosstab_percentages <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">prop.table</span>(crosstab,<span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span>,<span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the table</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(crosstab_percentages, </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Crosstab of Occupation by Marital Status (%)&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
 <caption>Crosstab of Occupation by Marital Status (%)</caption>
@@ -4379,7 +4382,7 @@ Migrants Migrants 36.09989 0.5309258</code></pre>
 <section id="conclusion" class="level1">
 <h1>Conclusion</h1>
 <p>This tutorial has offered a glimpse into the initial steps for leveraging open-source tools to analyze survey data. While we have covered essential techniques, the scope for further exploration is vast.</p>
-<p>We invite you to share any open-source solutions to analyze weighted survey data that might have been overlooked or suggest topics for future tutorials on forced displacement data. Contact us by email or social media networks (<a href="https://twitter.com/jointdatacenter">Twitter</a> and <a href="https://www.linkedin.com/company/joint-data-center/">LinkedIn</a>).</p>
+<p>We invite you to share open-source solutions to analyze weighted survey data that might have been overlooked or suggest topics for future tutorials on forced displacement data. Contact us by email or social media networks (<a href="https://twitter.com/jointdatacenter">Twitter</a> and <a href="https://www.linkedin.com/company/joint-data-center/">LinkedIn</a>).</p>
 </section>
 <section id="extra-resources" class="level1">
 <h1>Extra resources</h1>
@@ -4576,207 +4579,216 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class>
-<div class="sourceCode" id="cb14" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Venezuelan in Chile, Colombia, Ecuador, and Peru&quot;</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">    embed-resources: true</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc_float: true</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>A step-by-step guide, using R to analyze statistics from host populations and Venezuelans in Chile, Colombia, Ecuador and Peru.</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>The World Bank report <span class="co">[</span><span class="ot">Venezuelan in Chile, Colombia, Ecuador, and Peru</span><span class="co">](https://www.jointdatacenter.org/venezuela-migration-report/)</span> provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys covering the adult population (18 years or older) of Venezuelan and national residents. The World Bank-UNHCR Joint Data Center on Forced Displacement supported the data collection and elaboration of the study and has created this tutorial to help process the data for your own purposes.</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="fu"># Data sources</span></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>The following surveys are collated into four CSV table files - one per country -- which are cleaned and harmonized. That is, they are of similar structure and have the same variable names and values.</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>| <span class="co">[</span><span class="ot">Country</span><span class="co">]</span>{.underline} | <span class="co">[</span><span class="ot">Survey</span><span class="co">]</span>{.underline}                                                                  | <span class="co">[</span><span class="ot">Modality</span><span class="co">]</span>{.underline} |</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>|-----------------------|---------------------------------------------------------------------------------------|------------------------|</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>| **Chile**             | Encuesta de Migración                                                                 | Telephone              |</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>| **Chile**             | Labor Survey                                                                          | In-person              |</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>| **Colombia**          | Gran Encuesta Integrada de Hogares (GEIH)                                             | In-person              |</span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>| **Colombia**          | Migration Pulse (Round 4)                                                             | Telephone              |</span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>| **Ecuador**           | Encuesta a Personas en Movilidad Humana y en Comunidades Receptoras en Ecuador (EPEC) | In-person              |</span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>| **Ecuador**           | High-Frequency Phone Surveys (HFPS)                                                   | Telephone              |</span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>| **Peru**              | Encuesta Nacional de Hogares (ENAHO)                                                  | In-person              |</span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>| **Peru**              | Encuesta Dirigida a la Población Venezolana (ENPOVE)                                  | In-person              |</span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="fu"># How to analyze survey data using open-source solutions?</span></span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>Survey data have unique characteristics that set them apart from other data sources. A weight is assigned to each observation which allows the inferences from a limited and biased sample to be made. Weighted values are crucial to make an inference from the sample (Venezuelans and hosts that responded to the surveys) to the population (all Venezuelans and hosts).</span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>Although proprietary software analyzes weighted surveys with graphic interfaces, open-source tools present more challenges for beginners. The most common approach requires knowledge of <span class="co">[</span><span class="ot">programming languages like R</span><span class="co">](https://www.r-project.org/)</span>, which is designed for statistical analysis and provides a range of ways to analyze survey data. If you are unfamiliar with R, you can download <span class="co">[</span><span class="ot">RStudio</span><span class="co">](https://posit.co/download/rstudio-desktop/)</span> and use an <span class="co">[</span><span class="ot">introductory video</span><span class="co">](https://www.youtube.com/watch?v=FIrsOBy5k58)</span> to install it and run your first R codes.</span>
-<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a><span class="fu"># Analyzing the data using R</span></span>
-<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>The examples below use R to conduct basic analysis on the microdata in **Venezuelan in Chile, Colombia, Ecuador, and Peru**.</span>
-<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>Different styles represent R code and its outputs. For example, the code with a <span class="co">[</span><span class="ot">`print`</span><span class="co">](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/print)</span> command below shows the message quoted as an output.</span>
-<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Coding is easy!&quot;</span>)</span>
-<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a><span class="fu">### Load libraries</span></span>
-<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>First, we will load the libraries needed for our tutorial using the <span class="co">[</span><span class="ot">`library`</span><span class="co">](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/library)</span> command. We explain the main purpose of each one as comments placed after the hashtag (<span class="in">`#`</span>).</span>
-<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
-<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey) <span class="co"># to handle survey weights</span></span>
-<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># to manipulate data easily</span></span>
-<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visdat) <span class="co"># to visualize missing values</span></span>
-<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr) <span class="co"># to format output nicely</span></span>
-<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a><span class="fu">### How to read the data</span></span>
-<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a>To read the survey data and inspect the information available, we use the dataset for Ecuador as an example.</span>
-<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-70"><a href="#cb14-70" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb14-71"><a href="#cb14-71" aria-hidden="true" tabindex="-1"></a>file_name <span class="ot">=</span> <span class="st">&quot;https://www.jointdatacenter.org/wp-content/uploads/2024/02/ecu_host_mig.csv&quot;</span> </span>
-<span id="cb14-72"><a href="#cb14-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-73"><a href="#cb14-73" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">read.csv</span>(file_name)</span>
-<span id="cb14-74"><a href="#cb14-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-75"><a href="#cb14-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-76"><a href="#cb14-76" aria-hidden="true" tabindex="-1"></a>You can select data for a different country by changing the URL after the <span class="in">`file_name`</span> variable. All datasets and data dictionaries are available on our website: <span class="ot">&lt;https://www.jointdatacenter.org/venezuelan-migration-data/&gt;</span></span>
-<span id="cb14-77"><a href="#cb14-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-78"><a href="#cb14-78" aria-hidden="true" tabindex="-1"></a>To choose a country other than Ecuador, visit the page above, right-click on &quot;Cleaned survey data (CSV)&quot;, choose &quot;Copy link address&quot;, and change the URL, ensuring the quotes are preserved.</span>
-<span id="cb14-79"><a href="#cb14-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-80"><a href="#cb14-80" aria-hidden="true" tabindex="-1"></a>In the second line of the code block above, the <span class="co">[</span><span class="ot">`read.csv`</span><span class="co">](https://www.rdocumentation.org/packages/qtl2/versions/0.32/topics/read_csv)</span> command loads the data in the URL or file path specified in the first line.</span>
-<span id="cb14-81"><a href="#cb14-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-82"><a href="#cb14-82" aria-hidden="true" tabindex="-1"></a>Next, check the number of rows (observations), columns (variables), their respective data types and some sample values.</span>
-<span id="cb14-83"><a href="#cb14-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-86"><a href="#cb14-86" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb14-87"><a href="#cb14-87" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(survey) <span class="co"># print the survey STRucture</span></span>
-<span id="cb14-88"><a href="#cb14-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-89"><a href="#cb14-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-90"><a href="#cb14-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-91"><a href="#cb14-91" aria-hidden="true" tabindex="-1"></a>It shows there are <span class="in">`r nrow(survey)`</span> rows and <span class="in">`r ncol(survey)`</span> columns. The output also shows the column names after the dollar sign, the data type (<span class="in">`int`</span> for numeric integers, <span class="in">`chr`</span> for text strings and <span class="in">`num`</span> for float numbers) and values from the first rows.</span>
-<span id="cb14-92"><a href="#cb14-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-93"><a href="#cb14-93" aria-hidden="true" tabindex="-1"></a>Variables that have missing values are represented by NA for numeric variables and empty quotes for categorical.</span>
-<span id="cb14-94"><a href="#cb14-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-95"><a href="#cb14-95" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">`str()`</span><span class="co">](https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/str)</span> function provides a concise summary of the dataset, showing its data type, dimensions, and content.</span>
-<span id="cb14-96"><a href="#cb14-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-97"><a href="#cb14-97" aria-hidden="true" tabindex="-1"></a><span class="fu">## Preliminary analysis</span></span>
-<span id="cb14-98"><a href="#cb14-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-99"><a href="#cb14-99" aria-hidden="true" tabindex="-1"></a>To understand how each country file is structured, review some core variables. You can find detailed descriptions for all available variables in the data dictionaries (<span class="co">[</span><span class="ot">codebooks</span><span class="co">](https://www.jointdatacenter.org/venezuelan-migration-data/)</span>).</span>
-<span id="cb14-100"><a href="#cb14-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-101"><a href="#cb14-101" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`survey`</span>: the name of the survey;</span>
-<span id="cb14-102"><a href="#cb14-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-103"><a href="#cb14-103" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`wave`</span>: the wave of the survey. Surveys might have more than one round, known as waves. Each wave is collected in a distinct period of time.</span>
-<span id="cb14-104"><a href="#cb14-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-105"><a href="#cb14-105" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`samp`</span>: indicate whether the response comes from Venezuelan or the host population;</span>
-<span id="cb14-106"><a href="#cb14-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-107"><a href="#cb14-107" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`weight`</span>: the weight assigned for each record to produce unbiased estimates;</span>
-<span id="cb14-108"><a href="#cb14-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-109"><a href="#cb14-109" aria-hidden="true" tabindex="-1"></a>Each file aggregates different surveys from the same country. Therefore, you should use the variables <span class="in">`survey`</span> and <span class="in">`wave`</span> to filter the data and pick the right source depending on your question. Because distinct surveys cover different questions, some rows have missing values.</span>
-<span id="cb14-110"><a href="#cb14-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-111"><a href="#cb14-111" aria-hidden="true" tabindex="-1"></a><span class="fu">### How to inspect missing values</span></span>
-<span id="cb14-112"><a href="#cb14-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-113"><a href="#cb14-113" aria-hidden="true" tabindex="-1"></a>To identify the missing information, plot the values for each column and surveys. The chart shows more records from the *Encuesta de personas en Movilidad y Comunidades de Acogida* (EPEC) survey than *High-Frequency Phone Surveys* (HFPS). The highlighted regions make it easy to spot which variables have missing values.</span>
-<span id="cb14-114"><a href="#cb14-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-115"><a href="#cb14-115" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">`vis_miss()`</span><span class="co">](https://www.rdocumentation.org/packages/visdat/versions/0.6.0/topics/vis_miss)</span> function is used to visualize missing data in a dataset. It takes the dataset <span class="in">`survey`</span><span class="sc">\`</span> as the first parameter and a column to group (facet) the observations.</span>
-<span id="cb14-116"><a href="#cb14-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-117"><a href="#cb14-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.width=9}</span></span>
-<span id="cb14-118"><a href="#cb14-118" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_miss</span>(survey,<span class="at">facet =</span> survey)</span>
-<span id="cb14-119"><a href="#cb14-119" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-120"><a href="#cb14-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-121"><a href="#cb14-121" aria-hidden="true" tabindex="-1"></a>To keep it simple, our tutorial analyses only information on age, marital status, region, and population type (host or Venezuelan) in the HPFS survey. As the image shows, these variables have no missing values.</span>
-<span id="cb14-122"><a href="#cb14-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-123"><a href="#cb14-123" aria-hidden="true" tabindex="-1"></a>Missing values are crucial to the data preparation phase. You might need to drop missing values or impute values to conduct other analyses. Your chosen strategy depends on why values are missing, the number of missing values, and your analytical goals. Refer to the data dictionary and documentation to understand the reasons for missing values.</span>
-<span id="cb14-124"><a href="#cb14-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-125"><a href="#cb14-125" aria-hidden="true" tabindex="-1"></a><span class="fu">### Records by surveys and waves</span></span>
-<span id="cb14-126"><a href="#cb14-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-127"><a href="#cb14-127" aria-hidden="true" tabindex="-1"></a>Before applying the weights, we will check the total number of respondents by survey, wave and population.</span>
-<span id="cb14-128"><a href="#cb14-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-129"><a href="#cb14-129" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">`group_by`</span><span class="co">](https://www.rdocumentation.org/packages/dplyr/versions/0.2/topics/group_by)</span> function is used to group data by one or more variables. This command doesn&#39;t change the dataset; rather, it sets up a new configuration for subsequent operations within each group. The <span class="co">[</span><span class="ot">`summarise`</span><span class="co">](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/summarise)</span> function is used to compute summary statistics or metrics for each group. Finally, the <span class="co">[</span><span class="ot">`kable()`</span><span class="co">](https://www.rdocumentation.org/packages/knitr/versions/1.45/topics/kable)</span> function presents the result better than the standard output.</span>
-<span id="cb14-130"><a href="#cb14-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-133"><a href="#cb14-133" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb14-134"><a href="#cb14-134" aria-hidden="true" tabindex="-1"></a>summary_df <span class="ot">&lt;-</span> survey <span class="sc">%&gt;%</span> </span>
-<span id="cb14-135"><a href="#cb14-135" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(survey, wave, samp) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-136"><a href="#cb14-136" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">&#39;drop&#39;</span>)</span>
-<span id="cb14-137"><a href="#cb14-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-138"><a href="#cb14-138" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the table</span></span>
-<span id="cb14-139"><a href="#cb14-139" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(summary_df, <span class="at">caption =</span> <span class="st">&quot;Number of records by survey, wave and population&quot;</span>)</span>
-<span id="cb14-140"><a href="#cb14-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-141"><a href="#cb14-141" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-142"><a href="#cb14-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-143"><a href="#cb14-143" aria-hidden="true" tabindex="-1"></a>So far, the dataset reflects the number of responses from an unweighted sample of Venezuelan and host population. Next, we demonstrate how to use weights to calculate representative estimates.</span>
-<span id="cb14-144"><a href="#cb14-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-145"><a href="#cb14-145" aria-hidden="true" tabindex="-1"></a><span class="fu">## Configure the survey design</span></span>
-<span id="cb14-146"><a href="#cb14-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-147"><a href="#cb14-147" aria-hidden="true" tabindex="-1"></a>As different surveys present distinct questions, select the survey according to the goals of your analysis. Most of the indicators from Ecuador come from the HFPS, except those referring to job occupations and health insurance, which come from the EPEC survey.</span>
-<span id="cb14-148"><a href="#cb14-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-149"><a href="#cb14-149" aria-hidden="true" tabindex="-1"></a>Select the HFPS survey to calculate and compare the average age of Venezuelan and the host population in Ecuador. Let&#39;s start filtering the dataset to get only observations from the HFPS using the <span class="co">[</span><span class="ot">`filter()`</span><span class="co">](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/filter)</span> function.</span>
-<span id="cb14-150"><a href="#cb14-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-153"><a href="#cb14-153" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb14-154"><a href="#cb14-154" aria-hidden="true" tabindex="-1"></a>survey_filter <span class="ot">&lt;-</span> survey <span class="sc">%&gt;%</span> </span>
-<span id="cb14-155"><a href="#cb14-155" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(survey <span class="sc">==</span> <span class="st">&quot;HFPS&quot;</span>)</span>
-<span id="cb14-156"><a href="#cb14-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-157"><a href="#cb14-157" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-158"><a href="#cb14-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-159"><a href="#cb14-159" aria-hidden="true" tabindex="-1"></a>Next, we load the survey design and the weights associated with each response. There are a variety of ways to implement weighted data analysis using R. For convenience, we use the function <span class="co">[</span><span class="ot">`svydesign`</span><span class="co">](https://www.rdocumentation.org/packages/survey/versions/4.4-1/topics/svydesign)</span> from <span class="co">[</span><span class="ot">`survey`</span><span class="co">](https://cran.r-project.org/package=survey)</span>, an R package with pre-built features tailored for survey analysis. It allows for the specification of survey design parameters such as sampling weights.</span>
-<span id="cb14-160"><a href="#cb14-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-163"><a href="#cb14-163" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb14-164"><a href="#cb14-164" aria-hidden="true" tabindex="-1"></a>survey_ecu <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span><span class="dv">1</span>, <span class="co"># ~1 means the survey has no clusters</span></span>
-<span id="cb14-165"><a href="#cb14-165" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data=</span> survey_filter, </span>
-<span id="cb14-166"><a href="#cb14-166" aria-hidden="true" tabindex="-1"></a>                       <span class="at">weights =</span> survey_filter<span class="sc">$</span>weight)</span>
-<span id="cb14-167"><a href="#cb14-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-168"><a href="#cb14-168" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-169"><a href="#cb14-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-170"><a href="#cb14-170" aria-hidden="true" tabindex="-1"></a><span class="fu">## Descriptive statistic</span></span>
-<span id="cb14-171"><a href="#cb14-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-172"><a href="#cb14-172" aria-hidden="true" tabindex="-1"></a>Creating basic summary statistics using the <span class="in">`survey`</span> package is straightforward. Our tutorial shows how to group observations and analyze numeric and categorical variables. If you group by region (the column <span class="in">`code_province`</span>), bear in mind that the weights are not meant for this level of disaggregation, and the estimates may not accurately reflect the characteristics of these populations in each region.</span>
-<span id="cb14-173"><a href="#cb14-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-174"><a href="#cb14-174" aria-hidden="true" tabindex="-1"></a><span class="fu">### Numeric values</span></span>
-<span id="cb14-175"><a href="#cb14-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-176"><a href="#cb14-176" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">`svyby`</span><span class="co">](https://www.rdocumentation.org/packages/survey/versions/4.2-1/topics/svyby)</span> function is used to apply a function to subsets of survey data defined by one or more variables. We will use it to group the records by the population type (<span class="in">`~samp`</span>) and calculate the mean age (<span class="co">[</span><span class="ot">`svymean`</span><span class="co">](https://www.rdocumentation.org/packages/survey/versions/2.8-1/topics/surveysummary)</span>).</span>
-<span id="cb14-177"><a href="#cb14-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-178"><a href="#cb14-178" aria-hidden="true" tabindex="-1"></a>The output shows the mean and the standard error (<span class="in">`se`</span>) for each estimate. Standard error values use the same unit of measurement as the mean. They represent how much the sample mean calculated is expected to vary from the actual population mean.</span>
-<span id="cb14-179"><a href="#cb14-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-182"><a href="#cb14-182" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb14-183"><a href="#cb14-183" aria-hidden="true" tabindex="-1"></a><span class="co"># Group by and calculate the mean age</span></span>
-<span id="cb14-184"><a href="#cb14-184" aria-hidden="true" tabindex="-1"></a><span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>age, <span class="at">by =</span> <span class="sc">~</span>samp, <span class="at">design =</span> survey_ecu, svymean)</span>
-<span id="cb14-185"><a href="#cb14-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-186"><a href="#cb14-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-187"><a href="#cb14-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-188"><a href="#cb14-188" aria-hidden="true" tabindex="-1"></a><span class="fu">### Categoric variables</span></span>
-<span id="cb14-189"><a href="#cb14-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-190"><a href="#cb14-190" aria-hidden="true" tabindex="-1"></a>The <span class="in">`svytable`</span> function is used to create contingency tables for survey data, taking into account survey design features such as sampling weights. Next, we use it to analyze marital status.</span>
-<span id="cb14-191"><a href="#cb14-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-192"><a href="#cb14-192" aria-hidden="true" tabindex="-1"></a>Using <span class="co">[</span><span class="ot">`prop.table(crosstab, 1)`</span><span class="co">](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/prop.table)</span>, we present the values as percentages of the population/row level (using 0 instead of 1 in the command would sum the values to 100 across columns). Additionally, we round the values to two decimal places with <span class="co">[</span><span class="ot">`round()`</span><span class="co">](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/Round)</span>.</span>
-<span id="cb14-193"><a href="#cb14-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-196"><a href="#cb14-196" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb14-197"><a href="#cb14-197" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-tabulates values</span></span>
-<span id="cb14-198"><a href="#cb14-198" aria-hidden="true" tabindex="-1"></a>crosstab <span class="ot">&lt;-</span> <span class="fu">svytable</span>(<span class="sc">~</span>samp <span class="sc">+</span> marital_status, <span class="at">design =</span> survey_ecu)</span>
-<span id="cb14-199"><a href="#cb14-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-200"><a href="#cb14-200" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate percentages</span></span>
-<span id="cb14-201"><a href="#cb14-201" aria-hidden="true" tabindex="-1"></a>crosstab_percentages <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">prop.table</span>(crosstab,<span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span>,<span class="dv">2</span>) </span>
-<span id="cb14-202"><a href="#cb14-202" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb14-203"><a href="#cb14-203" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the table</span></span>
-<span id="cb14-204"><a href="#cb14-204" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(crosstab_percentages, </span>
-<span id="cb14-205"><a href="#cb14-205" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Crosstab of Occupation by Marital Status (%)&quot;</span>)</span>
-<span id="cb14-206"><a href="#cb14-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-207"><a href="#cb14-207" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb14-208"><a href="#cb14-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-209"><a href="#cb14-209" aria-hidden="true" tabindex="-1"></a><span class="fu"># Conclusion</span></span>
-<span id="cb14-210"><a href="#cb14-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-211"><a href="#cb14-211" aria-hidden="true" tabindex="-1"></a>This tutorial has offered a glimpse into the initial steps for leveraging open-source tools to analyze survey data. While we have covered essential techniques, the scope for further exploration is vast.</span>
-<span id="cb14-212"><a href="#cb14-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-213"><a href="#cb14-213" aria-hidden="true" tabindex="-1"></a>We invite you to share any open-source solutions to analyze weighted survey data that might have been overlooked or suggest topics for future tutorials on forced displacement data. Contact us by email or social media networks (<span class="co">[</span><span class="ot">Twitter</span><span class="co">](https://twitter.com/jointdatacenter)</span> and <span class="co">[</span><span class="ot">LinkedIn</span><span class="co">](https://www.linkedin.com/company/joint-data-center/)</span>).</span>
-<span id="cb14-214"><a href="#cb14-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-215"><a href="#cb14-215" aria-hidden="true" tabindex="-1"></a><span class="fu"># Extra resources</span></span>
-<span id="cb14-216"><a href="#cb14-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-217"><a href="#cb14-217" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://github.com/pewresearch/pewmethods&gt;</span>: R package developed by the Pew Research Center Methods team to work with survey data.</span>
-<span id="cb14-218"><a href="#cb14-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-219"><a href="#cb14-219" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://github.com/quantipy/quantipy3/&gt;</span>: Python package to read survey data.</span>
+<div class="sourceCode" id="cb17" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Venezuelan in Chile, Colombia, Ecuador, and Peru&quot;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">    embed-resources: true</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc_float: true</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>A step-by-step guide, using R to analyze statistics from host populations and Venezuelans in Chile, Colombia, Ecuador and Peru.</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>The World Bank report <span class="co">[</span><span class="ot">Venezuelan in Chile, Colombia, Ecuador, and Peru</span><span class="co">](https://www.jointdatacenter.org/venezuela-migration-report/)</span> provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys covering the adult population (18 years or older) of Venezuelan and national residents. The World Bank-UNHCR Joint Data Center on Forced Displacement supported the data collection and elaboration of the study and has created this tutorial to help process the data for your own purposes.</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="fu"># Data sources</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>The following surveys are collated into four CSV table files - one per country -- which are cleaned and harmonized. That is, they are of similar structure and have the same variable names and values.</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>| <span class="co">[</span><span class="ot">Country</span><span class="co">]</span>{.underline} | <span class="co">[</span><span class="ot">Survey</span><span class="co">]</span>{.underline}                                                                  | <span class="co">[</span><span class="ot">Modality</span><span class="co">]</span>{.underline} |</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>|---------------|------------------------------------------|---------------|</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>| **Chile**             | Encuesta de Migración                                                                 | Telephone              |</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>| **Chile**             | Labor Survey                                                                          | In-person              |</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>| **Colombia**          | Gran Encuesta Integrada de Hogares (GEIH)                                             | In-person              |</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>| **Colombia**          | Migration Pulse (Round 4)                                                             | Telephone              |</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>| **Ecuador**           | Encuesta a Personas en Movilidad Humana y en Comunidades Receptoras en Ecuador (EPEC) | In-person              |</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>| **Ecuador**           | High-Frequency Phone Surveys (HFPS)                                                   | Telephone              |</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>| **Peru**              | Encuesta Nacional de Hogares (ENAHO)                                                  | In-person              |</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>| **Peru**              | Encuesta Dirigida a la Población Venezolana (ENPOVE)                                  | In-person              |</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="fu"># How to analyze survey data using open-source solutions?</span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>Survey data have unique characteristics that set them apart from other data sources. A weight is assigned to each observation which allows the inferences from a limited and biased sample to be made. Weighted values are crucial to make an inference from the sample (Venezuelans and hosts that responded to the surveys) to the population (all Venezuelans and hosts).</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>Although proprietary software analyzes weighted surveys with graphic interfaces, open-source tools present more challenges for beginners. The most common approach requires knowledge of <span class="co">[</span><span class="ot">programming languages like R</span><span class="co">](https://www.r-project.org/)</span>, which is designed for statistical analysis and provides a range of ways to analyze survey data. If you are unfamiliar with R, you can download <span class="co">[</span><span class="ot">RStudio</span><span class="co">](https://posit.co/download/rstudio-desktop/)</span> and use an <span class="co">[</span><span class="ot">introductory video</span><span class="co">](https://www.youtube.com/watch?v=FIrsOBy5k58)</span> to install it and run your first R codes.</span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a><span class="fu"># Analyzing the data using R</span></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>The examples below use R to conduct basic analysis on the microdata in **Venezuelan in Chile, Colombia, Ecuador, and Peru**.</span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>Different styles represent R code and its outputs. For example, the code with a <span class="co">[</span><span class="ot">`print`</span><span class="co">](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/print)</span> command below shows the message quoted as an output.</span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Coding is easy!&quot;</span>)</span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a><span class="fu">### Load libraries</span></span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>First, we will load the libraries needed for our tutorial using the <span class="co">[</span><span class="ot">`library`</span><span class="co">](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/library)</span> command. We explain the main purpose of each one as comments placed after the hashtag (<span class="in">`#`</span>).</span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey) <span class="co"># to handle survey weights</span></span>
+<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># to manipulate data easily</span></span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visdat) <span class="co"># to visualize missing values</span></span>
+<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr) <span class="co"># to format output nicely</span></span>
+<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a><span class="fu">### How to read the data</span></span>
+<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a>To read the survey data and inspect the information available, we use the dataset for Ecuador as an example.</span>
+<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a>file_name <span class="ot">=</span> <span class="st">&quot;https://www.jointdatacenter.org/wp-content/uploads/2024/02/ecu_host_mig.csv&quot;</span> </span>
+<span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">read.csv</span>(file_name)</span>
+<span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a>You can select data for a different country by changing the URL after the <span class="in">`file_name`</span> variable. All datasets and data dictionaries are available on our website: <span class="ot">&lt;https://www.jointdatacenter.org/venezuelan-migration-data/&gt;</span></span>
+<span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a>To choose a country other than Ecuador, visit the page above, right-click on &quot;Cleaned survey data (CSV)&quot;, choose &quot;Copy link address&quot;, and change the URL, ensuring the quotes are preserved.</span>
+<span id="cb17-79"><a href="#cb17-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-80"><a href="#cb17-80" aria-hidden="true" tabindex="-1"></a>In the second line of the code block above, the <span class="co">[</span><span class="ot">`read.csv`</span><span class="co">](https://www.rdocumentation.org/packages/qtl2/versions/0.32/topics/read_csv)</span> command loads the data in the URL or file path specified in the first line.</span>
+<span id="cb17-81"><a href="#cb17-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-82"><a href="#cb17-82" aria-hidden="true" tabindex="-1"></a>Next, check the number of rows (observations), columns (variables), their respective data types and some sample values.</span>
+<span id="cb17-83"><a href="#cb17-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-86"><a href="#cb17-86" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-87"><a href="#cb17-87" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(survey) <span class="co"># print the survey STRucture</span></span>
+<span id="cb17-88"><a href="#cb17-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-89"><a href="#cb17-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-90"><a href="#cb17-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-91"><a href="#cb17-91" aria-hidden="true" tabindex="-1"></a>It shows there are <span class="in">`r nrow(survey)`</span> rows and <span class="in">`r ncol(survey)`</span> columns. The output also shows the column names after the dollar sign, the data type (<span class="in">`int`</span> and <span class="in">`num`</span> for numeric values, <span class="in">`chr`</span> for text strings) and values from the first rows.</span>
+<span id="cb17-92"><a href="#cb17-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-93"><a href="#cb17-93" aria-hidden="true" tabindex="-1"></a>Variables that have missing values are represented by NA for numeric variables and empty quotes for categorical.</span>
+<span id="cb17-94"><a href="#cb17-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-95"><a href="#cb17-95" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">`str()`</span><span class="co">](https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/str)</span> function provides a concise summary of the dataset, showing its data type, dimensions, and content.</span>
+<span id="cb17-96"><a href="#cb17-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-97"><a href="#cb17-97" aria-hidden="true" tabindex="-1"></a><span class="fu">## Preliminary analysis</span></span>
+<span id="cb17-98"><a href="#cb17-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-99"><a href="#cb17-99" aria-hidden="true" tabindex="-1"></a>To understand how each country file is structured, review some core variables. You can find detailed descriptions for all available variables in the data dictionaries (<span class="co">[</span><span class="ot">codebooks</span><span class="co">](https://www.jointdatacenter.org/venezuelan-migration-data/)</span>).</span>
+<span id="cb17-100"><a href="#cb17-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-101"><a href="#cb17-101" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`survey`</span>: the name of the survey;</span>
+<span id="cb17-102"><a href="#cb17-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-103"><a href="#cb17-103" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`wave`</span>: the wave of the survey. Surveys might have more than one round, known as waves. Each wave is collected in a distinct period of time.</span>
+<span id="cb17-104"><a href="#cb17-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-105"><a href="#cb17-105" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`samp`</span>: indicate whether the response comes from Venezuelan or the host population;</span>
+<span id="cb17-106"><a href="#cb17-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-107"><a href="#cb17-107" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`weight`</span>: the weight assigned for each record to produce unbiased estimates;</span>
+<span id="cb17-108"><a href="#cb17-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-109"><a href="#cb17-109" aria-hidden="true" tabindex="-1"></a>Each file aggregates different surveys from the same country. Therefore, you should use the variables <span class="in">`survey`</span> and <span class="in">`wave`</span> to filter the data and pick the right source depending on your question. Because distinct surveys cover different questions, some rows have missing values.</span>
+<span id="cb17-110"><a href="#cb17-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-111"><a href="#cb17-111" aria-hidden="true" tabindex="-1"></a><span class="fu">### How to inspect missing values</span></span>
+<span id="cb17-112"><a href="#cb17-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-113"><a href="#cb17-113" aria-hidden="true" tabindex="-1"></a>To identify the missing information, plot the values for each column and surveys. The chart shows more records from the *Encuesta de personas en Movilidad y Comunidades de Acogida* (EPEC) survey than *High-Frequency Phone Surveys* (HFPS). The highlighted regions make it easy to spot which variables have missing values.</span>
+<span id="cb17-114"><a href="#cb17-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-115"><a href="#cb17-115" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">`vis_miss()`</span><span class="co">](https://www.rdocumentation.org/packages/visdat/versions/0.6.0/topics/vis_miss)</span> function is used to visualize missing data in a dataset. It takes the dataset <span class="in">`survey`</span><span class="sc">\`</span> as the first parameter and a column to group (facet) the observations.</span>
+<span id="cb17-116"><a href="#cb17-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-117"><a href="#cb17-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.width=9}</span></span>
+<span id="cb17-118"><a href="#cb17-118" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_miss</span>(survey,<span class="at">facet =</span> survey)</span>
+<span id="cb17-119"><a href="#cb17-119" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-120"><a href="#cb17-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-121"><a href="#cb17-121" aria-hidden="true" tabindex="-1"></a>To keep it simple, our tutorial analyses only information on age, marital status, region, and population type (host or Venezuelan) in the HPFS survey. As the image shows, these variables have no missing values.</span>
+<span id="cb17-122"><a href="#cb17-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-123"><a href="#cb17-123" aria-hidden="true" tabindex="-1"></a>Missing values are crucial to the data preparation phase. You might need to drop missing values or impute values to conduct other analyses. Your chosen strategy depends on why values are missing, the number of missing values, and your analytical goals. Refer to the data dictionary and documentation to understand the reasons for missing values.</span>
+<span id="cb17-124"><a href="#cb17-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-125"><a href="#cb17-125" aria-hidden="true" tabindex="-1"></a><span class="fu">### Records by surveys and waves</span></span>
+<span id="cb17-126"><a href="#cb17-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-127"><a href="#cb17-127" aria-hidden="true" tabindex="-1"></a>Before applying the weights, we will check the total number of respondents by survey, wave and population.</span>
+<span id="cb17-128"><a href="#cb17-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-129"><a href="#cb17-129" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">`group_by`</span><span class="co">](https://www.rdocumentation.org/packages/dplyr/versions/0.2/topics/group_by)</span> function is used to group data by one or more variables. This command doesn&#39;t change the dataset; rather, it sets up a new configuration for subsequent operations within each group. The <span class="co">[</span><span class="ot">`summarise`</span><span class="co">](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/summarise)</span> function is used to compute summary statistics or metrics for each group. Finally, the <span class="co">[</span><span class="ot">`kable()`</span><span class="co">](https://www.rdocumentation.org/packages/knitr/versions/1.45/topics/kable)</span> function presents the result better than the standard output.</span>
+<span id="cb17-130"><a href="#cb17-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-133"><a href="#cb17-133" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-134"><a href="#cb17-134" aria-hidden="true" tabindex="-1"></a>summary_df <span class="ot">&lt;-</span> survey <span class="sc">%&gt;%</span> </span>
+<span id="cb17-135"><a href="#cb17-135" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(survey, wave, samp) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-136"><a href="#cb17-136" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">&#39;drop&#39;</span>)</span>
+<span id="cb17-137"><a href="#cb17-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-138"><a href="#cb17-138" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-139"><a href="#cb17-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-142"><a href="#cb17-142" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-143"><a href="#cb17-143" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the table</span></span>
+<span id="cb17-144"><a href="#cb17-144" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(summary_df, <span class="at">caption =</span> <span class="st">&quot;Number of records by survey, wave and population&quot;</span>)</span>
+<span id="cb17-145"><a href="#cb17-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-146"><a href="#cb17-146" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-147"><a href="#cb17-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-148"><a href="#cb17-148" aria-hidden="true" tabindex="-1"></a>So far, the dataset reflects the number of responses from an unweighted sample of Venezuelan and host population. Next, we demonstrate how to use weights to calculate representative estimates.</span>
+<span id="cb17-149"><a href="#cb17-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-150"><a href="#cb17-150" aria-hidden="true" tabindex="-1"></a><span class="fu">## Configure the survey design</span></span>
+<span id="cb17-151"><a href="#cb17-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-152"><a href="#cb17-152" aria-hidden="true" tabindex="-1"></a>As different surveys present distinct questions, select the survey according to the goals of your analysis. Most of the indicators from Ecuador come from the HFPS, except those referring to job occupations and health insurance, which come from the EPEC survey.</span>
+<span id="cb17-153"><a href="#cb17-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-154"><a href="#cb17-154" aria-hidden="true" tabindex="-1"></a>Select the HFPS survey to calculate and compare the average age of Venezuelan and the host population in Ecuador. Let&#39;s start filtering the dataset to get only observations from the HFPS using the <span class="co">[</span><span class="ot">`filter()`</span><span class="co">](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/filter)</span> function.</span>
+<span id="cb17-155"><a href="#cb17-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-158"><a href="#cb17-158" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-159"><a href="#cb17-159" aria-hidden="true" tabindex="-1"></a>survey_filter <span class="ot">&lt;-</span> survey <span class="sc">%&gt;%</span> </span>
+<span id="cb17-160"><a href="#cb17-160" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(survey <span class="sc">==</span> <span class="st">&quot;HFPS&quot;</span>)</span>
+<span id="cb17-161"><a href="#cb17-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-162"><a href="#cb17-162" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-163"><a href="#cb17-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-164"><a href="#cb17-164" aria-hidden="true" tabindex="-1"></a>Next, we load the survey design and the weights associated with each response. There are a variety of ways to implement weighted data analysis using R. For convenience, we use the function <span class="co">[</span><span class="ot">`svydesign`</span><span class="co">](https://www.rdocumentation.org/packages/survey/versions/4.4-1/topics/svydesign)</span> from <span class="co">[</span><span class="ot">`survey`</span><span class="co">](https://cran.r-project.org/package=survey)</span>, an R package with pre-built features tailored for survey analysis. It allows for the specification of survey design parameters such as sampling weights.</span>
+<span id="cb17-165"><a href="#cb17-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-168"><a href="#cb17-168" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-169"><a href="#cb17-169" aria-hidden="true" tabindex="-1"></a>survey_ecu <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span><span class="dv">1</span>, <span class="co"># ~1 means the survey has no clusters</span></span>
+<span id="cb17-170"><a href="#cb17-170" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data=</span> survey_filter, </span>
+<span id="cb17-171"><a href="#cb17-171" aria-hidden="true" tabindex="-1"></a>                       <span class="at">weights =</span> survey_filter<span class="sc">$</span>weight)</span>
+<span id="cb17-172"><a href="#cb17-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-173"><a href="#cb17-173" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-174"><a href="#cb17-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-175"><a href="#cb17-175" aria-hidden="true" tabindex="-1"></a><span class="fu">## Descriptive statistic</span></span>
+<span id="cb17-176"><a href="#cb17-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-177"><a href="#cb17-177" aria-hidden="true" tabindex="-1"></a>Creating basic summary statistics using the <span class="in">`survey`</span> package is straightforward. Our tutorial shows how to group observations and analyze numeric and categorical variables. If you group by region (the column <span class="in">`code_province`</span>), bear in mind that the weights are not meant for this level of disaggregation, and the estimates may not accurately reflect the characteristics of these populations in each region.</span>
+<span id="cb17-178"><a href="#cb17-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-179"><a href="#cb17-179" aria-hidden="true" tabindex="-1"></a><span class="fu">### Numeric values</span></span>
+<span id="cb17-180"><a href="#cb17-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-181"><a href="#cb17-181" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">`svyby`</span><span class="co">](https://www.rdocumentation.org/packages/survey/versions/4.2-1/topics/svyby)</span> function is used to apply a function to subsets of survey data defined by one or more variables. We will use it to group the records by the population type (<span class="in">`~samp`</span>) and calculate the mean age (<span class="co">[</span><span class="ot">`svymean`</span><span class="co">](https://www.rdocumentation.org/packages/survey/versions/2.8-1/topics/surveysummary)</span>).</span>
+<span id="cb17-182"><a href="#cb17-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-183"><a href="#cb17-183" aria-hidden="true" tabindex="-1"></a>The output shows the mean and the standard error (<span class="in">`se`</span>) for each estimate. Standard error values use the same unit of measurement as the mean. They represent how much the sample mean calculated is expected to vary from the actual population mean.</span>
+<span id="cb17-184"><a href="#cb17-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-187"><a href="#cb17-187" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-188"><a href="#cb17-188" aria-hidden="true" tabindex="-1"></a><span class="co"># Group by and calculate the mean age</span></span>
+<span id="cb17-189"><a href="#cb17-189" aria-hidden="true" tabindex="-1"></a><span class="fu">svyby</span>(<span class="at">formula =</span> <span class="sc">~</span>age, <span class="at">by =</span> <span class="sc">~</span>samp, <span class="at">design =</span> survey_ecu, svymean)</span>
+<span id="cb17-190"><a href="#cb17-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-191"><a href="#cb17-191" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-192"><a href="#cb17-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-193"><a href="#cb17-193" aria-hidden="true" tabindex="-1"></a><span class="fu">### Categoric variables</span></span>
+<span id="cb17-194"><a href="#cb17-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-195"><a href="#cb17-195" aria-hidden="true" tabindex="-1"></a>The <span class="in">`svytable`</span> function is used to create contingency tables for survey data, taking into account survey design features such as sampling weights. Next, we use it to analyze marital status.</span>
+<span id="cb17-196"><a href="#cb17-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-197"><a href="#cb17-197" aria-hidden="true" tabindex="-1"></a>Using <span class="co">[</span><span class="ot">`prop.table(crosstab, 1)`</span><span class="co">](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/prop.table)</span>, we present the values as percentages of the population/row level (using 0 instead of 1 in the command would sum the values to 100 across columns). Additionally, we round the values to two decimal places with <span class="co">[</span><span class="ot">`round()`</span><span class="co">](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/Round)</span>.</span>
+<span id="cb17-198"><a href="#cb17-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-201"><a href="#cb17-201" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-202"><a href="#cb17-202" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-tabulates values</span></span>
+<span id="cb17-203"><a href="#cb17-203" aria-hidden="true" tabindex="-1"></a>crosstab <span class="ot">&lt;-</span> <span class="fu">svytable</span>(<span class="sc">~</span>samp <span class="sc">+</span> marital_status, <span class="at">design =</span> survey_ecu)</span>
+<span id="cb17-204"><a href="#cb17-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-205"><a href="#cb17-205" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-206"><a href="#cb17-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-209"><a href="#cb17-209" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-210"><a href="#cb17-210" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate percentages</span></span>
+<span id="cb17-211"><a href="#cb17-211" aria-hidden="true" tabindex="-1"></a>crosstab_percentages <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">prop.table</span>(crosstab,<span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span>,<span class="dv">2</span>) </span>
+<span id="cb17-212"><a href="#cb17-212" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb17-213"><a href="#cb17-213" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-214"><a href="#cb17-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-217"><a href="#cb17-217" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-218"><a href="#cb17-218" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the table</span></span>
+<span id="cb17-219"><a href="#cb17-219" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(crosstab_percentages, </span>
+<span id="cb17-220"><a href="#cb17-220" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Crosstab of Occupation by Marital Status (%)&quot;</span>)</span>
+<span id="cb17-221"><a href="#cb17-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-222"><a href="#cb17-222" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-223"><a href="#cb17-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-224"><a href="#cb17-224" aria-hidden="true" tabindex="-1"></a><span class="fu"># Conclusion</span></span>
+<span id="cb17-225"><a href="#cb17-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-226"><a href="#cb17-226" aria-hidden="true" tabindex="-1"></a>This tutorial has offered a glimpse into the initial steps for leveraging open-source tools to analyze survey data. While we have covered essential techniques, the scope for further exploration is vast.</span>
+<span id="cb17-227"><a href="#cb17-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-228"><a href="#cb17-228" aria-hidden="true" tabindex="-1"></a>We invite you to share open-source solutions to analyze weighted survey data that might have been overlooked or suggest topics for future tutorials on forced displacement data. Contact us by email or social media networks (<span class="co">[</span><span class="ot">Twitter</span><span class="co">](https://twitter.com/jointdatacenter)</span> and <span class="co">[</span><span class="ot">LinkedIn</span><span class="co">](https://www.linkedin.com/company/joint-data-center/)</span>).</span>
+<span id="cb17-229"><a href="#cb17-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-230"><a href="#cb17-230" aria-hidden="true" tabindex="-1"></a><span class="fu"># Extra resources</span></span>
+<span id="cb17-231"><a href="#cb17-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-232"><a href="#cb17-232" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://github.com/pewresearch/pewmethods&gt;</span>: R package developed by the Pew Research Center Methods team to work with survey data.</span>
+<span id="cb17-233"><a href="#cb17-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-234"><a href="#cb17-234" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://github.com/quantipy/quantipy3/&gt;</span>: Python package to read survey data.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
