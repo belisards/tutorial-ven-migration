@@ -37,7 +37,7 @@ Although proprietary software analyzes weighted surveys with graphic interfaces,
 
 # Analyzing the data using R
 
-The examples below use R to conduct basic analysis on the microdata in **Venezuelan in Chile, Colombia, Ecuador, and Peru**.
+The examples below use R to conduct basic analysis on the microdata in the report [**Venezuelan in Chile, Colombia, Ecuador, and Peru**](https://www.jointdatacenter.org/venezuela-migration-report/).
 
 Different styles represent R code and its outputs. For example, the code with a [`print`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/print) command below shows the message quoted as an output.
 
