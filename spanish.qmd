@@ -1,5 +1,5 @@
 ---
-title: "Venezuelans in Chile, Colombia, Ecuador, and Peru"
+title: "Venezolanos en Chile, Colombia, Ecuador y Perú"
 format: 
   html:
     toc: true
@@ -8,18 +8,20 @@ format:
     code-tools: true
 ---
 
-A step-by-step guide, using R to analyze statistics from host populations and Venezuelans in Chile, Colombia, Ecuador and Peru.
+Una guía paso a paso, utilizando R para analizar estadísticas de las poblaciones anfitrionas y venezolanos en Chile, Colombia, Ecuador y Perú.
 
-# Introduction
+# Introducción
 
-The World Bank report [Venezuelans in Chile, Colombia, Ecuador, and Peru](https://www.jointdatacenter.org/venezuela-migration-report/) provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys covering the adult population (18 years or older) of Venezuelan and national residents. The World Bank-UNHCR Joint Data Center on Forced Displacement supported the data collection and elaboration of the study and has created this guide to help process the data for your own purposes.
+The World Bank report [Venezuelan in Chile, Colombia, Ecuador, and Peru](https://www.jointdatacenter.org/venezuela-migration-report/) provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys covering the adult population (18 years or older) of Venezuelan and national residents. The World Bank-UNHCR Joint Data Center on Forced Displacement supported the data collection and elaboration of the study and has created this guide to help process the data for your own purposes.
 
-# Data sources
+El informe del Banco Mundial - [Venezolanos en Chile, Colombia, Ecuador y Perú](https://www.jointdatacenter.org/venezuela-migration-report/) - proporciona un perfil socioeconómico detallado de los venezolanos en estos cuatro países para ayudar a guiar la respuesta política e institucional. El estudio utiliza datos oficiales de varias encuestas que cubren la población adulta (18 años o más) de residentes venezolanos y nacionales. El Centro Conjunto de Datos sobre Desplazamiento Forzado del Banco Mundial-ACNUR apoyó la recolección de datos y elaboración del estudio y ha creado esta guía para ayudar a procesar los datos para sus propios fines.
 
-The following surveys are collated into four CSV table files - one per country -- which are cleaned and harmonized. That is, they are of similar structure and have the same variable names and values.
+# Fuentes de datos
+
+Las siguientes encuestas se compilan en cuatro archivos de tabla CSV, uno por país, que se limpian y armonizan. Es decir, tienen una estructura similar y tienen los mismos nombres de variables y valores.
 
 | [Country]{.underline} | [Survey]{.underline}                                                                  | [Modality]{.underline} |
-|-----------------|---------------------------------------|-----------------|
+|----------------|----------------------------------------|----------------|
 | **Chile**             | Encuesta de Migración                                                                 | Telephone              |
 | **Chile**             | Labor Survey                                                                          | In-person              |
 | **Colombia**          | Gran Encuesta Integrada de Hogares (GEIH)                                             | In-person              |
@@ -28,6 +30,58 @@ The following surveys are collated into four CSV table files - one per country -
 | **Ecuador**           | High-Frequency Phone Surveys (HFPS)                                                   | Telephone              |
 | **Peru**              | Encuesta Nacional de Hogares (ENAHO)                                                  | In-person              |
 | **Peru**              | Encuesta Dirigida a la Población Venezolana (ENPOVE)                                  | In-person              |
+
+# ¿Cómo analizar datos de encuestas utilizando soluciones de código abierto?
+
+Los datos de las encuestas tienen características únicas que los distinguen de otras fuentes de datos. Se asigna un peso a cada observación, lo que permite hacer inferencias a partir de una muestra limitada y sesgada. Los valores ponderados son cruciales para hacer una inferencia de la muestra (venezolanos y anfitriones que respondieron a las encuestas) a la población (todos los venezolanos y anfitriones).
+
+Aunque el software propietario analiza encuestas ponderadas con interfaces gráficas, las herramientas de código abierto presentan más desafíos para los principiantes. El enfoque más común requiere conocimiento de lenguajes de programación como R, que está diseñado para análisis estadístico y ofrece una variedad de formas de analizar datos de encuestas. Si no está familiarizado con R, puede descargar RStudio y usar un video introductorio para instalarlo y ejecutar sus primeros códigos R.
+
+# Analizando los datos usando R
+
+Los ejemplos a continuación usan R para realizar un análisis básico sobre los microdatos en el informe [**Venezolano en Chile, Colombia, Ecuador y Perú**](https://www.jointdatacenter.org/venezuela-migration-report/).
+
+Diferentes estilos representan el código R y sus salidas. Por ejemplo, el código con un comando [`print`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/print) a continuación muestra el mensaje citado como salida.
+
+## Análisis preliminar
+
+Para entender cómo está estructurado el archivo de cada país, revise algunas variables principales. Puede encontrar descripciones detalladas para todas las variables disponibles en los diccionarios de datos ([libros de códigos](https://www.jointdatacenter.org/venezuelan-migration-data/)).
+
+### Cómo inspeccionar valores faltantes
+
+Para identificar la información faltante, grafique los valores para cada columna y encuestas. El gráfico muestra más registros de la encuesta *Encuesta de personas en Movilidad y Comunidades de Acogida* (EPEC) que *Encuestas Telefónicas de Alta Frecuencia* (HFPS). Las regiones resaltadas facilitan la identificación de qué variables tienen valores faltantes.
+
+### Registros por encuestas y oleadas
+
+Antes de aplicar los pesos, verificaremos el número total de encuestados por encuesta, oleada y población.
+
+Hasta ahora, el conjunto de datos refleja el número de respuestas de una muestra no ponderada de la población venezolana y anfitriona. A continuación, demostramos cómo usar los pesos para calcular estimaciones representativas.
+
+## Configurar el diseño de la encuesta
+
+A medida que diferentes encuestas presentan preguntas distintas, seleccione la encuesta de acuerdo a los objetivos de su análisis.
+
+## Estadísticas descriptivas
+
+Crear estadísticas resumidas básicas usando el paquete `survey` es sencillo. Nuestro tutorial muestra cómo agrupar observaciones y analizar variables numéricas y categóricas.
+
+### Valores numéricos
+
+### Variables categóricas
+
+# Conclusión
+
+Esta guía ha ofrecido una visión de los pasos iniciales para aprovechar las herramientas de código abierto para analizar datos de encuestas. Si bien hemos cubierto técnicas esenciales, el alcance para una exploración más profunda es vasto.
+
+Le invitamos a compartir soluciones de código abierto para analizar datos de encuestas ponderadas que podrían haber sido pasadas por alto o sugerir temas para futuras guías sobre datos de desplazamiento forzado. Contáctenos por correo electrónico o redes sociales ([Twitter](https://twitter.com/jointdatacenter) y [LinkedIn](https://www.linkedin.com/company/joint-data-center/)).
+
+# Recursos adicionales
+
+<https://github.com/pewresearch/pewmethods>: Paquete R desarrollado por el equipo de métodos del Centro de Investigaciones Pew para trabajar con datos de encuestas.
+
+<https://github.com/quantipy/quantipy3/>: Paquete de Python para leer datos de encuestas.
+
+\-\--
 
 # How to analyze survey data using open-source solutions?
 

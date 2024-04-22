@@ -5,6 +5,10 @@ website:
   title: "Data guide"
   navbar:
     left:
+      - href: index.qmd
+        text: Guide in English
+      - href: spanish.qmd
+        text: Guide in Spanish
       - href: https://www.jointdatacenter.org/venezuela-migration-report/
         text: Full report
       - href: https://www.jointdatacenter.org/venezuelan-migration-data/
