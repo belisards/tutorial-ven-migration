@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data guide - Venezuelan in Chile, Colombia, Ecuador, and Peru</title>
+<title>Data guide - Venezuelans in Chile, Colombia, Ecuador, and Peru</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -4005,6 +4005,25 @@ vertical-align: -.125em;
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-globe" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-globe" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-bi-globe">    
+        <li>
+    <a class="dropdown-item" href="./index.html">
+ <span class="dropdown-text">Guide in English</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./spanish.html">
+ <span class="dropdown-text">Guide in Spanish</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
     <a class="nav-link" href="https://www.jointdatacenter.org/venezuela-migration-report/">
  <span class="menu-text">Full report</span></a>
@@ -4015,7 +4034,7 @@ vertical-align: -.125em;
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="https://www.jointdatacenter.org/">
- <span class="menu-text">JDC website</span></a>
+ <span class="menu-text">Joint Data Center on Forced Displacement</span></a>
   </li>  
 </ul>
               <div id="quarto-search" class title="Search"></div>
@@ -4061,7 +4080,7 @@ vertical-align: -.125em;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Venezuelan in Chile, Colombia, Ecuador, and Peru</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Venezuelans in Chile, Colombia, Ecuador, and Peru</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -4079,7 +4098,7 @@ vertical-align: -.125em;
 <p>A step-by-step guide, using R to analyze statistics from host populations and Venezuelans in Chile, Colombia, Ecuador and Peru.</p>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>The World Bank report <a href="https://www.jointdatacenter.org/venezuela-migration-report/">Venezuelan in Chile, Colombia, Ecuador, and Peru</a> provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys covering the adult population (18 years or older) of Venezuelan and national residents. The World Bank-UNHCR Joint Data Center on Forced Displacement supported the data collection and elaboration of the study and has created this guide to help process the data for your own purposes.</p>
+<p>The World Bank report <a href="https://www.jointdatacenter.org/venezuela-migration-report/">Venezuelans in Chile, Colombia, Ecuador, and Peru</a> provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys covering the adult population (18 years or older) of Venezuelan and national residents. The World Bank-UNHCR Joint Data Center on Forced Displacement supported the data collection and elaboration of the study and has created this guide to help process the data for your own purposes.</p>
 </section>
 <section id="data-sources" class="level1">
 <h1>Data sources</h1>
@@ -4235,7 +4254,7 @@ vertical-align: -.125em;
 <section id="how-to-inspect-missing-values" class="level3">
 <h3 class="anchored" data-anchor-id="how-to-inspect-missing-values">How to inspect missing values</h3>
 <p>To identify the missing information, plot the values for each column and surveys. The chart shows more records from the <em>Encuesta de personas en Movilidad y Comunidades de Acogida</em> (EPEC) survey than <em>High-Frequency Phone Surveys</em> (HFPS). The highlighted regions make it easy to spot which variables have missing values.</p>
-<p>The <a href="https://www.rdocumentation.org/packages/visdat/versions/0.6.0/topics/vis_miss"><code>vis_miss()</code></a> function is used to visualize missing data in a dataset. It takes the dataset <code>survey</code>` as the first parameter and a column to group (facet) the observations.</p>
+<p>The <a href="https://www.rdocumentation.org/packages/visdat/versions/0.6.0/topics/vis_miss"><code>vis_miss()</code></a> function is used to visualize missing data in a dataset. It takes the dataset <code>survey</code> as the first parameter and a column to group (facet) the observations.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_miss</span>(survey,<span class="at">facet =</span> survey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -4382,7 +4401,7 @@ Migrants Migrants 36.09989 0.5309258</code></pre>
 <section id="conclusion" class="level1">
 <h1>Conclusion</h1>
 <p>This guide has offered a glimpse into the initial steps for leveraging open-source tools to analyze survey data. While we have covered essential techniques, the scope for further exploration is vast.</p>
-<p>We invite you to share open-source solutions to analyze weighted survey data that might have been overlooked or suggest topics for future guides on forced displacement data. Contact us by email or social media networks (<a href="https://twitter.com/jointdatacenter">Twitter</a> and <a href="https://www.linkedin.com/company/joint-data-center/">LinkedIn</a>).</p>
+<p>We invite you to share other open-source solutions to analyze weighted survey data or suggest topics for future guides on forced displacement data. Contact us by email or social media networks (<a href="https://twitter.com/jointdatacenter">Twitter</a> and <a href="https://www.linkedin.com/company/joint-data-center/">LinkedIn</a>).</p>
 </section>
 <section id="extra-resources" class="level1">
 <h1>Extra resources</h1>
@@ -4580,7 +4599,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class>
 <div class="sourceCode" id="cb17" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Venezuelan in Chile, Colombia, Ecuador, and Peru&quot;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Venezuelans in Chile, Colombia, Ecuador, and Peru&quot;</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
@@ -4593,7 +4612,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction</span></span>
 <span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>The World Bank report <span class="co">[</span><span class="ot">Venezuelan in Chile, Colombia, Ecuador, and Peru</span><span class="co">](https://www.jointdatacenter.org/venezuela-migration-report/)</span> provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys covering the adult population (18 years or older) of Venezuelan and national residents. The World Bank-UNHCR Joint Data Center on Forced Displacement supported the data collection and elaboration of the study and has created this guide to help process the data for your own purposes.</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>The World Bank report <span class="co">[</span><span class="ot">Venezuelans in Chile, Colombia, Ecuador, and Peru</span><span class="co">](https://www.jointdatacenter.org/venezuela-migration-report/)</span> provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys covering the adult population (18 years or older) of Venezuelan and national residents. The World Bank-UNHCR Joint Data Center on Forced Displacement supported the data collection and elaboration of the study and has created this guide to help process the data for your own purposes.</span>
 <span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="fu"># Data sources</span></span>
 <span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
@@ -4685,7 +4704,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-112"><a href="#cb17-112" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-113"><a href="#cb17-113" aria-hidden="true" tabindex="-1"></a>To identify the missing information, plot the values for each column and surveys. The chart shows more records from the *Encuesta de personas en Movilidad y Comunidades de Acogida* (EPEC) survey than *High-Frequency Phone Surveys* (HFPS). The highlighted regions make it easy to spot which variables have missing values.</span>
 <span id="cb17-114"><a href="#cb17-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-115"><a href="#cb17-115" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">`vis_miss()`</span><span class="co">](https://www.rdocumentation.org/packages/visdat/versions/0.6.0/topics/vis_miss)</span> function is used to visualize missing data in a dataset. It takes the dataset <span class="in">`survey`</span><span class="sc">\`</span> as the first parameter and a column to group (facet) the observations.</span>
+<span id="cb17-115"><a href="#cb17-115" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">`vis_miss()`</span><span class="co">](https://www.rdocumentation.org/packages/visdat/versions/0.6.0/topics/vis_miss)</span> function is used to visualize missing data in a dataset. It takes the dataset <span class="in">`survey`</span> as the first parameter and a column to group (facet) the observations.</span>
 <span id="cb17-116"><a href="#cb17-116" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-117"><a href="#cb17-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.width=9}</span></span>
 <span id="cb17-118"><a href="#cb17-118" aria-hidden="true" tabindex="-1"></a>visdat<span class="sc">::</span><span class="fu">vis_miss</span>(survey,<span class="at">facet =</span> survey)</span>
@@ -4782,7 +4801,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-225"><a href="#cb17-225" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-226"><a href="#cb17-226" aria-hidden="true" tabindex="-1"></a>This guide has offered a glimpse into the initial steps for leveraging open-source tools to analyze survey data. While we have covered essential techniques, the scope for further exploration is vast.</span>
 <span id="cb17-227"><a href="#cb17-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-228"><a href="#cb17-228" aria-hidden="true" tabindex="-1"></a>We invite you to share open-source solutions to analyze weighted survey data that might have been overlooked or suggest topics for future guides on forced displacement data. Contact us by email or social media networks (<span class="co">[</span><span class="ot">Twitter</span><span class="co">](https://twitter.com/jointdatacenter)</span> and <span class="co">[</span><span class="ot">LinkedIn</span><span class="co">](https://www.linkedin.com/company/joint-data-center/)</span>).</span>
+<span id="cb17-228"><a href="#cb17-228" aria-hidden="true" tabindex="-1"></a>We invite you to share other open-source solutions to analyze weighted survey data or suggest topics for future guides on forced displacement data. Contact us by email or social media networks (<span class="co">[</span><span class="ot">Twitter</span><span class="co">](https://twitter.com/jointdatacenter)</span> and <span class="co">[</span><span class="ot">LinkedIn</span><span class="co">](https://www.linkedin.com/company/joint-data-center/)</span>).</span>
 <span id="cb17-229"><a href="#cb17-229" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-230"><a href="#cb17-230" aria-hidden="true" tabindex="-1"></a><span class="fu"># Extra resources</span></span>
 <span id="cb17-231"><a href="#cb17-231" aria-hidden="true" tabindex="-1"></a></span>

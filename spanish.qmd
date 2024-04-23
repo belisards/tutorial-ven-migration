@@ -1,5 +1,6 @@
 ---
 title: "Venezolanos en Chile, Colombia, Ecuador y Perú"
+lang: es
 format: 
   html:
     toc: true
@@ -12,8 +13,6 @@ Una guía paso a paso, utilizando R para analizar estadísticas de las poblacion
 
 # Introducción
 
-The World Bank report [Venezuelan in Chile, Colombia, Ecuador, and Peru](https://www.jointdatacenter.org/venezuela-migration-report/) provides a detailed socio-economic profile of Venezuelans in these four countries to help guide the policy and institutional response. The study uses official data from several surveys covering the adult population (18 years or older) of Venezuelan and national residents. The World Bank-UNHCR Joint Data Center on Forced Displacement supported the data collection and elaboration of the study and has created this guide to help process the data for your own purposes.
-
 El informe del Banco Mundial - [Venezolanos en Chile, Colombia, Ecuador y Perú](https://www.jointdatacenter.org/venezuela-migration-report/) - proporciona un perfil socioeconómico detallado de los venezolanos en estos cuatro países para ayudar a guiar la respuesta política e institucional. El estudio utiliza datos oficiales de varias encuestas que cubren la población adulta (18 años o más) de residentes venezolanos y nacionales. El Centro Conjunto de Datos sobre Desplazamiento Forzado del Banco Mundial-ACNUR apoyó la recolección de datos y elaboración del estudio y ha creado esta guía para ayudar a procesar los datos para sus propios fines.
 
 # Fuentes de datos
@@ -21,21 +20,21 @@ El informe del Banco Mundial - [Venezolanos en Chile, Colombia, Ecuador y Perú]
 Las siguientes encuestas se compilan en cuatro archivos de tabla CSV, uno por país, que se limpian y armonizan. Es decir, tienen una estructura similar y tienen los mismos nombres de variables y valores.
 
 | [Country]{.underline} | [Survey]{.underline}                                                                  | [Modality]{.underline} |
-|----------------|----------------------------------------|----------------|
-| **Chile**             | Encuesta de Migración                                                                 | Telephone              |
-| **Chile**             | Labor Survey                                                                          | In-person              |
-| **Colombia**          | Gran Encuesta Integrada de Hogares (GEIH)                                             | In-person              |
-| **Colombia**          | Migration Pulse (Round 4)                                                             | Telephone              |
-| **Ecuador**           | Encuesta a Personas en Movilidad Humana y en Comunidades Receptoras en Ecuador (EPEC) | In-person              |
-| **Ecuador**           | High-Frequency Phone Surveys (HFPS)                                                   | Telephone              |
-| **Peru**              | Encuesta Nacional de Hogares (ENAHO)                                                  | In-person              |
-| **Peru**              | Encuesta Dirigida a la Población Venezolana (ENPOVE)                                  | In-person              |
+|---------------|------------------------------------------|---------------|
+| **Chile**             | Encuesta de Migración                                                                 | Teléfono               |
+| **Chile**             | Encuesta Laboral                                                                      | Personalmente          |
+| **Colombia**          | Gran Encuesta Integrada de Hogares (GEIH)                                             | Personalmente          |
+| **Colombia**          | Pulso de la Migración (Ronda 4)                                                       | Teléfono               |
+| **Ecuador**           | Encuesta a Personas en Movilidad Humana y en Comunidades Receptoras en Ecuador (EPEC) | Personalmente          |
+| **Ecuador**           | Encuestas Telefónicas de Alta Frecuencia (HFPS)                                       | Teléfono               |
+| **Perú**              | Encuesta Nacional de Hogares (ENAHO)                                                  | Personalmente          |
+| **Perú**              | Encuesta Dirigida a la Población Venezolana (ENPOVE)                                  | Personalmente          |
 
 # ¿Cómo analizar datos de encuestas utilizando soluciones de código abierto?
 
 Los datos de las encuestas tienen características únicas que los distinguen de otras fuentes de datos. Se asigna un peso a cada observación, lo que permite hacer inferencias a partir de una muestra limitada y sesgada. Los valores ponderados son cruciales para hacer una inferencia de la muestra (venezolanos y anfitriones que respondieron a las encuestas) a la población (todos los venezolanos y anfitriones).
 
-Aunque el software propietario analiza encuestas ponderadas con interfaces gráficas, las herramientas de código abierto presentan más desafíos para los principiantes. El enfoque más común requiere conocimiento de lenguajes de programación como R, que está diseñado para análisis estadístico y ofrece una variedad de formas de analizar datos de encuestas. Si no está familiarizado con R, puede descargar RStudio y usar un video introductorio para instalarlo y ejecutar sus primeros códigos R.
+Aunque el software propietario analiza encuestas ponderadas con interfaces gráficas, las herramientas de código abierto presentan más desafíos para los principiantes. El enfoque más común requiere conocimiento de [lenguajes de programación como R](https://www.r-project.org/), que está diseñado para análisis estadístico y ofrece una variedad de formas de analizar datos de encuestas. Si no está familiarizado con R, puede descargar [RStudio](https://posit.co/download/rstudio-desktop/) y usar un [video introductorio](https://www.youtube.com/watch?v=TexeDzmlQiY) para instalarlo y ejecutar sus primeros códigos R.
 
 # Analizando los datos usando R
 
@@ -43,77 +42,25 @@ Los ejemplos a continuación usan R para realizar un análisis básico sobre los
 
 Diferentes estilos representan el código R y sus salidas. Por ejemplo, el código con un comando [`print`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/print) a continuación muestra el mensaje citado como salida.
 
-## Análisis preliminar
-
-Para entender cómo está estructurado el archivo de cada país, revise algunas variables principales. Puede encontrar descripciones detalladas para todas las variables disponibles en los diccionarios de datos ([libros de códigos](https://www.jointdatacenter.org/venezuelan-migration-data/)).
-
-### Cómo inspeccionar valores faltantes
-
-Para identificar la información faltante, grafique los valores para cada columna y encuestas. El gráfico muestra más registros de la encuesta *Encuesta de personas en Movilidad y Comunidades de Acogida* (EPEC) que *Encuestas Telefónicas de Alta Frecuencia* (HFPS). Las regiones resaltadas facilitan la identificación de qué variables tienen valores faltantes.
-
-### Registros por encuestas y oleadas
-
-Antes de aplicar los pesos, verificaremos el número total de encuestados por encuesta, oleada y población.
-
-Hasta ahora, el conjunto de datos refleja el número de respuestas de una muestra no ponderada de la población venezolana y anfitriona. A continuación, demostramos cómo usar los pesos para calcular estimaciones representativas.
-
-## Configurar el diseño de la encuesta
-
-A medida que diferentes encuestas presentan preguntas distintas, seleccione la encuesta de acuerdo a los objetivos de su análisis.
-
-## Estadísticas descriptivas
-
-Crear estadísticas resumidas básicas usando el paquete `survey` es sencillo. Nuestro tutorial muestra cómo agrupar observaciones y analizar variables numéricas y categóricas.
-
-### Valores numéricos
-
-### Variables categóricas
-
-# Conclusión
-
-Esta guía ha ofrecido una visión de los pasos iniciales para aprovechar las herramientas de código abierto para analizar datos de encuestas. Si bien hemos cubierto técnicas esenciales, el alcance para una exploración más profunda es vasto.
-
-Le invitamos a compartir soluciones de código abierto para analizar datos de encuestas ponderadas que podrían haber sido pasadas por alto o sugerir temas para futuras guías sobre datos de desplazamiento forzado. Contáctenos por correo electrónico o redes sociales ([Twitter](https://twitter.com/jointdatacenter) y [LinkedIn](https://www.linkedin.com/company/joint-data-center/)).
-
-# Recursos adicionales
-
-<https://github.com/pewresearch/pewmethods>: Paquete R desarrollado por el equipo de métodos del Centro de Investigaciones Pew para trabajar con datos de encuestas.
-
-<https://github.com/quantipy/quantipy3/>: Paquete de Python para leer datos de encuestas.
-
-\-\--
-
-# How to analyze survey data using open-source solutions?
-
-Survey data have unique characteristics that set them apart from other data sources. A weight is assigned to each observation which allows the inferences from a limited and biased sample to be made. Weighted values are crucial to make an inference from the sample (Venezuelans and hosts that responded to the surveys) to the population (all Venezuelans and hosts).
-
-Although proprietary software analyzes weighted surveys with graphic interfaces, open-source tools present more challenges for beginners. The most common approach requires knowledge of [programming languages like R](https://www.r-project.org/), which is designed for statistical analysis and provides a range of ways to analyze survey data. If you are unfamiliar with R, you can download [RStudio](https://posit.co/download/rstudio-desktop/) and use an [introductory video](https://www.youtube.com/watch?v=FIrsOBy5k58) to install it and run your first R codes.
-
-# Analyzing the data using R
-
-The examples below use R to conduct basic analysis on the microdata in the report [**Venezuelan in Chile, Colombia, Ecuador, and Peru**](https://www.jointdatacenter.org/venezuela-migration-report/).
-
-Different styles represent R code and its outputs. For example, the code with a [`print`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/print) command below shows the message quoted as an output.
-
 ```{r}
 print("Coding is easy!")
 ```
 
-### Load libraries
+## Cargar bibliotecas
 
-First, we will load the libraries needed for our guide using the [`library`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/library) command. We explain the main purpose of each one as comments placed after the hashtag (`#`).
+Primero, cargaremos las bibliotecas necesarias para nuestra guía usando el comando biblioteca. Explicamos el objetivo principal de cada uno a través de comentarios colocados después del hashtag (#).
 
 ```{r}
 #| output: false
-library(survey) # to handle survey weights
-library(tidyverse) # to manipulate data easily
-library(visdat) # to visualize missing values
-library(knitr) # to format output nicely
+library(survey) # para manejar los pesos de la encuesta
+library(tidyverse) # para manipular datos fácilmente
+library(visdat) # para visualizar los valores faltantes
+library(knitr) # para formatear bien la salida
 ```
 
-### How to read the data
+## Cómo leer los datos
 
-To read the survey data and inspect the information available, we use the dataset for Ecuador as an example.
+Para leer los datos de la encuesta e inspeccionar la información disponible, utilizamos el conjunto de datos de Ecuador como ejemplo.
 
 ```{r}
 file_name = "https://www.jointdatacenter.org/wp-content/uploads/2024/02/ecu_host_mig.csv" 
@@ -121,59 +68,59 @@ file_name = "https://www.jointdatacenter.org/wp-content/uploads/2024/02/ecu_host
 survey = read.csv(file_name)
 ```
 
-You can select data for a different country by changing the URL after the `file_name` variable. All datasets and data dictionaries are available on our website: <https://www.jointdatacenter.org/venezuelan-migration-data/>
+Puede seleccionar datos para un país diferente cambiando la URL después de la variable `file_name`. Todos los conjuntos de datos y diccionarios de datos están disponibles en nuestro sitio web: <https://www.jointdatacenter.org/venezuelan-migration-data/>
 
-To choose a country other than Ecuador, visit the page above, right-click on "Cleaned survey data (CSV)", choose "Copy link address", and change the URL, ensuring the quotes are preserved.
+Para elegir un país que no sea Ecuador, visite la página de arriba, haga clic derecho en "Cleaned survey data (CSV)", elija "Copiar dirección de enlace" y cambie la URL en el primeira línea del código anterior, asegurándose de que se conserven las citas.
 
-In the second line of the code block above, the [`read.csv`](https://www.rdocumentation.org/packages/qtl2/versions/0.32/topics/read_csv) command loads the data in the URL or file path specified in the first line.
+En la segunda línea del bloque de código anterior, el comando [`read.csv`](https://www.rdocumentation.org/packages/qtl2/versions/0.32/topics/read_csv) carga los datos en la URL o archivo especificado anteriormente.
 
-Next, check the number of rows (observations), columns (variables), their respective data types and some sample values.
+A seguir, verifique el número de filas (observaciones), columnas (variables), sus respectivos tipos de datos y algunos valores de muestra.
 
 ```{r}
 
-str(survey) # print the survey STRucture
+str(survey) # mostra la eSTRuctura de la encuesta
 
 ```
 
-It shows there are `r nrow(survey)` rows and `r ncol(survey)` columns. The output also shows the column names after the dollar sign, the data type (`int` and `num` for numeric values, `chr` for text strings) and values from the first rows.
+Los resultados muestran que hay `r nrow(survey)` rows and r ncol(survey) . El resultado también muestra los nombres de las columnas después del signo de dólar, el tipo de datos (int y num para valores numéricos, chr para cadenas de texto) y los valores de las primeras filas.
 
-Variables that have missing values are represented by NA for numeric variables and empty quotes for categorical.
+Las variables a las que les faltan valores están representadas por NA para variables numéricas y comillas vacías para categóricas.
 
-The [`str()`](https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/str) function provides a concise summary of the dataset, showing its data type, dimensions, and content.
+La función str() proporciona un resumen conciso del conjunto de datos, mostrando su tipo de datos, dimensiones y contenido.
 
-## Preliminary analysis
+## Análisis preliminar
 
-To understand how each country file is structured, review some core variables. You can find detailed descriptions for all available variables in the data dictionaries ([codebooks](https://www.jointdatacenter.org/venezuelan-migration-data/)).
+Para entender cómo está estructurado el archivo de cada país, revise algunas variables principales. Puede encontrar descripciones detalladas para todas las variables disponibles en los [diccionarios de datos](https://www.jointdatacenter.org/venezuelan-migration-data/).
 
--   `survey`: the name of the survey;
+-   `survey`: el nombre de la encuesta;
 
--   `wave`: the wave of the survey. Surveys might have more than one round, known as waves. Each wave is collected in a distinct period of time.
+-   `wave`: la ronda de la encuesta. Las encuestas pueden tener más de una ronda. Cada ronda se recoge en un período de tiempo distinto.
 
--   `samp`: indicate whether the response comes from Venezuelan or the host population;
+-   `samp`: indica si la respuesta proviene de la población venezolana o de acogida;
 
--   `weight`: the weight assigned for each record to produce unbiased estimates;
+-   `weight`: el peso asignado a cada registro para producir estimaciones;
 
-Each file aggregates different surveys from the same country. Therefore, you should use the variables `survey` and `wave` to filter the data and pick the right source depending on your question. Because distinct surveys cover different questions, some rows have missing values.
+Cada archivo agrega diferentes encuestas del mismo país. Por lo tanto, debes utilizar las variables `survey` y `wave` para filtrar los datos y elegir la fuente correcta. Debido a que distintas encuestas cubren diferentes preguntas, a algunos registros les faltan valores.
 
-### How to inspect missing values
+### Cómo inspeccionar valores faltantes
 
-To identify the missing information, plot the values for each column and surveys. The chart shows more records from the *Encuesta de personas en Movilidad y Comunidades de Acogida* (EPEC) survey than *High-Frequency Phone Surveys* (HFPS). The highlighted regions make it easy to spot which variables have missing values.
+Para identificar la información faltante, vamos visualizar los valores para cada columna y encuestas. El gráfico muestra más registros de la encuesta *Encuesta de personas en Movilidad y Comunidades de Acogida* (EPEC) que *Encuestas Telefónicas de Alta Frecuencia* (HFPS). Las regiones resaltadas facilitan la identificación de qué variables tienen valores faltantes.
 
-The [`vis_miss()`](https://www.rdocumentation.org/packages/visdat/versions/0.6.0/topics/vis_miss) function is used to visualize missing data in a dataset. It takes the dataset `survey`\` as the first parameter and a column to group (facet) the observations.
+Utilizamos la función `vis_miss()` para visualizar datos faltantes en un conjunto de datos. Definimos los datos como primer parámetro y una columna para agrupar (*facet*) las observaciones.
 
 ```{r, fig.width=9}
 visdat::vis_miss(survey,facet = survey)
 ```
 
-To keep it simple, we analyze only information on age, marital status, region, and population type (host or Venezuelan) in the HPFS survey. As the image shows, these variables have no missing values.
+Para simplificar, analizaremos solo información sobre edad, estado civil, región y tipo de población (anfitriona o venezolana) en la encuesta HPFS. Como muestra la imagen, a estas variables no les faltan valores.
 
-Missing values are crucial to the data preparation phase. You might need to drop missing values or impute values to conduct other analyses. Your chosen strategy depends on why values are missing, the number of missing values, and your analytical goals. Refer to the data dictionary and documentation to understand the reasons for missing values.
+Los valores faltantes son cruciales para la fase de preparación de datos. Es posible que deba descartar los valores faltantes o imputar valores para realizar algunas análisis. La estrategia que elija depende de por qué faltan valores, la cantidad de valores faltantes y sus objetivos analíticos. Consulte el diccionario de datos y la documentación para comprender los motivos de los valores faltantes.
 
-### Records by surveys and waves
+### Registros por encuestas y rondas
 
-Before applying the weights, we will check the total number of respondents by survey, wave and population.
+Antes de aplicar los pesos, verificaremos el número total de encuestados por encuesta, ronda y población.
 
-The [`group_by`](https://www.rdocumentation.org/packages/dplyr/versions/0.2/topics/group_by) function is used to group data by one or more variables. This command doesn't change the dataset; rather, it sets up a new configuration for subsequent operations within each group. The [`summarise`](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/summarise) function is used to compute summary statistics or metrics for each group. Finally, the [`kable()`](https://www.rdocumentation.org/packages/knitr/versions/1.45/topics/kable) function presents the result better than the standard output.
+La función `group_by` se utiliza para agrupar datos por una o más variables. Este comando no cambia los datos, solo establece una nueva configuración para operaciones posteriores dentro de cada grupo. La función de resumen se utiliza para calcular estadísticas o métricas resumidas para cada grupo. Finalmente, la función `kable()` presenta el resultado mejor que la salida estándar.
 
 ```{r}
 summary_df <- survey %>% 
@@ -188,13 +135,13 @@ kable(summary_df, caption = "Number of records by survey, wave and population")
 
 ```
 
-So far, the dataset reflects the number of responses from an unweighted sample of Venezuelan and host population. Next, we demonstrate how to use weights to calculate representative estimates.
+Hasta ahora, el conjunto de datos refleja el número de respuestas de una muestra no ponderada de la población venezolana y anfitriona. A continuación, demostramos cómo usar los pesos para calcular estimaciones representativas.
 
-## Configure the survey design
+## Configurar el diseño de la encuesta
 
-As different surveys present distinct questions, select the survey according to the goals of your analysis. Most of the indicators from Ecuador come from the HFPS, except those referring to job occupations and health insurance, which come from the EPEC survey.
+Como las diferentes encuestas presentan preguntas distintas, seleccione la encuesta de acuerdo con los objetivos de su análisis. La mayoría de los indicadores de Ecuador provienen del HFPS, excepto los referentes a ocupaciones laborales y seguros de salud, que provienen de la encuesta EPEC.
 
-Select the HFPS survey to calculate and compare the average age of Venezuelan and the host population in Ecuador. Let's start filtering the dataset to get only observations from the HFPS using the [`filter()`](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/filter) function.
+Seleccione la encuesta HFPS para calcular y comparar la edad promedio de la población venezolana y de acogida en Ecuador. Comencemos a filtrar el conjunto de datos para obtener solo observaciones del HFPS usando la función [`filter()`](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/filter).
 
 ```{r}
 survey_filter <- survey %>% 
@@ -202,7 +149,7 @@ survey_filter <- survey %>%
 
 ```
 
-Next, we load the survey design and the weights associated with each response. There are a variety of ways to implement weighted data analysis using R. For convenience, we use the function [`svydesign`](https://www.rdocumentation.org/packages/survey/versions/4.4-1/topics/svydesign) from [`survey`](https://cran.r-project.org/package=survey), an R package with pre-built features tailored for survey analysis. It allows for the specification of survey design parameters such as sampling weights.
+A continuación, cargamos el diseño de la encuesta y los pesos asociados a cada respuesta. Hay una variedad de formas de implementar el análisis de datos ponderados usando R. Para mayor comodidad, usamos la función [`svydesign`](https://www.rdocumentation.org/packages/survey/versions/4.4-1/topics/svydesign) de la biblioteca [`survey`](https://cran.r-project.org/package=survey), un paquete de R con funciones prediseñadas diseñadas para el análisis de encuestas. Permite especificar parámetros de diseño de encuestas, como ponderaciones muestrales.
 
 ```{r}
 survey_ecu <- svydesign(ids = ~1, # ~1 means the survey has no clusters
@@ -211,15 +158,17 @@ survey_ecu <- svydesign(ids = ~1, # ~1 means the survey has no clusters
 
 ```
 
-## Descriptive statistic
+## 
 
-Creating basic summary statistics using the `survey` package is straightforward. Our tutorial shows how to group observations and analyze numeric and categorical variables. If you group by region (the column `code_province`), bear in mind that the weights are not meant for this level of disaggregation, and the estimates may not accurately reflect the characteristics of these populations in each region.
+## Estadísticas descriptivas
 
-### Numeric values
+Crear estadísticas resumidas básicas utilizando la biblioteca `survey` es sencillo. Nuestro tutorial muestra cómo agrupar observaciones y analizar variables numéricas y categóricas. Si agrupa por región (la columna `code_province`), tenga en cuenta que las ponderaciones no están destinadas a este nivel de desagregación y que las estimaciones pueden no reflejar con precisión las características de estas poblaciones en cada región.
 
-The [`svyby`](https://www.rdocumentation.org/packages/survey/versions/4.2-1/topics/svyby) function is used to apply a function to subsets of survey data defined by one or more variables. We will use it to group the records by the population type (`~samp`) and calculate the mean age ([`svymean`](https://www.rdocumentation.org/packages/survey/versions/2.8-1/topics/surveysummary)).
+### Valores numéricos
 
-The output shows the mean and the standard error (`se`) for each estimate. Standard error values use the same unit of measurement as the mean. They represent how much the sample mean calculated is expected to vary from the actual population mean.
+La función [`svyby`](https://www.rdocumentation.org/packages/survey/versions/4.2-1/topics/svyby) se utiliza para aplicar una función a subconjuntos de datos de encuesta definidos por una o más variables. Lo usaremos para agrupar los registros por tipo de población (`~samp`) y calcular la edad media ([`svymean`](https://www.rdocumentation.org/packages/survey/versions/2.8-1/topics/surveysummary)).
+
+El resultado muestra la media y el error estándar (`se`) para cada estimación. Los valores de error estándar utilizan la misma unidad de medida que la media. Representan cuánto se espera que varíe la media muestral calculada de la media poblacional real.
 
 ```{r}
 # Group by and calculate the mean age
@@ -227,11 +176,11 @@ svyby(formula = ~age, by = ~samp, design = survey_ecu, svymean)
 
 ```
 
-### Categoric variables
+### Variables categóricas
 
-The `svytable` function is used to create contingency tables for survey data, taking into account survey design features such as sampling weights. Next, we use it to analyze marital status.
+La función `svytable` se utiliza para crear tablas de contingencia para datos de encuestas, teniendo en cuenta características del diseño de la encuesta, como las ponderaciones muestrales. A continuación, lo utilizamos para analizar el estado civil.
 
-Using [`prop.table(crosstab, 1)`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/prop.table), we present the values as percentages of the population/row level (using 0 instead of 1 in the command would sum the values to 100 across columns). Additionally, we round the values to two decimal places with [`round()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/Round).
+Usando [`prop.table(crosstab, 1)`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/prop.table), presentamos los valores como porcentajes del nivel de población/fila (usar 0 en lugar de 1 en el comando sumaría los valores a 100 en todas las columnas). Además, redondeamos los valores a dos decimales con [`round()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/Round).
 
 ```{r}
 # Cross-tabulates values
@@ -252,14 +201,14 @@ knitr::kable(crosstab_percentages,
 
 ```
 
-# Conclusion
+# Conclusión
 
-This guide has offered a glimpse into the initial steps for leveraging open-source tools to analyze survey data. While we have covered essential techniques, the scope for further exploration is vast.
+Esta guía ha ofrecido una visión de los pasos iniciales para aprovechar las herramientas de código abierto para analizar datos de encuestas. Si bien hemos cubierto técnicas esenciales, el alcance para una exploración más profunda es vasto.
 
-We invite you to share open-source solutions to analyze weighted survey data that might have been overlooked or suggest topics for future guides on forced displacement data. Contact us by email or social media networks ([Twitter](https://twitter.com/jointdatacenter) and [LinkedIn](https://www.linkedin.com/company/joint-data-center/)).
+Le invitamos a compartir otras soluciones de código abierto para analizar datos de encuestas ponderadas o sugerir temas para futuras guías sobre datos de desplazamiento forzado. Contáctenos por correo electrónico o redes sociales ([Twitter](https://twitter.com/jointdatacenter) y [LinkedIn](https://www.linkedin.com/company/joint-data-center/)).
 
-# Extra resources
+# Recursos adicionales
 
-<https://github.com/pewresearch/pewmethods>: R package developed by the Pew Research Center Methods team to work with survey data.
+<https://github.com/pewresearch/pewmethods>: Paquete R desarrollado por el equipo de métodos del Centro de Investigaciones Pew para trabajar con datos de encuestas.
 
-<https://github.com/quantipy/quantipy3/>: Python package to read survey data.
+<https://github.com/quantipy/quantipy3/>: Paquete de Python para leer datos de encuestas.

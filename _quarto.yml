@@ -5,16 +5,19 @@ website:
   title: "Data guide"
   navbar:
     left:
-      - href: index.qmd
-        text: Guide in English
-      - href: spanish.qmd
-        text: Guide in Spanish
+      - icon: globe
+        menu:
+        - href: index.qmd
+          text: Guide in English
+        - href: spanish.qmd
+          text: Guide in Spanish
+    right:
       - href: https://www.jointdatacenter.org/venezuela-migration-report/
         text: Full report
       - href: https://www.jointdatacenter.org/venezuelan-migration-data/
         text: Data
       - href: https://www.jointdatacenter.org/
-        text: JDC website
+        text: Joint Data Center on Forced Displacement
 
 format:
   html:

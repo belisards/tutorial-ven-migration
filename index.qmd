@@ -19,7 +19,7 @@ The World Bank report [Venezuelans in Chile, Colombia, Ecuador, and Peru](https:
 The following surveys are collated into four CSV table files - one per country -- which are cleaned and harmonized. That is, they are of similar structure and have the same variable names and values.
 
 | [Country]{.underline} | [Survey]{.underline}                                                                  | [Modality]{.underline} |
-|-----------------|---------------------------------------|-----------------|
+|---------------|------------------------------------------|---------------|
 | **Chile**             | Encuesta de Migración                                                                 | Telephone              |
 | **Chile**             | Labor Survey                                                                          | In-person              |
 | **Colombia**          | Gran Encuesta Integrada de Hogares (GEIH)                                             | In-person              |
@@ -105,7 +105,7 @@ Each file aggregates different surveys from the same country. Therefore, you sho
 
 To identify the missing information, plot the values for each column and surveys. The chart shows more records from the *Encuesta de personas en Movilidad y Comunidades de Acogida* (EPEC) survey than *High-Frequency Phone Surveys* (HFPS). The highlighted regions make it easy to spot which variables have missing values.
 
-The [`vis_miss()`](https://www.rdocumentation.org/packages/visdat/versions/0.6.0/topics/vis_miss) function is used to visualize missing data in a dataset. It takes the dataset `survey`\` as the first parameter and a column to group (facet) the observations.
+The [`vis_miss()`](https://www.rdocumentation.org/packages/visdat/versions/0.6.0/topics/vis_miss) function is used to visualize missing data in a dataset. It takes the dataset `survey` as the first parameter and a column to group (facet) the observations.
 
 ```{r, fig.width=9}
 visdat::vis_miss(survey,facet = survey)
@@ -202,7 +202,7 @@ knitr::kable(crosstab_percentages,
 
 This guide has offered a glimpse into the initial steps for leveraging open-source tools to analyze survey data. While we have covered essential techniques, the scope for further exploration is vast.
 
-We invite you to share open-source solutions to analyze weighted survey data that might have been overlooked or suggest topics for future guides on forced displacement data. Contact us by email or social media networks ([Twitter](https://twitter.com/jointdatacenter) and [LinkedIn](https://www.linkedin.com/company/joint-data-center/)).
+We invite you to share other open-source solutions to analyze weighted survey data or suggest topics for future guides on forced displacement data. Contact us by email or social media networks ([Twitter](https://twitter.com/jointdatacenter) and [LinkedIn](https://www.linkedin.com/company/joint-data-center/)).
 
 # Extra resources
 
