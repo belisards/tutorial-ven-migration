@@ -19,7 +19,7 @@ The World Bank report [Venezuelans in Chile, Colombia, Ecuador, and Peru](https:
 The following surveys are collated into four CSV table files - one per country -- which are cleaned and harmonized. That is, they are of similar structure and have the same variable names and values.
 
 | [Country]{.underline} | [Survey]{.underline}                                                                  | [Modality]{.underline} |
-|---------------|------------------------------------------|---------------|
+|-----------------|---------------------------------------|-----------------|
 | **Chile**             | Encuesta de Migración                                                                 | Telephone              |
 | **Chile**             | Labor Survey                                                                          | In-person              |
 | **Colombia**          | Gran Encuesta Integrada de Hogares (GEIH)                                             | In-person              |
@@ -62,14 +62,14 @@ library(knitr) # to format output nicely
 To read the survey data and inspect the information available, we use the dataset for Ecuador as an example.
 
 ```{r}
-file_name = "https://www.jointdatacenter.org/wp-content/uploads/2024/02/ecu_host_mig.csv" 
+file_name = "ecu_host_mig.csv" 
 
 survey = read.csv(file_name)
 ```
 
-You can select data for a different country by changing the URL after the `file_name` variable. All datasets and data dictionaries are available on our website: <https://www.jointdatacenter.org/venezuelan-migration-data/>
+All datasets and data dictionaries are available on our website: <https://www.jointdatacenter.org/venezuelan-migration-data/>
 
-To choose a country other than Ecuador, visit the page above, right-click on "Cleaned survey data (CSV)", choose "Copy link address", and change the URL, ensuring the quotes are preserved.
+To choose a country other than Ecuador, download the CSV file, save it in the same folder as your R script and replace the filename in the code above.
 
 In the second line of the code block above, the [`read.csv`](https://www.rdocumentation.org/packages/qtl2/versions/0.32/topics/read_csv) command loads the data in the URL or file path specified in the first line.
 

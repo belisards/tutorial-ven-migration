@@ -63,14 +63,14 @@ library(knitr) # para formatear bien la salida
 Para leer los datos de la encuesta e inspeccionar la información disponible, utilizamos el conjunto de datos de Ecuador como ejemplo.
 
 ```{r}
-file_name = "https://www.jointdatacenter.org/wp-content/uploads/2024/02/ecu_host_mig.csv" 
+file_name = "ecu_host_mig.csv" 
 
 survey = read.csv(file_name)
 ```
 
-Puede seleccionar datos para un país diferente cambiando la URL después de la variable `file_name`. Todos los conjuntos de datos y diccionarios de datos están disponibles en nuestro sitio web: <https://www.jointdatacenter.org/venezuelan-migration-data/>
+Todos los conjuntos de datos y diccionarios de datos están disponibles en nuestro sitio web: <https://www.jointdatacenter.org/venezuelan-migration-data/>
 
-Para elegir un país que no sea Ecuador, visite la página de arriba, haga clic derecho en "Cleaned survey data (CSV)", elija "Copiar dirección de enlace" y cambie la URL en el primeira línea del código anterior, asegurándose de que se conserven las citas.
+Para elegir un país que no sea Ecuador, descargue el archivo CSV, guárdelo en la misma carpeta que su script R y reemplace el nombre del archivo en el código anterior.
 
 En la segunda línea del bloque de código anterior, el comando [`read.csv`](https://www.rdocumentation.org/packages/qtl2/versions/0.32/topics/read_csv) carga los datos en la URL o archivo especificado anteriormente.
 

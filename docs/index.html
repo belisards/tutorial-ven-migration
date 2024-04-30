@@ -4105,9 +4105,9 @@ vertical-align: -.125em;
 <p>The following surveys are collated into four CSV table files - one per country – which are cleaned and harmonized. That is, they are of similar structure and have the same variable names and values.</p>
 <table class="table">
 <colgroup>
-<col style="width: 20%">
-<col style="width: 58%">
-<col style="width: 20%">
+<col style="width: 23%">
+<col style="width: 53%">
+<col style="width: 23%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -4189,12 +4189,12 @@ vertical-align: -.125em;
 <h3 class="anchored" data-anchor-id="how-to-read-the-data">How to read the data</h3>
 <p>To read the survey data and inspect the information available, we use the dataset for Ecuador as an example.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>file_name <span class="ot">=</span> <span class="st">&quot;https://www.jointdatacenter.org/wp-content/uploads/2024/02/ecu_host_mig.csv&quot;</span> </span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>file_name <span class="ot">=</span> <span class="st">&quot;ecu_host_mig.csv&quot;</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">read.csv</span>(file_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>You can select data for a different country by changing the URL after the <code>file_name</code> variable. All datasets and data dictionaries are available on our website: <a href="https://www.jointdatacenter.org/venezuelan-migration-data/" class="uri">https://www.jointdatacenter.org/venezuelan-migration-data/</a></p>
-<p>To choose a country other than Ecuador, visit the page above, right-click on “Cleaned survey data (CSV)”, choose “Copy link address”, and change the URL, ensuring the quotes are preserved.</p>
+<p>All datasets and data dictionaries are available on our website: <a href="https://www.jointdatacenter.org/venezuelan-migration-data/" class="uri">https://www.jointdatacenter.org/venezuelan-migration-data/</a></p>
+<p>To choose a country other than Ecuador, download the CSV file, save it in the same folder as your R script and replace the filename in the code above.</p>
 <p>In the second line of the code block above, the <a href="https://www.rdocumentation.org/packages/qtl2/versions/0.32/topics/read_csv"><code>read.csv</code></a> command loads the data in the URL or file path specified in the first line.</p>
 <p>Next, check the number of rows (observations), columns (variables), their respective data types and some sample values.</p>
 <div class="cell">
@@ -4619,7 +4619,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>The following surveys are collated into four CSV table files - one per country -- which are cleaned and harmonized. That is, they are of similar structure and have the same variable names and values.</span>
 <span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>| <span class="co">[</span><span class="ot">Country</span><span class="co">]</span>{.underline} | <span class="co">[</span><span class="ot">Survey</span><span class="co">]</span>{.underline}                                                                  | <span class="co">[</span><span class="ot">Modality</span><span class="co">]</span>{.underline} |</span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>|---------------|------------------------------------------|---------------|</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>|-----------------|---------------------------------------|-----------------|</span>
 <span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>| **Chile**             | Encuesta de Migración                                                                 | Telephone              |</span>
 <span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>| **Chile**             | Labor Survey                                                                          | In-person              |</span>
 <span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>| **Colombia**          | Gran Encuesta Integrada de Hogares (GEIH)                                             | In-person              |</span>
@@ -4662,14 +4662,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a>To read the survey data and inspect the information available, we use the dataset for Ecuador as an example.</span>
 <span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a>file_name <span class="ot">=</span> <span class="st">&quot;https://www.jointdatacenter.org/wp-content/uploads/2024/02/ecu_host_mig.csv&quot;</span> </span>
+<span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a>file_name <span class="ot">=</span> <span class="st">&quot;ecu_host_mig.csv&quot;</span> </span>
 <span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">read.csv</span>(file_name)</span>
 <span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a>You can select data for a different country by changing the URL after the <span class="in">`file_name`</span> variable. All datasets and data dictionaries are available on our website: <span class="ot">&lt;https://www.jointdatacenter.org/venezuelan-migration-data/&gt;</span></span>
+<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a>All datasets and data dictionaries are available on our website: <span class="ot">&lt;https://www.jointdatacenter.org/venezuelan-migration-data/&gt;</span></span>
 <span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a>To choose a country other than Ecuador, visit the page above, right-click on &quot;Cleaned survey data (CSV)&quot;, choose &quot;Copy link address&quot;, and change the URL, ensuring the quotes are preserved.</span>
+<span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a>To choose a country other than Ecuador, download the CSV file, save it in the same folder as your R script and replace the filename in the code above.</span>
 <span id="cb17-79"><a href="#cb17-79" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-80"><a href="#cb17-80" aria-hidden="true" tabindex="-1"></a>In the second line of the code block above, the <span class="co">[</span><span class="ot">`read.csv`</span><span class="co">](https://www.rdocumentation.org/packages/qtl2/versions/0.32/topics/read_csv)</span> command loads the data in the URL or file path specified in the first line.</span>
 <span id="cb17-81"><a href="#cb17-81" aria-hidden="true" tabindex="-1"></a></span>

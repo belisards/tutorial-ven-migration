@@ -4190,12 +4190,12 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="cómo-leer-los-datos">Cómo leer los datos</h2>
 <p>Para leer los datos de la encuesta e inspeccionar la información disponible, utilizamos el conjunto de datos de Ecuador como ejemplo.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>file_name <span class="ot">=</span> <span class="st">&quot;https://www.jointdatacenter.org/wp-content/uploads/2024/02/ecu_host_mig.csv&quot;</span> </span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>file_name <span class="ot">=</span> <span class="st">&quot;ecu_host_mig.csv&quot;</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">read.csv</span>(file_name)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Puede seleccionar datos para un país diferente cambiando la URL después de la variable <code>file_name</code>. Todos los conjuntos de datos y diccionarios de datos están disponibles en nuestro sitio web: <a href="https://www.jointdatacenter.org/venezuelan-migration-data/" class="uri">https://www.jointdatacenter.org/venezuelan-migration-data/</a></p>
-<p>Para elegir un país que no sea Ecuador, visite la página de arriba, haga clic derecho en “Cleaned survey data (CSV)”, elija “Copiar dirección de enlace” y cambie la URL en el primeira línea del código anterior, asegurándose de que se conserven las citas.</p>
+<p>Todos los conjuntos de datos y diccionarios de datos están disponibles en nuestro sitio web: <a href="https://www.jointdatacenter.org/venezuelan-migration-data/" class="uri">https://www.jointdatacenter.org/venezuelan-migration-data/</a></p>
+<p>Para elegir un país que no sea Ecuador, descargue el archivo CSV, guárdelo en la misma carpeta que su script R y reemplace el nombre del archivo en el código anterior.</p>
 <p>En la segunda línea del bloque de código anterior, el comando <a href="https://www.rdocumentation.org/packages/qtl2/versions/0.32/topics/read_csv"><code>read.csv</code></a> carga los datos en la URL o archivo especificado anteriormente.</p>
 <p>A seguir, verifique el número de filas (observaciones), columnas (variables), sus respectivos tipos de datos y algunos valores de muestra.</p>
 <div class="cell">
@@ -4667,14 +4667,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a>Para leer los datos de la encuesta e inspeccionar la información disponible, utilizamos el conjunto de datos de Ecuador como ejemplo.</span>
 <span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a>file_name <span class="ot">=</span> <span class="st">&quot;https://www.jointdatacenter.org/wp-content/uploads/2024/02/ecu_host_mig.csv&quot;</span> </span>
+<span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a>file_name <span class="ot">=</span> <span class="st">&quot;ecu_host_mig.csv&quot;</span> </span>
 <span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">read.csv</span>(file_name)</span>
 <span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a>Puede seleccionar datos para un país diferente cambiando la URL después de la variable <span class="in">`file_name`</span>. Todos los conjuntos de datos y diccionarios de datos están disponibles en nuestro sitio web: <span class="ot">&lt;https://www.jointdatacenter.org/venezuelan-migration-data/&gt;</span></span>
+<span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a>Todos los conjuntos de datos y diccionarios de datos están disponibles en nuestro sitio web: <span class="ot">&lt;https://www.jointdatacenter.org/venezuelan-migration-data/&gt;</span></span>
 <span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-79"><a href="#cb17-79" aria-hidden="true" tabindex="-1"></a>Para elegir un país que no sea Ecuador, visite la página de arriba, haga clic derecho en &quot;Cleaned survey data (CSV)&quot;, elija &quot;Copiar dirección de enlace&quot; y cambie la URL en el primeira línea del código anterior, asegurándose de que se conserven las citas.</span>
+<span id="cb17-79"><a href="#cb17-79" aria-hidden="true" tabindex="-1"></a>Para elegir un país que no sea Ecuador, descargue el archivo CSV, guárdelo en la misma carpeta que su script R y reemplace el nombre del archivo en el código anterior.</span>
 <span id="cb17-80"><a href="#cb17-80" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-81"><a href="#cb17-81" aria-hidden="true" tabindex="-1"></a>En la segunda línea del bloque de código anterior, el comando <span class="co">[</span><span class="ot">`read.csv`</span><span class="co">](https://www.rdocumentation.org/packages/qtl2/versions/0.32/topics/read_csv)</span> carga los datos en la URL o archivo especificado anteriormente.</span>
 <span id="cb17-82"><a href="#cb17-82" aria-hidden="true" tabindex="-1"></a></span>
